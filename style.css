@@ -33,7 +33,7 @@ body {
     -webkit-tap-highlight-color: transparent;
 }
 
-#userName {
+#texts {
     color: var(--accentColor);
     font-size: 1rem;
     font-weight: bold;
