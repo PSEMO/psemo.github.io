@@ -1,4 +1,4 @@
-<<<<<<<
+﻿<<<<<<<
 --Sabahattin Ali
 _kürk mantolu madonna
 <<<<<<<
@@ -81,7 +81,7 @@ _Sapiens
 --William Shakespare
 _Romeo ve Juliet
 _Hamlet
-_The Tempest (İngilizce)
+_The Tempest
 <<<<<<<
 --Stefan Zweig
 _Satranç
@@ -114,7 +114,7 @@ _Köpek kalbi
 --Richard K. Morgan
 _Altered Carbon
 <<<<<<<
-_Crossed Vol.1 (İngilizce)
+_Crossed Vol.1
 _Crossed Vol.2
 _Crossed Vol.3
 _Crossed Vol.4
@@ -148,13 +148,13 @@ _Kanatsız Melek
 _Şermin
 <<<<<<<
 --Maxim Gorky
-_My Fellow Traveller (İngilizce)
+_My Fellow Traveller
 <<<<<<<
 --Murat Baþaran
 _Zamansız
 <<<<<<<
 --Hiroya Oku
-_Gantz, Vol.1 (İngilizce)
+_Gantz, Vol.1
 _Gantz, Vol.2
 _Gantz, Vol.3
 _Gantz, Vol.4
@@ -193,7 +193,7 @@ _Gantz, Vol.36
 _Gantz, Vol.37
 <<<<<<<
 --Reiji Miyajima
-_Rent a Girlfriend, Vol.1 (İngilizce)
+_Rent a Girlfriend, Vol.1
 _Rent a Girlfriend, Vol.2
 _Rent a Girlfriend, Vol.3
 _Rent a Girlfriend, Vol.4
@@ -206,14 +206,14 @@ _Rent a Girlfriend, Vol.10
 _Rent a Girlfriend, Vol.11
 <<<<<<<
 --Jesse Schell
-_The Art of Game Design (İngilizce)
+_The Art of Game Design
 <<<<<<<
 --Ito Junji
-_GYO, Vol.1 (İngilizce)
+_GYO, Vol.1
 _GYO, Vol.2
 <<<<<<<
 --Shuzo Oshimi
-_Aku no Hana, Vol.1 (İngilizce)
+_Aku no Hana, Vol.1
 _Aku no Hana, Vol.2
 _Aku no Hana, Vol.3
 _Aku no Hana, Vol.4
@@ -249,7 +249,7 @@ _Bir Yaz Gecesi Rüyası
 --Fyodor Mihailoviç Dostoyevski
 _beyaz geceler
 <<<<<<<
-_Oyasumi Punpun, Vol.1 (İngilizce)
+_Oyasumi Punpun, Vol.1
 _Oyasumi Punpun, Vol.2
 _Oyasumi Punpun, Vol.3
 _Oyasumi Punpun, Vol.4
@@ -298,7 +298,7 @@ Nyarlathotep, Hafıza, Mahzende.
 _Acı Kahve
 <<<<<<<
 --Karl Marx
-_Komünist Manifesto (İngilizce)
+_Komünist Manifesto
 _Komünist Manifesto
 <<<<<<<
 --Paul Lafargue
@@ -383,7 +383,7 @@ _Düzene Uygun Kafalar Nasıl Oluşturulur
 _Deniz Tanrıçası
 <<<<<<<
 --Sally Thorne
-_The Hating Game: A Novel (İngilizce)
+_The Hating Game: A Novel
 <<<<<<<
 --Irvin D. Yalom
 _Bir Psikiyatristin Anıları
@@ -395,11 +395,11 @@ _Günübirlik Hayatlar
 _Evelyn Hugo'nun Yedi Kocası
 <<<<<<<
 --Colleen Hoover
-_It Ends with Us (İngilizce)
+_It Ends with Us
 <<<<<<<
-_Three Days of Happiness (İngilizce)
+_Three Days of Happiness
 <<<<<<<*********************
-_Berserk, Vol.1 (İngilizce)
+_Berserk, Vol.1
 _Berserk, Vol.2
 _Berserk, Vol.3
 _Berserk, Vol.4
@@ -440,6 +440,7 @@ _Berserk, Vol.38
 _Berserk, Vol.39
 _Berserk, Vol.40
 _Berserk, Vol.41
+_Berserk, Vol.42
 <<<<<<<
 --Oliver Sacks
 _Karısını Şapka Sanan Adam
@@ -477,7 +478,7 @@ _Kadınlar ülkesi
 --Virginia Woolf
 _Kendine ait bir oda
 <<<<<<<
-_Superior Iron Man, Vol.1 (İngilizce)
+_Superior Iron Man, Vol.1
 _Superior Iron Man, Vol.2
 _Superior Iron Man, Vol.3
 _Superior Iron Man, Vol.4
@@ -487,14 +488,14 @@ _Superior Iron Man, Vol.7
 _Superior Iron Man, Vol.8
 _Superior Iron Man, Vol.9
 <<<<<<<
-_Batman: Year One, Vol.1 (İngilizce)
+_Batman: Year One, Vol.1
 _Batman: Year One, Vol.2
 _Batman: Year One, Vol.3
 _Batman: Year One, Vol.4
 <<<<<<<
-_Batman: The Man Who Laughs (İngilizce)
+_Batman: The Man Who Laughs
 <<<<<<<
-_Injustice: Gods Among Us, Year Zero (İngilizce)
+_Injustice: Gods Among Us, Year Zero
 _Injustice: Gods Among Us, Year One
 _Injustice: Gods Among Us, Year Two
 _Injustice: Gods Among Us, Year Three
@@ -511,10 +512,10 @@ _Yeni Dünya
 _Mutluluk
 <<<<<<<
 --Ito Junji
-_Gannibal (İngilizce)
-_Smashed (İngilizce)
-_Shiver (İngilizce)
-_No Longer Human (İngilizce)
+_Gannibal
+_Smashed
+_Shiver
+_No Longer Human
 <<<<<<<
 --Bernard Malamud
 _Kiracı
@@ -524,7 +525,7 @@ _No longer human, Vol.1
 _No longer human, Vol.2
 _No longer human, Vol.3
 <<<<<<<
-_Solo Leveling, Vol.1 (İngilizce)
+_Solo Leveling, Vol.1
 _Solo Leveling, Vol.2
 _Solo Leveling, Vol.3
 _Solo Leveling, Vol.4
@@ -538,9 +539,6 @@ _Solo Leveling, Vol.11
 _Solo Leveling, Vol.12
 _Solo Leveling, Vol.13
 _Solo Leveling, Vol.14
-<<<<<<<
-___I’ve Been Killing Slimes for 300 Years
-and Maxed Out My Level, Vol.1, Vol.2, Vol.3 (İngilizce)
 <<<<<<<*********************
 _SSS-Class Suicide Hunter, Vol.1
 _SSS-Class Suicide Hunter, Vol.2
@@ -609,4 +607,45 @@ _Blame!, Vol.9
 _Blame!, Vol.10
 <<<<<<<
 _Existence, ch.1-72
+<<<<<<<
+_Seeds of Anxiety, Vol.1
+_Seeds of Anxiety, Vol.2
+_Seeds of Anxiety, Vol.3
+<<<<<<<
+_Look Me in the Eyes When You Talk
+<<<<<<<
+--Harlan Ellison
+_I Have No Mouth, and I Must Scream
+<<<<<<<
+--C. M. Kosemen
+_All Tomorrows:
+A Billion Year Chronicle of the Myriad Species
+and Mixed Fortunes of Man
+<<<<<<<
+--Sid Meier
+_Sid Meier's Memoir!: A Life in Computer Games
+<<<<<<<
+--Shūzō Oshimi
+_Chi No Wadachi, Vol.1
+_Chi No Wadachi, Vol.2
+_Chi No Wadachi, Vol.3
+_Chi No Wadachi, Vol.4
+_Chi No Wadachi, Vol.5
+_Chi No Wadachi, Vol.6
+_Chi No Wadachi, Vol.7
+_Chi No Wadachi, Vol.8
+_Chi No Wadachi, Vol.9
+_Chi No Wadachi, Vol.10
+_Chi No Wadachi, Vol.11
+_Chi No Wadachi, Vol.12
+_Chi No Wadachi, Vol.13
+_Chi No Wadachi, Vol.14
+_Chi No Wadachi, Vol.15
+_Chi No Wadachi, Vol.16
+_Chi No Wadachi, Vol.17
+<<<<<<<
+________Arafoo Otoko no Isekai
+Tsuhan Seikatsu, Vol.1, Vol.2,
+Vol.3, Vol.4, Vol.5, Vol.6,
+Vol.7, Vol.8
 <<<<<<<
