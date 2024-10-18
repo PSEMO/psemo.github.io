@@ -1,0 +1,103 @@
+body {
+    background-color: antiquewhite;
+}
+
+#heading {
+    color: #FF3366;
+    font-weight: 700;
+    border: 2px dotted #FF3366;
+}
+
+.form-control:focus {
+    box-shadow: none;
+}
+
+.result {
+    position: relative;
+    background: rgb(221, 196, 196);
+}
+
+#counter,
+#yourCounter,
+#partnerCounter,
+#mutualCounter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.button {
+    background: white;
+    font-size: 1rem;
+    color: black;
+    font-weight: 700;
+    width: rem;
+    border-radius: 5px;
+}
+
+.button:active {
+    border: 2px solid black;
+    background-color: rgb(191, 219, 219) !important;
+}
+
+.button:hover {
+    background: #f06789;
+}
+
+#text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.5rem;
+    width: 60%;
+    color: #f06789;
+    font-weight: 700;
+    border-radius: 10px;
+}
+
+.text1 {
+    font-size: 1.2rem !important;
+    width: 90% !important;
+}
+
+.text3 {
+    font-size: 1.2rem !important;
+    width: 62% !important;
+}
+
+.resHeading {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+}
+
+#section1,
+#section2 {
+    display: none;
+}
+
+#section2 {
+    border: 2px dotted #FF3366;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 425px) {
+    /*Small smartphones [325px -> 425px]*/
+    #text {
+        font-size: 1rem;
+        width: 80%;
+    }
+    .text1 {
+        font-size: .856rem !important;
+        width: 95% !important;
+        padding: 3px;
+    }
+    .text3 {
+        font-size: .875rem !important;
+        width: 62% !important;
+    }
+}
