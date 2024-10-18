@@ -1,5 +1,10 @@
 body {
-    background-color: pink;
+    background-image: url('space.jpg');
+    background-size: cover; /* This ensures the image covers the entire background */
+    background-position: center; /* Centers the image */
+    background-repeat: no-repeat; /* Prevents the image from repeating */
+    height: 100vh; /* Ensures the body takes full viewport height */
+    background-color: black;
     font-family: 'Arial', sans-serif;
     text-align: center;
     margin: 0;
@@ -11,6 +16,12 @@ body {
 }
 
 .container {
+    text-align: center; /* Center the text in the container */
+    /* Add other styles for the container if needed */
+}
+
+
+.container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -19,13 +30,19 @@ body {
 
 h1 {
     color: #fff;
-    font-size: 3rem;
+    font-size: 2.5rem;
     margin-bottom: 20px;
+    font-weight: bold;
+    text-shadow: 
+        -2px -2px 0 #000,  
+        2px -2px 0 #000,
+        -2px 2px 0 #000,
+        2px 2px 0 #000;
 }
 
 button {
     background-color: #fff;
-    color: pink;
+    color: darkmagenta;
     font-size: 1.2rem;
     padding: 10px 20px;
     border: none;
