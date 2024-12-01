@@ -1,4 +1,4 @@
-const yourName = document.querySelector('#yourName');
+const yourNameHtml = document.querySelector('#yourName');
 const partnerName = document.querySelector('#partnerName');
 const btnSubmit = document.querySelector('#btnSubmit');
 const btnMutualLove = document.querySelector('#btnMutualLove');
@@ -142,7 +142,7 @@ btnSubmit.onclick = function() {
             }
         }
     }
-    if (yourName.value === '' || partnerName.value === '') {
+    if (yourNameHtml.value === '' || partnerName.value === '') {
         alert('Lütfen hem kendi hem partnerinin adını yaz');
         window.location.reload();
     } else if (str1.length < 3 || str2.length < 3) {
