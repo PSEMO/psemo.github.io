@@ -11,6 +11,10 @@ const status1 = document.querySelector('#yourStatus');
 const status2 = document.querySelector('#partnerStatus');
 const status3 = document.querySelector('#mutualStatus');
 
+const nameToLove = "hande"
+const nameToHate = "emirhan"
+const yourName = "semih"
+
 function calculateStatus(status, value) {
 
     if (value < 10) {
@@ -54,7 +58,7 @@ function calculateResult(str1, str2) {
     console.log(str2L);
 
 
-    if ((str1L == 'hande') && (str2L == 'semih')) {
+    if ((str1L == nameToLove) && (str2L == yourName)) {
         section1.style.display = 'block';
         yourCounter.textContent = `${800}%`;
         partnerCounter.textContent = `${999}%`;
@@ -63,7 +67,7 @@ function calculateResult(str1, str2) {
         calculateStatus(status2, 999);
         calculateStatus(status3, 900);
     }
-    else if ((str2L == 'hande') && (str1L == 'semih')) {
+    else if ((str2L == nameToLove) && (str1L == yourName)) {
         section1.style.display = 'block';
         yourCounter.textContent = `${999}%`;
         partnerCounter.textContent = `${800}%`;
@@ -72,7 +76,7 @@ function calculateResult(str1, str2) {
         calculateStatus(status2, 800);
         calculateStatus(status3, 900);
     } 
-    else if ((str1L == 'hande') && (str2L == 'emirhan')) {
+    else if ((str1L == nameToLove) && (str2L == nameToHate)) {
         section1.style.display = 'block';
         yourCounter.textContent = `${1}%`;
         partnerCounter.textContent = `${10}%`;
@@ -81,7 +85,7 @@ function calculateResult(str1, str2) {
         calculateStatus(status2, 10);
         calculateStatus(status3, 2);
     }
-    else if ((str2L == 'hande') && (str1L == 'emirhan')) {
+    else if ((str2L == nameToLove) && (str1L == nameToHate)) {
         section1.style.display = 'block';
         yourCounter.textContent = `${10}%`;
         partnerCounter.textContent = `${1}%`;
