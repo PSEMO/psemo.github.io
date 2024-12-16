@@ -1,0 +1,99 @@
+body
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-theme
+{
+    background-color: #121212;
+    color: #ffffff;
+}
+
+.theme-toggle
+{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    padding: 10px;
+    font-size: 14px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.theme-toggle:hover
+{
+    background-color: #0056b3;
+}
+
+.container
+{
+    text-align: center;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dark-theme .container
+{
+    background-color: #333;
+    color: #fff;
+}
+
+input[type="text"]
+{
+    padding: 10px;
+    width: 80%;
+    margin-bottom: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.dark-theme input[type="text"]
+{
+    background-color: #444;
+    color: #fff;
+    border-color: #666;
+}
+
+button
+{
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #007BFF;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover
+{
+    background-color: #0056b3;
+}
+
+.transparent
+{
+    color: #00000000;
+    background-color: #00000000;
+}
+
+.transparent:hover
+{
+    color: #00000000;
+    background-color: #00000000;
+}
