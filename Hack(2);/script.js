@@ -57,7 +57,7 @@ function runUserCode()
 
 function processCommands(commands)
 {
-    //pass command
+    //ignore the pass command
     if(commands.includes("pass"))
     {
         index = commands.indexOf("pass");
