@@ -8,7 +8,7 @@ body
     color: rgb(0, 30, 0);
     transition: background-color 0.3s, color 0.3s;
 }
-.dark-theme
+body.dark-theme
 {
     background-color: rgb(0, 30, 0);
     color: rgb(0, 255, 0);
@@ -137,29 +137,29 @@ button:hover
 
 .error
 {
-    color: rgb(220, 0, 0);
+    color: rgb(160, 0, 0);
 }
 .dark-theme .error
 {
-
+    color: rgb(255, 30, 30);
 }
 
 .warning
 {
-    color: rgb(220, 220, 0);
+    color: rgb(160, 160, 0);
 }
 .dark-theme .warning
 {
-    color: rgb(220, 220, 0);
+    color: rgb(255, 255, 30);
 }
 
 .sysmsg
 {
-    color: rgb(30, 80, 255)
+    color: rgb(30, 80, 160)
 }
 .dark-theme .sysmsg
 {
-    color: rgb(30, 80, 255)
+    color: rgb(60, 110, 255)
 }
 
 

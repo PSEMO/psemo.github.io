@@ -87,33 +87,33 @@ function addSysMessageToOutput(text)
 {
     if(CurrentTheme == ColorMode.DARK)
     {
-        addToOutput("<span class=\"sysmsg dark-theme\">SYSTEM: " + text + "</span>" + "<br>");
+        addToOutput("<span class=\"sysmsg dark-theme\">SYSTEM: " + text + "</span>");
     }
     else
     {
-        addToOutput("<span class=\"sysmsg\">SYSTEM: " + text + "</span>" + "<br>");
+        addToOutput("<span class=\"sysmsg\">SYSTEM: " + text + "</span>");
     }
 }
 function addWarningToOutput(text)
 {
     if(CurrentTheme == ColorMode.DARK)
     {
-        addToOutput("<span class=\"warning dark-theme\">WARNING: " + text + "</span>" + "<br>");
+        addToOutput("<span class=\"warning dark-theme\">WARNING: " + text + "</span>");
     }
     else
     {
-        addToOutput("<span class=\"warning\">WARNING: " + text + "</span>" + "<br>");
+        addToOutput("<span class=\"warning\">WARNING: " + text + "</span>");
     }
 }
 function addErrorToOutput(text)
 {
     if(CurrentTheme == ColorMode.DARK)
     {
-        addToOutput("<span class=\"error dark-theme\">ERROR: " + text + "</span>" + "<br>");
+        addToOutput("<span class=\"error dark-theme\">ERROR: " + text + "</span>");
     }
     else
     {
-        addToOutput("<span class=\"error\">ERROR: " + text + "</span>" + "<br>");
+        addToOutput("<span class=\"error\">ERROR: " + text + "</span>");
     }
 }
 function addUserInputToOutput(text)
