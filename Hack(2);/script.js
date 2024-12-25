@@ -166,3 +166,13 @@ userInputField.addEventListener('keydown', function(event)
 });
 
 toggleTheme(); //makes the default theme dark.
+
+window.onload = update();
+function update()
+{            
+    function fnc()
+    {
+        //do logic
+    }
+    setInterval(fnc, 16);
+}
