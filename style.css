@@ -52,6 +52,10 @@ body {
     margin: 27px auto;
 }
 
+#first100percent {
+    height: 100%;
+}
+
 .link {
     position: relative;
     background-color: transparent;
