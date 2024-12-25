@@ -98,7 +98,7 @@ function addWarningToOutput(text)
 {
     if(CurrentTheme == ColorMode.DARK)
     {
-        addToOutput("<span class=\"warning dark-theme\">WARNING: " + text + "</span>");
+        addToOutput("<span class=\"warning\">WARNING: " + text + "</span>");
     }
     else
     {
@@ -109,7 +109,7 @@ function addErrorToOutput(text)
 {
     if(CurrentTheme == ColorMode.DARK)
     {
-        addToOutput("<span class=\"error dark-theme\">ERROR: " + text + "</span>");
+        addToOutput("<span class=\"error\">ERROR: " + text + "</span>");
     }
     else
     {
@@ -120,7 +120,7 @@ function addUserInputToOutput(text)
 {
     if(CurrentTheme == ColorMode.DARK)
     {
-        addToOutput("<span class=\"sysmsg dark-theme\">></span>" + text);
+        addToOutput("<span class=\"sysmsg\">></span>" + text);
     }
     else
     {

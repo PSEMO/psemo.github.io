@@ -5,13 +5,13 @@ body
     margin: 0;
     font-family: Arial, sans-serif;
     background-color: rgb(220, 220, 220);
-    color: rgb(0, 30, 0);
+    color: rgb(0, 165, 0);
     transition: background-color 0.3s, color 0.3s;
 }
 body.dark-theme
 {
     background-color: rgb(0, 30, 0);
-    color: rgb(0, 255, 0);
+    color: rgb(30, 255, 30);
 }
 
 
@@ -137,7 +137,7 @@ button:hover
 
 .error
 {
-    color: rgb(160, 0, 0);
+    color: rgb(195, 0, 0);
 }
 .dark-theme .error
 {
@@ -146,7 +146,7 @@ button:hover
 
 .warning
 {
-    color: rgb(160, 160, 0);
+    color: rgb(195, 195, 0);
 }
 .dark-theme .warning
 {
@@ -155,11 +155,11 @@ button:hover
 
 .sysmsg
 {
-    color: rgb(30, 80, 160)
+    color: rgb(0, 0, 195);
 }
 .dark-theme .sysmsg
 {
-    color: rgb(60, 110, 255)
+    color: rgb(30, 30, 255);
 }
 
 
