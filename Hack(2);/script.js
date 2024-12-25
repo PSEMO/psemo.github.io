@@ -85,19 +85,47 @@ function processCommands(commands)
 
 function addSysMessageToOutput(text)
 {
-    addToOutput("<span class=\"sysmsg\">SYSTEM: " + text + "</span>" + "<br>");
+    if(CurrentTheme == ColorMode.DARK)
+    {
+        addToOutput("<span class=\"sysmsg dark-theme\">SYSTEM: " + text + "</span>" + "<br>");
+    }
+    else
+    {
+        addToOutput("<span class=\"sysmsg\">SYSTEM: " + text + "</span>" + "<br>");
+    }
 }
 function addWarningToOutput(text)
 {
-    addToOutput("<span class=\"warning\">WARNING: " + text + "</span>" + "<br>");
+    if(CurrentTheme == ColorMode.DARK)
+    {
+        addToOutput("<span class=\"warning dark-theme\">WARNING: " + text + "</span>" + "<br>");
+    }
+    else
+    {
+        addToOutput("<span class=\"warning\">WARNING: " + text + "</span>" + "<br>");
+    }
 }
 function addErrorToOutput(text)
 {
-    addToOutput("<span class=\"error\">ERROR: " + text + "</span>" + "<br>");
+    if(CurrentTheme == ColorMode.DARK)
+    {
+        addToOutput("<span class=\"error dark-theme\">ERROR: " + text + "</span>" + "<br>");
+    }
+    else
+    {
+        addToOutput("<span class=\"error\">ERROR: " + text + "</span>" + "<br>");
+    }
 }
 function addUserInputToOutput(text)
 {
-    addToOutput("<span class=\"sysmsg\">$</span>" + text);
+    if(CurrentTheme == ColorMode.DARK)
+    {
+        addToOutput("<span class=\"sysmsg dark-theme\">></span>" + text);
+    }
+    else
+    {
+        addToOutput("<span class=\"sysmsg\">></span>" + text);
+    }
 }
 function addToOutput(text)
 {
