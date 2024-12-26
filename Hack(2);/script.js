@@ -32,8 +32,8 @@ function runUserCode()
         EditedInput = inputValue.toLowerCase();
         EditedInput = EditedInput.replaceAll("();", "");
         commands = EditedInput.split(' ');
-        console.log("detected commands are, ")
-        console.log(commands)
+        console.log("detected commands are, ");
+        console.log(commands);
 
         // Find strings in commands that are not in validCommands
         const faultyCommands = commands.filter(command_ => !validCommands.includes(command_));
@@ -80,6 +80,29 @@ function processCommands(commands)
         {
             setOutput("");
         }
+    }
+}
+
+function getTextBetween(text, startMarker, endMarker)
+{
+    const regex = new RegExp(`${startMarker}(.*?)${endMarker}`, 'g');
+    const matches = [];
+    let match;
+
+    while ((match = regex.exec(text)) !== null) {
+        matches.push(`${startMarker}${match[1]}${endMarker}`);
+    }
+
+    if(matches != [])
+    {
+        let concatenatedWithMarkers = matches.join(' ');
+        let concatenatedWithoutMarkers  = concatenatedWithMarkers.slice(1, -2);
+    
+        return [concatenatedWithMarkers, concatenatedWithoutMarkers];
+    }
+    else
+    {
+        return -1;
     }
 }
 
