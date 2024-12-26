@@ -1,3 +1,15 @@
+class server
+{
+    constructor(name, power, SecurityLevel, HackedLevel)
+    {
+      this.name = name;
+      this.power = power;
+      this.SecurityLevel = SecurityLevel;
+      this.HackedLevel = HackedLevel;
+      this.working = false;
+    }
+}
+
 const ColorMode =
 {
     DARK: 0,
@@ -7,8 +19,9 @@ const ColorMode =
 const userInputField = document.getElementById('userInputField');
 const runButton = document.getElementById('runButton');
 const themeToggleButton = document.getElementById('themeToggleButton');
+const containerForWallet = document.getElementById('containerForWallet');
 
-const validCommands = ["pass", "clear", "clean", "cls"];
+const validCommands = ["pass", "clear", "clean", "cls", "hack", "mine"];
 
 var containerForOutput = document.getElementById("containerForOutput");
 var themeToggleImg = document.getElementById("themeToggleImg");
@@ -19,6 +32,16 @@ var themeAdjustLight = "themeAdjustLight.png";
 var CurrentTheme = ColorMode.LIGHT;
 
 themeToggleImg.src = themeAdjustDark;
+
+var profitPerSecond = 0;
+var totalMoney = 0;
+
+let servers =
+[
+    new server("analServer", 10, 1, 0),
+    new server("oralServer", 10, 1, 0)
+]
+var CurrentServer = servers[0];
 
 //Deal with the input.
 function runUserCode()
@@ -40,14 +63,15 @@ function runUserCode()
 
         if (faultyCommands.length > 1)
         {
-            addErrorToOutput("Some commands were not recognized as a valid internal or external command: \"" + (faultyCommands.join("\", \"")) + "\"");
+            addErrorToOutput("Some commands were not recognized as a valid internal or external command: \"" +
+                (faultyCommands.join("\", \"")) + "\"");
         }
         else if (faultyCommands.length == 1)
         {
             addErrorToOutput("A command was not recognized as a valid internal or external command: " + faultyCommands[0]);
         }
         //all commands are valid
-        else 
+        else
         {
             processCommands(commands);
         }
@@ -79,6 +103,56 @@ function processCommands(commands)
         else
         {
             setOutput("");
+        }
+    }
+    //start mining on the current computer
+    else if(commands.includes("mine"))
+    {
+        if(commands.length > 1)
+        {
+            addErrorToOutput("The command mine cannot be combined with other commands or values.");
+        }
+        else
+        {
+            if(CurrentServer.working == false)
+            {
+                if(CurrentServer.HackedLevel >= CurrentServer.SecurityLevel)
+                {
+                    CurrentServer.working = true;
+                    profitPerSecond = profitPerSecond + CurrentServer.power;
+
+                    addSysMessageToOutput("Mining started on the {" + CurrentServer.name + "} server.");
+                }
+                else
+                {
+                    addErrorToOutput("Access denied.");
+                }
+            }
+            else
+            {
+                addErrorToOutput("The server was assign a task.");
+            }
+        }
+    }
+    //increase hack level
+    else if(commands.includes("hack"))
+    {
+        if(commands.length > 1)
+        {
+            addErrorToOutput("The command hack cannot be combined with other commands or values.");
+        }
+        else
+        {
+            if(CurrentServer.HackedLevel >= CurrentServer.SecurityLevel)
+            {
+                addErrorToOutput("You already have full access to this servers kernel");
+            }
+            else
+            {
+                CurrentServer.HackedLevel = CurrentServer.HackedLevel + 1;
+    
+                addSysMessageToOutput("Succesfully hacked the {" + CurrentServer.name + "} server.");
+            }
         }
     }
 }
@@ -188,14 +262,27 @@ userInputField.addEventListener('keydown', function(event)
     }
 });
 
-toggleTheme(); //makes the default theme dark.
-
 window.onload = update();
 function update()
-{            
+{    
+    delay = 16;
+    multiplier = 16 / 1000;
+
     function fnc()
     {
-        //do logic
+        totalMoney = totalMoney + (profitPerSecond * multiplier);
+
+        stringMoney = (totalMoney + "");
+        indexOfDot = stringMoney.indexOf(".");
+
+        if(indexOfDot != -1)
+        {
+            stringMoney = stringMoney.substring(0, stringMoney.indexOf(".") + 3);
+        }
+
+        containerForWallet.innerHTML = stringMoney + "$";
     }
-    setInterval(fnc, 16);
+    setInterval(fnc, delay);
 }
+
+toggleTheme(); //makes the default theme dark.
