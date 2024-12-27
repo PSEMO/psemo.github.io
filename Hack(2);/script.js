@@ -21,7 +21,11 @@ const runButton = document.getElementById('runButton');
 const themeToggleButton = document.getElementById('themeToggleButton');
 const containerForWallet = document.getElementById('containerForWallet');
 
-const validCommands = ["pass", "clear", "clean", "cls", "hack", "mine"];
+const validCommands = 
+[
+    "pass", "clear", "clean", "cls", "hack", "mine",
+    "list"
+];
 
 var containerForOutput = document.getElementById("containerForOutput");
 var themeToggleImg = document.getElementById("themeToggleImg");
@@ -38,8 +42,11 @@ var totalMoney = 0;
 
 let servers =
 [
-    new server("analServer", 10, 1, 0),
-    new server("oralServer", 10, 1, 0)
+    new server("localServer", 10, 1, 1),
+    new server("MinebuildGameServer", 15, 2, 0),
+    new server("dataVault", 30, 5, 0),
+    new server("cryptoFarm", 50, 8, 0),
+    new server("mainframe", 100, 10, 0)
 ]
 var CurrentServer = servers[0];
 
@@ -61,11 +68,13 @@ function runUserCode()
         // Find strings in commands that are not in validCommands
         const faultyCommands = commands.filter(command_ => !validCommands.includes(command_));
 
+        //more than one commands are valid
         if (faultyCommands.length > 1)
         {
             addErrorToOutput("Some commands were not recognized as a valid internal or external command: \"" +
                 (faultyCommands.join("\", \"")) + "\"");
         }
+        //a command is not valid
         else if (faultyCommands.length == 1)
         {
             addErrorToOutput("A command was not recognized as a valid internal or external command: " + faultyCommands[0]);
@@ -118,10 +127,7 @@ function processCommands(commands)
             {
                 if(CurrentServer.HackedLevel >= CurrentServer.SecurityLevel)
                 {
-                    CurrentServer.working = true;
-                    profitPerSecond = profitPerSecond + CurrentServer.power;
-
-                    addSysMessageToOutput("Mining started on the {" + CurrentServer.name + "} server.");
+                    startMining();
                 }
                 else
                 {
@@ -149,12 +155,41 @@ function processCommands(commands)
             }
             else
             {
-                CurrentServer.HackedLevel = CurrentServer.HackedLevel + 1;
-    
-                addSysMessageToOutput("Succesfully hacked the {" + CurrentServer.name + "} server.");
+                hackServer();
             }
         }
     }
+    //list servers
+    else if(commands.includes("list"))
+    {
+        if(commands.length > 1)
+        {
+            addErrorToOutput("The command list cannot be combined with other commands or values.");
+        }
+        else
+        {
+            listServers();
+        }
+    }
+}
+
+function listServers() 
+{
+    const serverList = servers.map((server, index) => `${index + 1}. ${server.name} (Security Level: ${server.SecurityLevel}, Power: ${server.power})`).join("<br>");
+    addSysMessageToOutput("Available Servers:<br>" + serverList);
+}
+
+function hackServer()
+{
+    CurrentServer.HackedLevel = CurrentServer.HackedLevel + 1;
+    addSysMessageToOutput("Succesfully hacked the {" + CurrentServer.name + "} server.");
+}
+
+function startMining()
+{
+    CurrentServer.working = true;
+    profitPerSecond = profitPerSecond + CurrentServer.power;
+    addSysMessageToOutput("Mining started on the {" + CurrentServer.name + "} server.");
 }
 
 function getTextBetween(text, startMarker, endMarker)
