@@ -146,7 +146,7 @@ button:hover
 
 .warning
 {
-    color: rgb(195, 195, 0);
+    color: rgb(165, 165, 0);
 }
 .dark-theme .warning
 {
@@ -155,7 +155,7 @@ button:hover
 
 .sysmsg
 {
-    color: rgb(0, 0, 195);
+    color: rgb(0, 0, 165);
 }
 .dark-theme .sysmsg
 {
