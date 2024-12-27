@@ -1,0 +1,67 @@
+think about "new commands, new ways and reasons to hack, fun minigames, things to do with the money AND more" for this game:
+
+
+Game name "Hack(2);"
+
+
+Goal:
+
+
+The game's goal appears to involve managing and "hacking" servers to generate money. Players interact with servers that have different levels of security and power. After gaining access to a server through hacking, players can start mining to earn profit per second. Progress involves exploiting server capabilities while adhering to input command rules.
+
+Command Explanations:
+
+
+    pass:
+
+        Purpose: Does nothing. It is a no-op command ignored by the system. Players can include it in their input, but it will not affect the game's state.
+
+        Special Handling: The game removes this command from the input before processing the remaining commands.
+
+
+    clear / clean / cls:
+
+        Purpose: Clears the output display.
+
+        Behavior: These commands cannot be combined with other commands. If combined, the game returns an error.
+
+        Aliases: clear, clean, and cls perform the same action but are implemented as distinct commands.
+
+
+    hack:
+
+        Purpose: Increases the "HackedLevel" of the current server.
+
+        Conditions:
+
+            The HackedLevel must be less than the SecurityLevel for this command to work.
+
+            If the HackedLevel equals or exceeds the SecurityLevel, the player is notified they already have full access.
+
+        Effect: A successful hack increases HackedLevel by 1.
+
+
+    mine:
+
+        Purpose: Starts mining on the current server to generate money.
+
+        Conditions:
+
+            The server must not already be performing another task (working must be false).
+
+            The HackedLevel must be at least equal to the SecurityLevel to start mining.
+
+        Effect: Adds the server's power to the profit-per-second rate and marks the server as working.
+
+
+    list:
+
+        Purpose: Displays a list of all available servers with their names, security levels, and power values.
+
+        Behavior: Cannot be combined with other commands. Shows server details in a formatted list.
+
+
+Summary:
+
+
+This game is a text-based server management simulator where players use commands to interact with a set of servers. The focus is on hacking servers to unlock mining capabilities and earning virtual currency through efficient resource use. Commands like clear enhance the interface by managing outputs, while operational commands (hack, mine, list) drive the core gameplay loop.
