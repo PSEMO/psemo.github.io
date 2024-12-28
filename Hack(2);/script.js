@@ -24,7 +24,11 @@ const containerForWallet = document.getElementById('containerForWallet');
 const validCommands = 
 [
     "pass", "clear", "clean", "cls", "hack", "mine",
-    "list"
+    "list", "connect"
+];
+const validCommandsWithMessages = 
+[
+    "connect"
 ];
 
 var containerForOutput = document.getElementById("containerForOutput");
@@ -68,108 +72,176 @@ function runUserCode()
         // Find strings in commands that are not in validCommands
         const faultyCommands = commands.filter(command_ => !validCommands.includes(command_));
 
-        //more than one commands are valid
-        if (faultyCommands.length > 1)
+        // If true than a command with variable was inputed
+        const commandShouldContainAMessage = anyElementInArray(commands, validCommandsWithMessages)
+        if(faultyCommands.length > 0 && commandShouldContainAMessage)
         {
-            addErrorToOutput("Some commands were not recognized as a valid internal or external command: \"" +
-                (faultyCommands.join("\", \"")) + "\"");
+            processCommands(commands, true);
         }
-        //a command is not valid
-        else if (faultyCommands.length == 1)
-        {
-            addErrorToOutput("A command was not recognized as a valid internal or external command: " + faultyCommands[0]);
-        }
-        //all commands are valid
         else
         {
-            processCommands(commands);
+            //more than one commands are valid
+            if (faultyCommands.length > 1)
+            {
+                addErrorToOutput("Some commands were not recognized as a valid internal or external command: \"" +
+                    (faultyCommands.join("\", \"")) + "\"");
+            }
+            //a command is not valid
+            else if (faultyCommands.length === 1)
+            {
+                addErrorToOutput("A command was not recognized as a valid internal or external command: " + faultyCommands[0]);
+            }
+            //all commands are valid
+            else
+            {
+                if(commandShouldContainAMessage)
+                {
+                    processCommands(commands, true);
+                }
+                else
+                {
+                    processCommands(commands, false);
+                }
+            }
         }
     }
 }
 
-
-function processCommands(commands)
+//Deal and execute the commands.
+function processCommands(commands, isThereMessage)
 {
     //ignore the pass command
     if(commands.includes("pass"))
     {
         index = commands.indexOf("pass");
         commands.splice(index, 1);//remove 1 element at index
-        processCommands(commands);//rerun without the pass command
+        processCommands(commands, isThereMessage);//rerun without the pass command
     }
-    //clean or clear command
-    else if(commands.includes("clear") || commands.includes("clean") || commands.includes("cls"))
+    else
     {
-        if(commands.length > 1)
+        if(isThereMessage)
         {
-            if(commands.includes("clean"))
-                addErrorToOutput("The command clean cannot be combined with other commands or values.");
-            if(commands.includes("clear"))
-                addErrorToOutput("The command clear cannot be combined with other commands or values.");
-            if(commands.includes("cls"))
-                addErrorToOutput("The command cls cannot be combined with other commands or values.");
-        }
-        else
-        {
-            setOutput("");
-        }
-    }
-    //start mining on the current computer
-    else if(commands.includes("mine"))
-    {
-        if(commands.length > 1)
-        {
-            addErrorToOutput("The command mine cannot be combined with other commands or values.");
-        }
-        else
-        {
-            if(CurrentServer.working == false)
+            //connect to server
+            if(commands.includes("connect"))
             {
-                if(CurrentServer.HackedLevel >= CurrentServer.SecurityLevel)
+                if(commands.length === 1)
                 {
-                    startMining();
+                    addErrorToOutput("Server name was not provided.");
+                }
+                else if(commands.length === 2)
+                {
+                    if(commands[0] === "connect")
+                    {
+                        connectToServer(commands[1]);
+                    }
+                    else
+                    {
+                        connectToServer(commands[0]);
+                    }
+                }
+                else if(commands.length > 2)
+                {
+                    addErrorToOutput("The command connect cannot be combined with more than one command or value.");
+                }
+            }
+        }
+        else
+        {
+            //clean or clear command
+            if(commands.includes("clear") || commands.includes("clean") || commands.includes("cls"))
+            {
+                if(commands.length > 1)
+                {
+                    if(commands.includes("clean"))
+                        addErrorToOutput("The command clean cannot be combined with other commands or values.");
+                    if(commands.includes("clear"))
+                        addErrorToOutput("The command clear cannot be combined with other commands or values.");
+                    if(commands.includes("cls"))
+                        addErrorToOutput("The command cls cannot be combined with other commands or values.");
                 }
                 else
                 {
-                    addErrorToOutput("Access denied.");
+                    setOutput("");
                 }
             }
-            else
+            //start mining on the current computer
+            else if(commands.includes("mine"))
             {
-                addErrorToOutput("The server was assign a task.");
+                if(commands.length > 1)
+                {
+                    addErrorToOutput("The command mine cannot be combined with other commands or values.");
+                }
+                else
+                {
+                    if(CurrentServer.working === false)
+                    {
+                        if(CurrentServer.HackedLevel >= CurrentServer.SecurityLevel)
+                        {
+                            startMining();
+                        }
+                        else
+                        {
+                            addErrorToOutput("Access denied.");
+                        }
+                    }
+                    else
+                    {
+                        addErrorToOutput("The server was assign a task.");
+                    }
+                }
+            }
+            //increase hack level
+            else if(commands.includes("hack"))
+            {
+                if(commands.length > 1)
+                {
+                    addErrorToOutput("The command hack cannot be combined with other commands or values.");
+                }
+                else
+                {
+                    if(CurrentServer.HackedLevel >= CurrentServer.SecurityLevel)
+                    {
+                        addErrorToOutput("You already have full access to this servers kernel");
+                    }
+                    else
+                    {
+                        hackServer();
+                    }
+                }
+            }
+            //list servers
+            else if(commands.includes("list"))
+            {
+                if(commands.length > 1)
+                {
+                    addErrorToOutput("The command list cannot be combined with other commands or values.");
+                }
+                else
+                {
+                    listServers();
+                }
             }
         }
     }
-    //increase hack level
-    else if(commands.includes("hack"))
+}
+
+
+function connectToServer(serverName)
+{
+    tempCurrentServer = CurrentServer;
+
+    for (let i = 0; i < servers.length; i++)
     {
-        if(commands.length > 1)
+        if (servers[i].name.toLowerCase() === serverName)
         {
-            addErrorToOutput("The command hack cannot be combined with other commands or values.");
-        }
-        else
-        {
-            if(CurrentServer.HackedLevel >= CurrentServer.SecurityLevel)
-            {
-                addErrorToOutput("You already have full access to this servers kernel");
-            }
-            else
-            {
-                hackServer();
-            }
+            CurrentServer = servers[i];
+            return;
         }
     }
-    //list servers
-    else if(commands.includes("list"))
+
+    if(CurrentServer === tempCurrentServer)
     {
-        if(commands.length > 1)
-        {
-            addErrorToOutput("The command list cannot be combined with other commands or values.");
-        }
-        else
-        {
-            listServers();
-        }
+        addErrorToOutput("The server \"" + serverName + "\" was not found.");
     }
 }
 
@@ -217,7 +289,7 @@ function getTextBetween(text, startMarker, endMarker)
 
 function addSysMessageToOutput(text)
 {
-    if(CurrentTheme == ColorMode.DARK)
+    if(CurrentTheme === ColorMode.DARK)
     {
         addToOutput("<span class=\"sysmsg dark-theme\">SYSTEM: " + text + "</span>");
     }
@@ -228,7 +300,7 @@ function addSysMessageToOutput(text)
 }
 function addWarningToOutput(text)
 {
-    if(CurrentTheme == ColorMode.DARK)
+    if(CurrentTheme === ColorMode.DARK)
     {
         addToOutput("<span class=\"warning\">WARNING: " + text + "</span>");
     }
@@ -239,7 +311,7 @@ function addWarningToOutput(text)
 }
 function addErrorToOutput(text)
 {
-    if(CurrentTheme == ColorMode.DARK)
+    if(CurrentTheme === ColorMode.DARK)
     {
         addToOutput("<span class=\"error\">ERROR: " + text + "</span>");
     }
@@ -250,7 +322,7 @@ function addErrorToOutput(text)
 }
 function addUserInputToOutput(text)
 {
-    if(CurrentTheme == ColorMode.DARK)
+    if(CurrentTheme === ColorMode.DARK)
     {
         addToOutput("<span class=\"sysmsg\">></span>" + text);
     }
@@ -272,7 +344,7 @@ function setOutput(text)
 function toggleTheme()
 {
     document.body.classList.toggle('dark-theme');
-    if(CurrentTheme == ColorMode.DARK)
+    if(CurrentTheme === ColorMode.DARK)
     {
         CurrentTheme = ColorMode.LIGHT;
         themeToggleImg.src = themeAdjustDark;
@@ -282,6 +354,19 @@ function toggleTheme()
         CurrentTheme = ColorMode.DARK;
         themeToggleImg.src = themeAdjustLight;
     }
+}
+
+// Check if any of the arrays includes an element that is in the other array.
+function anyElementInArray(array1, array2)
+{
+    for (let i = 0; i < array1.length; i++)
+    {
+        if (array2.includes(array1[i]))
+        {
+            return true; // Return true as soon as a match is found
+        }
+    }
+    return false; // Return false if no matches are found
 }
 
 //Event listeners for buttons

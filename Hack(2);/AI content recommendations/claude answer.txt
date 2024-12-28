@@ -1,7 +1,6 @@
 Server Management
 - `scan <server>` - Analyze a server to reveal its vulnerabilities and potential exploits
 - `upgrade <server>` - Spend earned money to increase a server's mining power
-- `connect <server>` - Switch your active connection to a different server
 - `disconnect` - Safely terminate current server connection
 - `status` - Show detailed statistics about current server
 
