@@ -1,6 +1,5 @@
 New Commands:
    - upgrade: Allows players to upgrade their hacking tools or purchase new software to enhance their hacking capabilities. Upgrades can increase the success rate of hacks, reduce the time taken, or provide new abilities.
-   - scan: Players can scan a server to gather more detailed information about its security measures, potential vulnerabilities, and resource distribution. This command could provide a more in-depth understanding of the server, aiding in strategic hacking decisions.
    - merge: This command enables players to merge their hacked servers into a network, combining their power and security levels. Merged servers could offer increased mining efficiency or provide a stronger defense against potential counter-hacks.
    - transfer: Players can transfer their earned money between servers or to a secure digital wallet. This command adds a layer of financial management and strategy to the game.
 

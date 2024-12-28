@@ -28,7 +28,7 @@ const validCommands =
 ];
 const validCommandsWithMessages = 
 [
-    "connect"
+    "connect", "scan"
 ];
 
 var containerForOutput = document.getElementById("containerForOutput");
@@ -144,6 +144,29 @@ function processCommands(commands, isThereMessage)
                     addErrorToOutput("The command connect cannot be combined with more than one command or value.");
                 }
             }
+            //list given server defaul is current
+            else if(commands.includes("scan"))
+            {
+                if(commands.length === 1)
+                {
+                    showTheServerInfo(CurrentServer.name);
+                }
+                else if(commands.length === 2)
+                {
+                    if(commands[0] === "scan")
+                    {
+                        showTheServerInfo(commands[1]);
+                    }
+                    else
+                    {
+                        showTheServerInfo(commands[0]);
+                    }
+                }
+                else if(commands.length > 2)
+                {
+                    addErrorToOutput("The command scan cannot be combined with more than one command or value.");
+                }
+            }
         }
         else
         {
@@ -225,6 +248,22 @@ function processCommands(commands, isThereMessage)
     }
 }
 
+function showTheServerInfo(serverName)
+{
+    for (let i = 0; i < servers.length; i++)
+    {
+        if (servers[i].name.toLowerCase() === serverName.toLowerCase())
+        {
+            addSysMessageToOutput(`Server Name: ${servers[i].name}`);
+            addSysMessageToOutput(`Server Power: ${servers[i].power}`);
+            addSysMessageToOutput(`Security Level: ${servers[i].SecurityLevel}`);
+            addSysMessageToOutput(`Hacked Level: ${servers[i].HackedLevel}`);
+            return;
+        }
+    }
+
+    addErrorToOutput("The server \"" + serverName + "\" was not found.");
+}
 
 function connectToServer(serverName)
 {
@@ -232,22 +271,19 @@ function connectToServer(serverName)
 
     for (let i = 0; i < servers.length; i++)
     {
-        if (servers[i].name.toLowerCase() === serverName)
+        if (servers[i].name.toLowerCase() === serverName.toLowerCase())
         {
             CurrentServer = servers[i];
             return;
         }
     }
 
-    if(CurrentServer === tempCurrentServer)
-    {
-        addErrorToOutput("The server \"" + serverName + "\" was not found.");
-    }
+    addErrorToOutput("The server \"" + serverName + "\" was not found.");
 }
 
 function listServers() 
 {
-    const serverList = servers.map((server, index) => `${index + 1}. ${server.name} (Security Level: ${server.SecurityLevel}, Power: ${server.power})`).join("<br>");
+    const serverList = servers.map((server, index) => `${index + 1}. ${server.name}`).join("<br>");
     addSysMessageToOutput("Available Servers:<br>" + serverList);
 }
 
