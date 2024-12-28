@@ -1,5 +1,3 @@
-Based on the provided information, here are some new commands, minigames, and additional features that could enhance the game "Hack(2);":
-
 ### New Commands:
 
 1. **upgrade**:

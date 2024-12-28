@@ -1,5 +1,3 @@
-Let's brainstorm some additions to "Hack(2);" to make it more engaging:
-
 **New Commands & Hacking Mechanics:**
 
 *   **scan \[server_name]:** Scans a specific server, revealing more detailed information beyond what `list` provides. This could include:

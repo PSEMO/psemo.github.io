@@ -1,11 +1,3 @@
-Let me think through some engaging additions that would enhance this hacking simulation game while keeping it educational and fun.
-
-
-
-
-
-# New Commands
-
 ## Server Management
 - `scan <server>` - Analyze a server to reveal its vulnerabilities and potential exploits
 - `upgrade <server>` - Spend earned money to increase a server's mining power

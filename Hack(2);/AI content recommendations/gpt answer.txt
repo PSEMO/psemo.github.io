@@ -1,7 +1,3 @@
-Here's a breakdown of new ideas to enrich **Hack(2);**, enhancing the gameplay experience:
-
----
-
 ### **New Ways to Hack**
 1. **Social Engineering Missions**  
    Add a layer of missions where players "phish" for admin passwords or trick AIs into granting temporary access. These require solving logic puzzles or decoding messages.
@@ -15,8 +11,6 @@ Here's a breakdown of new ideas to enrich **Hack(2);**, enhancing the gameplay e
 4. **Exploit Builder**  
    Introduce a mini-tool for players to assemble hacking tools using parts (e.g., buffer overflow, SQL injection). Parts can be unlocked through progression or mini-games.
 
----
-
 ### **Fun Mini-games**
 1. **Code Cracker**  
    A time-based puzzle game where players match binary patterns or arrange snippets of "code" to bypass firewalls.
@@ -29,8 +23,6 @@ Here's a breakdown of new ideas to enrich **Hack(2);**, enhancing the gameplay e
 
 4. **Hacking Duels**  
    Compete against an AI or other players (multiplayer) to hack a server first. Winning grants extra currency or rare loot.
-
----
 
 ### **What to Do with the Money**
 1. **Upgrade Tools**  
@@ -53,8 +45,6 @@ Here's a breakdown of new ideas to enrich **Hack(2);**, enhancing the gameplay e
 5. **Black Market**  
    Buy rare scripts, exploits, or temporary boosts (e.g., double mining output for 5 minutes).
 
----
-
 ### **New Mechanics and Features**
 1. **Server Reputation System**  
    Servers gain or lose reputation depending on how aggressively they're hacked. High-reputation servers generate more profit but have tougher security.
@@ -71,8 +61,6 @@ Here's a breakdown of new ideas to enrich **Hack(2);**, enhancing the gameplay e
 5. **Server States**  
    Servers can randomly go into "protected mode" (boosted security) or "vulnerable mode" (weakened defenses). Use commands like "probe" to detect their state.
 
----
-
 ### **Player-to-Player Interaction**
 1. **Competitive Leaderboards**  
    Players can compare total profits, hacked servers, or mining efficiency globally or with friends.
@@ -82,8 +70,6 @@ Here's a breakdown of new ideas to enrich **Hack(2);**, enhancing the gameplay e
 
 3. **Player-owned Servers**  
    Players can purchase or build their own servers for others to hack, setting the difficulty and earning passive income from failed attempts.
-
----
 
 ### **Progression System**
 1. **Skill Trees**  

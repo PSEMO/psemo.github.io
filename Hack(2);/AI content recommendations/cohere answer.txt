@@ -1,5 +1,3 @@
-Here are some new commands, ways to hack, mini-games, and ideas for utilizing the earned money to enhance the gameplay experience of "Hack(2);":
-
 **New Commands:**
    - **upgrade:** Allows players to upgrade their hacking tools or purchase new software to enhance their hacking capabilities. Upgrades can increase the success rate of hacks, reduce the time taken, or provide new abilities.
    - **scan:** Players can scan a server to gather more detailed information about its security measures, potential vulnerabilities, and resource distribution. This command could provide a more in-depth understanding of the server, aiding in strategic hacking decisions.
