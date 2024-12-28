@@ -1,17 +1,17 @@
-## Server Management
+Server Management
 - `scan <server>` - Analyze a server to reveal its vulnerabilities and potential exploits
 - `upgrade <server>` - Spend earned money to increase a server's mining power
 - `connect <server>` - Switch your active connection to a different server
 - `disconnect` - Safely terminate current server connection
 - `status` - Show detailed statistics about current server
 
-## Network Operations
+Network Operations
 - `ping` - Test connection speed to servers, affecting hack success rate
 - `route` - Show network map of discovered servers
 - `trace` - Track other players' activities in multiplayer mode
 - `proxy` - Hide your activities temporarily (costs money)
 
-## Advanced Hacking
+Advanced Hacking
 - `bruteforce` - Slower but guaranteed hack success
 - `exploit` - Fast but risky hack attempt with potential consequences
 - `patch` - Defend your controlled servers from other players
@@ -19,30 +19,30 @@
 
 # Minigames
 
-## Password Cracker
+Password Cracker
 - Grid-based minigame where players match patterns to break encryption
 - Higher difficulty servers have more complex patterns
 - Success reduces required hack attempts
 
-## Network Maze
+Network Maze
 - Navigate through a visual representation of server connections
 - Avoid detection systems
 - Find optimal routes for faster hacking
 
-## Code Sequences
+Code Sequences
 - Memory-style game matching programming syntax
 - Successfully matching sequences improves mining efficiency
 - Different languages offer different bonuses
 
 # Economy Features
 
-## Money Usage
+Money Usage
 - Server upgrades (increased mining power)
 - Security tools (protection from other players)
 - Automated scripts (perform basic tasks automatically)
 - Network equipment (improved connection speeds)
 
-## Resource Market
+Resource Market
 - Trade computing power with other players
 - Buy/sell server access rights
 - Exchange different types of cryptocurrency
@@ -50,13 +50,13 @@
 
 # Progression Systems
 
-## Skill Trees
+Skill Trees
 - Network Infrastructure
 - Security Specialist
 - Resource Management
 - Exploit Development
 
-## Reputation System
+Reputation System
 - Gain reputation with different hacker groups
 - Access to exclusive servers and tools
 - Special missions and challenges
@@ -64,13 +64,13 @@
 
 # Competitive Elements
 
-## Leaderboards
+Leaderboards
 - Fastest server compromises
 - Highest mining efficiency
 - Most secure network
 - Wealthiest players
 
-## Server Control Wars
+Server Control Wars
 - Compete for control of high-value servers
 - Form alliances with other players
 - Coordinate attacks and defenses
@@ -78,13 +78,13 @@
 
 # Educational Integration
 
-## Tutorial Missions
+Tutorial Missions
 - Learn basic networking concepts
 - Understand security principles
 - Practice coding patterns
 - Master system administration
 
-## Challenge Scenarios
+Challenge Scenarios
 - Time-limited hacking objectives
 - Resource management puzzles
 - Network defense situations
@@ -92,13 +92,13 @@
 
 # Quality of Life Features
 
-## Command Improvements
+Command Improvements
 - Command history navigation
 - Tab completion for commands
 - Alias system for custom commands
 - Script creation for automation
 
-## UI Enhancements
+UI Enhancements
 - Server status dashboard
 - Real-time network visualizer
 - Resource monitoring graphs

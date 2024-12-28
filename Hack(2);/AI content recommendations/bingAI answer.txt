@@ -1,19 +1,19 @@
-### New Ways and Reasons to Hack
-1. **Data Retrieval Missions**: Introduce missions where players hack servers to retrieve valuable data. Completing these missions could unlock special rewards or bonuses.
-2. **Competitive Hacking**: Add a leaderboard where players compete to hack the most servers or earn the most money. This could encourage friendly competition and increase engagement.
-3. **Time-Limited Events**: Implement special events where certain servers offer double rewards or unique items for a limited time, encouraging players to hack more actively.
+New Ways and Reasons to Hack
+1. Data Retrieval Missions: Introduce missions where players hack servers to retrieve valuable data. Completing these missions could unlock special rewards or bonuses.
+2. Competitive Hacking: Add a leaderboard where players compete to hack the most servers or earn the most money. This could encourage friendly competition and increase engagement.
+3. Time-Limited Events: Implement special events where certain servers offer double rewards or unique items for a limited time, encouraging players to hack more actively.
 
-### Fun Minigames
-1. **Code Cracking**: A puzzle minigame where players solve coding challenges to unlock special abilities or bonuses.
-2. **Server Defense**: A tower defense-style minigame where players protect their hacked servers from rival hackers or malware attacks.
-3. **Speed Hacking**: A timed minigame where players must hack as many servers as possible within a set time limit, with rewards based on their performance.
+Fun Minigames
+1. Code Cracking: A puzzle minigame where players solve coding challenges to unlock special abilities or bonuses.
+2. Server Defense: A tower defense-style minigame where players protect their hacked servers from rival hackers or malware attacks.
+3. Speed Hacking: A timed minigame where players must hack as many servers as possible within a set time limit, with rewards based on their performance.
 
-### Things to Do with the Money
-1. **Upgrade Equipment**: Allow players to purchase and upgrade hacking tools, software, and hardware to improve their hacking efficiency and success rate.
-2. **Server Customization**: Let players customize their hacked servers with unique skins, themes, or decorations, making their server network visually appealing.
-3. **Invest in Startups**: Introduce a feature where players can invest their money in virtual startups, earning passive income based on the success of these ventures.
+Things to Do with the Money
+1. Upgrade Equipment: Allow players to purchase and upgrade hacking tools, software, and hardware to improve their hacking efficiency and success rate.
+2. Server Customization: Let players customize their hacked servers with unique skins, themes, or decorations, making their server network visually appealing.
+3. Invest in Startups: Introduce a feature where players can invest their money in virtual startups, earning passive income based on the success of these ventures.
 
-### More Features
-1. **Story Mode**: Add a storyline with missions and objectives that guide players through the game, providing context and motivation for their hacking activities.
-2. **Alliances and Guilds**: Allow players to form alliances or guilds with other players, working together to achieve common goals and share resources.
-3. **Random Events**: Introduce random events that can either positively or negatively impact the player's progress, adding an element of unpredictability and excitement.
+More Features
+1. Story Mode: Add a storyline with missions and objectives that guide players through the game, providing context and motivation for their hacking activities.
+2. Alliances and Guilds: Allow players to form alliances or guilds with other players, working together to achieve common goals and share resources.
+3. Random Events: Introduce random events that can either positively or negatively impact the player's progress, adding an element of unpredictability and excitement.

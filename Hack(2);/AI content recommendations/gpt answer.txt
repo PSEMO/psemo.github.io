@@ -1,90 +1,90 @@
-### **New Ways to Hack**
-1. **Social Engineering Missions**  
+New Ways to Hack
+1. Social Engineering Missions  
    Add a layer of missions where players "phish" for admin passwords or trick AIs into granting temporary access. These require solving logic puzzles or decoding messages.
 
-2. **Backdoor Injections**  
+2. Backdoor Injections  
    Players can write simple scripts or commands to install backdoors, granting incremental "hacked level" increases over time instead of instant progression. 
 
-3. **Brute Force Mode**  
+3. Brute Force Mode  
    A high-risk/high-reward hacking technique that can bypass several security levels but risks "locking out" the server for a cooldown period if unsuccessful.
 
-4. **Exploit Builder**  
+4. Exploit Builder  
    Introduce a mini-tool for players to assemble hacking tools using parts (e.g., buffer overflow, SQL injection). Parts can be unlocked through progression or mini-games.
 
-### **Fun Mini-games**
-1. **Code Cracker**  
+Fun Mini-games
+1. Code Cracker  
    A time-based puzzle game where players match binary patterns or arrange snippets of "code" to bypass firewalls.
 
-2. **Decryption Maze**  
+2. Decryption Maze  
    Navigate a grid-like puzzle to "decrypt" a password. Each turn costs energy but yields a reward (like reduced security).
 
-3. **Frequency Sniper**  
+3. Frequency Sniper  
    A rhythm-based game where players match input keys to displayed frequencies to intercept data packets and weaken server defenses.
 
-4. **Hacking Duels**  
+4. Hacking Duels  
    Compete against an AI or other players (multiplayer) to hack a server first. Winning grants extra currency or rare loot.
 
-### **What to Do with the Money**
-1. **Upgrade Tools**  
+What to Do with the Money
+1. Upgrade Tools  
    - Faster hacking (reduces time needed to increase HackedLevel).
    - Higher mining efficiency (boost profit per second).  
    - Tools to reveal hidden servers or reduce cooldown times.  
 
-2. **Expand Operations**  
+2. Expand Operations  
    - Purchase additional servers to increase your network capacity.
    - Invest in "auto-mining" bots that work independently.  
 
-3. **Personalization**  
+3. Personalization  
    - Custom terminal skins or color schemes.
    - Unlock themes like "retro green," "cyberpunk purple," or "matrix rain."
    - Fun titles/badges displayed during "list" commands or multiplayer.  
 
-4. **Corporate Espionage**  
+4. Corporate Espionage  
    Spend money to bribe informants or buy "blueprints" of high-value servers for better hacking strategies.
 
-5. **Black Market**  
+5. Black Market  
    Buy rare scripts, exploits, or temporary boosts (e.g., double mining output for 5 minutes).
 
-### **New Mechanics and Features**
-1. **Server Reputation System**  
+New Mechanics and Features
+1. Server Reputation System  
    Servers gain or lose reputation depending on how aggressively they're hacked. High-reputation servers generate more profit but have tougher security.
 
-2. **Server Tiers**  
+2. Server Tiers  
    Introduce server "rarity" tiers (e.g., Common, Rare, Legendary). Higher tiers yield better rewards but require advanced tactics to hack.
 
-3. **Event Servers**  
+3. Event Servers  
    Randomly spawn "event servers" with special conditions, such as limited-time access, increased profits, or hidden dangers.
 
-4. **Rogue AI Defense**  
+4. Rogue AI Defense  
    Add "boss servers" that deploy an AI to counter your hacking attempts. Beat the AI in logic-based puzzles or reflex games to take control.
 
-5. **Server States**  
+5. Server States  
    Servers can randomly go into "protected mode" (boosted security) or "vulnerable mode" (weakened defenses). Use commands like "probe" to detect their state.
 
-### **Player-to-Player Interaction**
-1. **Competitive Leaderboards**  
+Player-to-Player Interaction
+1. Competitive Leaderboards  
    Players can compare total profits, hacked servers, or mining efficiency globally or with friends.
 
-2. **Server Raids**  
+2. Server Raids  
    Team up with other players to hack heavily fortified servers and split massive rewards.
 
-3. **Player-owned Servers**  
+3. Player-owned Servers  
    Players can purchase or build their own servers for others to hack, setting the difficulty and earning passive income from failed attempts.
 
-### **Progression System**
-1. **Skill Trees**  
+Progression System
+1. Skill Trees  
    Allow players to invest in abilities:
-   - **Speed Hacking**: Decrease hack time.
-   - **Mining Efficiency**: Boost profits.
-   - **Security Exploits**: Bypass specific defenses.
-   - **Recon Tools**: Reveal high-value servers.  
+   - Speed Hacking: Decrease hack time.
+   - Mining Efficiency: Boost profits.
+   - Security Exploits: Bypass specific defenses.
+   - Recon Tools: Reveal high-value servers.  
 
-2. **Prestige Mode**  
+2. Prestige Mode  
    Once a certain goal is achieved (e.g., $1 million), players can reset their progress for multipliers or exclusive rewards in a new game loop.
 
-3. **Storyline Missions**  
+3. Storyline Missions  
    Introduce a story where the player uncovers secrets about a rogue tech conglomerate, adding narrative depth.
 
 ---
 
-By integrating these features, **Hack(2);** can become a dynamic blend of strategy, resource management, and interactive fun, appealing to casual and competitive players alike!
+By integrating these features, Hack(2); can become a dynamic blend of strategy, resource management, and interactive fun, appealing to casual and competitive players alike!

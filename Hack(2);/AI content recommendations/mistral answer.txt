@@ -1,91 +1,91 @@
-### New Commands:
+New Commands:
 
-1. **upgrade**:
-   - **Purpose**: Upgrades the current server's power or security level.
-   - **Conditions**: Requires a certain amount of money.
-   - **Effect**: Increases the server's power or security level by a specified amount.
+1. upgrade:
+   - Purpose: Upgrades the current server's power or security level.
+   - Conditions: Requires a certain amount of money.
+   - Effect: Increases the server's power or security level by a specified amount.
 
-2. **transfer**:
-   - **Purpose**: Transfers money from one server to another.
-   - **Conditions**: The target server must be hacked to at least the SecurityLevel.
-   - **Effect**: Moves a specified amount of money from the current server to the target server.
+2. transfer:
+   - Purpose: Transfers money from one server to another.
+   - Conditions: The target server must be hacked to at least the SecurityLevel.
+   - Effect: Moves a specified amount of money from the current server to the target server.
 
-3. **scan**:
-   - **Purpose**: Scans for new servers to hack.
-   - **Conditions**: Requires a certain amount of money.
-   - **Effect**: Adds new servers to the list with random security levels and power values.
+3. scan:
+   - Purpose: Scans for new servers to hack.
+   - Conditions: Requires a certain amount of money.
+   - Effect: Adds new servers to the list with random security levels and power values.
 
-4. **repair**:
-   - **Purpose**: Repairs a server that has been compromised.
-   - **Conditions**: The server must be in a compromised state.
-   - **Effect**: Restores the server to a functional state.
+4. repair:
+   - Purpose: Repairs a server that has been compromised.
+   - Conditions: The server must be in a compromised state.
+   - Effect: Restores the server to a functional state.
 
-5. **sell**:
-   - **Purpose**: Sells a server for money.
-   - **Conditions**: The server must not be working.
-   - **Effect**: Removes the server from the list and adds money to the player's total.
+5. sell:
+   - Purpose: Sells a server for money.
+   - Conditions: The server must not be working.
+   - Effect: Removes the server from the list and adds money to the player's total.
 
-### New Ways and Reasons to Hack:
+New Ways and Reasons to Hack:
 
-1. **Challenge Modes**:
-   - **Time Attack**: Players must hack and mine as many servers as possible within a set time limit.
-   - **Survival Mode**: Players must manage servers while facing increasing security levels and random events that compromise servers.
+1. Challenge Modes:
+   - Time Attack: Players must hack and mine as many servers as possible within a set time limit.
+   - Survival Mode: Players must manage servers while facing increasing security levels and random events that compromise servers.
 
-2. **Server Types**:
-   - **High-Security Servers**: Require multiple hack commands to breach.
-   - **Volatile Servers**: Have a chance to become compromised after mining, requiring repair.
+2. Server Types:
+   - High-Security Servers: Require multiple hack commands to breach.
+   - Volatile Servers: Have a chance to become compromised after mining, requiring repair.
 
-3. **Hacking Events**:
-   - **Random Events**: Occasional events that temporarily boost or hinder hacking efforts, such as "Security Breach" or "Power Surge."
+3. Hacking Events:
+   - Random Events: Occasional events that temporarily boost or hinder hacking efforts, such as "Security Breach" or "Power Surge."
 
-### Fun Minigames:
+Fun Minigames:
 
-1. **Code Breaker**:
-   - **Purpose**: A minigame where players must guess a code to hack a server.
-   - **Mechanics**: Players input a sequence of numbers or letters, receiving hints on correctness.
+1. Code Breaker:
+   - Purpose: A minigame where players must guess a code to hack a server.
+   - Mechanics: Players input a sequence of numbers or letters, receiving hints on correctness.
 
-2. **Firewall Bypass**:
-   - **Purpose**: A minigame where players must navigate through a maze to bypass a firewall.
-   - **Mechanics**: Players control a character through a grid, avoiding obstacles to reach the end.
+2. Firewall Bypass:
+   - Purpose: A minigame where players must navigate through a maze to bypass a firewall.
+   - Mechanics: Players control a character through a grid, avoiding obstacles to reach the end.
 
-3. **Password Cracker**:
-   - **Purpose**: A minigame where players must decipher a password.
-   - **Mechanics**: Players are given a set of clues and must input the correct password within a time limit.
+3. Password Cracker:
+   - Purpose: A minigame where players must decipher a password.
+   - Mechanics: Players are given a set of clues and must input the correct password within a time limit.
 
-### Things to Do with the Money:
+Things to Do with the Money:
 
-1. **Server Upgrades**:
-   - **Purpose**: Players can spend money to upgrade server power or security levels.
-   - **Effect**: Increases mining efficiency or makes servers harder to hack.
+1. Server Upgrades:
+   - Purpose: Players can spend money to upgrade server power or security levels.
+   - Effect: Increases mining efficiency or makes servers harder to hack.
 
-2. **Purchase Tools**:
-   - **Purpose**: Players can buy hacking tools that enhance their abilities.
-   - **Effect**: Tools like "Auto-Hacker" that automatically hacks servers or "Mining Booster" that increases mining speed.
+2. Purchase Tools:
+   - Purpose: Players can buy hacking tools that enhance their abilities.
+   - Effect: Tools like "Auto-Hacker" that automatically hacks servers or "Mining Booster" that increases mining speed.
 
-3. **Investments**:
-   - **Purpose**: Players can invest money in virtual stocks or cryptocurrencies.
-   - **Effect**: Provides a passive income source with varying risks and rewards.
+3. Investments:
+   - Purpose: Players can invest money in virtual stocks or cryptocurrencies.
+   - Effect: Provides a passive income source with varying risks and rewards.
 
-4. **Buy New Servers**:
-   - **Purpose**: Players can purchase new servers with higher power and security levels.
-   - **Effect**: Adds more servers to the list, increasing mining potential.
+4. Buy New Servers:
+   - Purpose: Players can purchase new servers with higher power and security levels.
+   - Effect: Adds more servers to the list, increasing mining potential.
 
-### AND More:
+AND More:
 
-1. **Achievements**:
-   - **Purpose**: Players can earn achievements for completing specific tasks.
-   - **Examples**: "Hack 10 Servers," "Mine $1,000,000," "Complete a Minigame in Under 1 Minute."
+1. Achievements:
+   - Purpose: Players can earn achievements for completing specific tasks.
+   - Examples: "Hack 10 Servers," "Mine $1,000,000," "Complete a Minigame in Under 1 Minute."
 
-2. **Leaderboards**:
-   - **Purpose**: Compete with other players to see who can hack the most servers or earn the most money.
-   - **Effect**: Adds a competitive element to the game.
+2. Leaderboards:
+   - Purpose: Compete with other players to see who can hack the most servers or earn the most money.
+   - Effect: Adds a competitive element to the game.
 
-3. **Story Mode**:
-   - **Purpose**: A campaign mode with a narrative, where players must hack specific servers to progress through a story.
-   - **Effect**: Provides a structured gameplay experience with goals and challenges.
+3. Story Mode:
+   - Purpose: A campaign mode with a narrative, where players must hack specific servers to progress through a story.
+   - Effect: Provides a structured gameplay experience with goals and challenges.
 
-4. **Customization**:
-   - **Purpose**: Players can customize their hacking interface with different themes and skins.
-   - **Effect**: Enhances the visual experience and personalization.
+4. Customization:
+   - Purpose: Players can customize their hacking interface with different themes and skins.
+   - Effect: Enhances the visual experience and personalization.
 
 These additions can make "Hack(2);" more engaging and diverse, offering players multiple ways to interact with the game and achieve their goals.

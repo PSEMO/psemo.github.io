@@ -1,54 +1,54 @@
-**New Commands & Hacking Mechanics:**
+New Commands & Hacking Mechanics:
 
-*   **scan \[server_name]:** Scans a specific server, revealing more detailed information beyond what `list` provides. This could include:
+*   scan \[server_name]: Scans a specific server, revealing more detailed information beyond what `list` provides. This could include:
     *   Firewall type (affects hacking difficulty).
     *   Intrusion Detection System (IDS) level (chance of getting detected during hacking).
     *   Available ports (determines which attack vectors are possible).
     *   Running services (potential vulnerabilities to exploit).
-*   **exploit \[server_name] \[exploit_type]:** Instead of a simple `hack`, introduce different types of exploits based on vulnerabilities:
-    *   **buffer_overflow:** High risk, high reward. Faster hacking but higher chance of triggering IDS.
-    *   **sql_injection:** Medium risk, medium reward. More reliable than buffer overflow.
-    *   **port_scan \[port_number]:** Scans a specific port on the target server. If the port is open, it reveals information about the service running on it, potentially revealing vulnerabilities.
-    *   **brute_force \[port_number]:** Attempts to crack a password for a specific service running on a port.
-*   **bypass \[firewall_type]:** Requires specific resources or skills to bypass different firewalls. Example: `bypass firewall_a`
-*   **crack \[password_hash]:** Attempts to crack a password hash obtained through exploits. This could involve mini-games or resource expenditure.
-*   **upgrade \[component]:** Allows players to upgrade their own system to improve hacking capabilities:
-    *   **cpu:** Increases hacking speed and success rate.
-    *   **ram:** Allows running more complex exploits simultaneously.
-    *   **network:** Reduces latency and improves scan speed.
-*   **logoff:** Disconnects from the current server. Important for avoiding detection after a successful hack or if the IDS is triggered.
-*   **trace \[ip_address]:** Traces an IP address, potentially revealing the location of other servers or hidden networks.
+*   exploit \[server_name] \[exploit_type]: Instead of a simple `hack`, introduce different types of exploits based on vulnerabilities:
+    *   buffer_overflow: High risk, high reward. Faster hacking but higher chance of triggering IDS.
+    *   sql_injection: Medium risk, medium reward. More reliable than buffer overflow.
+    *   port_scan \[port_number]: Scans a specific port on the target server. If the port is open, it reveals information about the service running on it, potentially revealing vulnerabilities.
+    *   brute_force \[port_number]: Attempts to crack a password for a specific service running on a port.
+*   bypass \[firewall_type]: Requires specific resources or skills to bypass different firewalls. Example: `bypass firewall_a`
+*   crack \[password_hash]: Attempts to crack a password hash obtained through exploits. This could involve mini-games or resource expenditure.
+*   upgrade \[component]: Allows players to upgrade their own system to improve hacking capabilities:
+    *   cpu: Increases hacking speed and success rate.
+    *   ram: Allows running more complex exploits simultaneously.
+    *   network: Reduces latency and improves scan speed.
+*   logoff: Disconnects from the current server. Important for avoiding detection after a successful hack or if the IDS is triggered.
+*   trace \[ip_address]: Traces an IP address, potentially revealing the location of other servers or hidden networks.
 
-**New Ways and Reasons to Hack:**
+New Ways and Reasons to Hack:
 
-*   **Black Market Contracts:** Introduce missions or contracts that reward players for hacking specific servers or performing certain tasks. Examples:
+*   Black Market Contracts: Introduce missions or contracts that reward players for hacking specific servers or performing certain tasks. Examples:
     *   Data theft: Steal sensitive information from a corporate server.
     *   Denial of Service (DoS) attacks: Take down a competitor's server.
     *   Espionage: Install backdoors on target servers for long-term access.
-*   **Server Upgrades:** Servers could have upgradeable components that enhance their security, power, or profitability. Players could hack servers to steal these upgrades or sabotage them.
-*   **Faction Wars:** Introduce factions that compete for control of servers. Players can join a faction and participate in hacking wars.
-*   **Dynamic Security Levels:** Instead of static security levels, introduce systems that adapt to player activity. Frequent attacks on a server could increase its security level.
-*   **Intrusion Detection System (IDS):** Introduce a chance of getting detected during hacking attempts. If detected, players might face consequences like fines, temporary system shutdowns, or being traced by authorities.
+*   Server Upgrades: Servers could have upgradeable components that enhance their security, power, or profitability. Players could hack servers to steal these upgrades or sabotage them.
+*   Faction Wars: Introduce factions that compete for control of servers. Players can join a faction and participate in hacking wars.
+*   Dynamic Security Levels: Instead of static security levels, introduce systems that adapt to player activity. Frequent attacks on a server could increase its security level.
+*   Intrusion Detection System (IDS): Introduce a chance of getting detected during hacking attempts. If detected, players might face consequences like fines, temporary system shutdowns, or being traced by authorities.
 
-**Fun Mini-Games:**
+Fun Mini-Games:
 
-*   **Password Cracking:** A mini-game where players need to solve puzzles or complete challenges to crack passwords.
-*   **Firewall Bypass:** A puzzle-based mini-game where players need to reroute network traffic to bypass a firewall.
-*   **Code Injection:** A mini-game where players need to insert malicious code into a program to exploit a vulnerability.
+*   Password Cracking: A mini-game where players need to solve puzzles or complete challenges to crack passwords.
+*   Firewall Bypass: A puzzle-based mini-game where players need to reroute network traffic to bypass a firewall.
+*   Code Injection: A mini-game where players need to insert malicious code into a program to exploit a vulnerability.
 
-**Things to do with the Money:**
+Things to do with the Money:
 
-*   **Upgrades:** As mentioned before, players can upgrade their own system to improve hacking capabilities.
-*   **Software/Tools:** Purchase new hacking tools or software that provide access to new exploits or improve hacking efficiency.
-*   **Server Hosting:** Players could purchase their own servers to generate passive income or host their own services.
-*   **Bribes/Black Market Deals:** Players could bribe officials to avoid consequences for their actions or purchase illegal information on the black market.
-*   **Cosmetics:** Purchase cosmetic items to customize their terminal or profile.
+*   Upgrades: As mentioned before, players can upgrade their own system to improve hacking capabilities.
+*   Software/Tools: Purchase new hacking tools or software that provide access to new exploits or improve hacking efficiency.
+*   Server Hosting: Players could purchase their own servers to generate passive income or host their own services.
+*   Bribes/Black Market Deals: Players could bribe officials to avoid consequences for their actions or purchase illegal information on the black market.
+*   Cosmetics: Purchase cosmetic items to customize their terminal or profile.
 
-**And More:**
+And More:
 
-*   **Tutorial System:** A more robust tutorial system to introduce players to the different commands and mechanics.
-*   **Help Command:** A `help` command that provides information about specific commands or game mechanics.
-*   **Save/Load System:** Allow players to save and load their progress.
-*   **Visual Enhancements:** While still text-based, consider adding some visual flair with colors, ASCII art, or simple animations.
+*   Tutorial System: A more robust tutorial system to introduce players to the different commands and mechanics.
+*   Help Command: A `help` command that provides information about specific commands or game mechanics.
+*   Save/Load System: Allow players to save and load their progress.
+*   Visual Enhancements: While still text-based, consider adding some visual flair with colors, ASCII art, or simple animations.
 
 By implementing these additions, "Hack(2);" can become a much more complex and engaging hacking simulation with a greater sense of progression and player agency.

@@ -1,29 +1,29 @@
-**New Commands:**
-   - **upgrade:** Allows players to upgrade their hacking tools or purchase new software to enhance their hacking capabilities. Upgrades can increase the success rate of hacks, reduce the time taken, or provide new abilities.
-   - **scan:** Players can scan a server to gather more detailed information about its security measures, potential vulnerabilities, and resource distribution. This command could provide a more in-depth understanding of the server, aiding in strategic hacking decisions.
-   - **merge:** This command enables players to merge their hacked servers into a network, combining their power and security levels. Merged servers could offer increased mining efficiency or provide a stronger defense against potential counter-hacks.
-   - **transfer:** Players can transfer their earned money between servers or to a secure digital wallet. This command adds a layer of financial management and strategy to the game.
+New Commands:
+   - upgrade: Allows players to upgrade their hacking tools or purchase new software to enhance their hacking capabilities. Upgrades can increase the success rate of hacks, reduce the time taken, or provide new abilities.
+   - scan: Players can scan a server to gather more detailed information about its security measures, potential vulnerabilities, and resource distribution. This command could provide a more in-depth understanding of the server, aiding in strategic hacking decisions.
+   - merge: This command enables players to merge their hacked servers into a network, combining their power and security levels. Merged servers could offer increased mining efficiency or provide a stronger defense against potential counter-hacks.
+   - transfer: Players can transfer their earned money between servers or to a secure digital wallet. This command adds a layer of financial management and strategy to the game.
 
-**New Ways to Hack:**
-   - **Brute Force:** Players can attempt a brute-force attack, trying multiple combinations of commands rapidly to gain access to a server. This method carries a higher risk of being detected and locked out, but it could be a quick way to access lower-security servers.
-   - **Social Engineering:** Introduce a mini-game where players engage in social engineering tactics. They could create fake identities, build trust with server administrators, and manipulate them into granting access.
-   - **Zero-Day Exploits:** Discovering and exploiting zero-day vulnerabilities could be a high-risk, high-reward hacking method. Players would need to research and develop exploits, adding an element of real-world hacking to the game.
+New Ways to Hack:
+   - Brute Force: Players can attempt a brute-force attack, trying multiple combinations of commands rapidly to gain access to a server. This method carries a higher risk of being detected and locked out, but it could be a quick way to access lower-security servers.
+   - Social Engineering: Introduce a mini-game where players engage in social engineering tactics. They could create fake identities, build trust with server administrators, and manipulate them into granting access.
+   - Zero-Day Exploits: Discovering and exploiting zero-day vulnerabilities could be a high-risk, high-reward hacking method. Players would need to research and develop exploits, adding an element of real-world hacking to the game.
 
-**Mini-Games and Side Activities:**
-   - **Hacking Tournaments:** Organize timed hacking tournaments where players compete to hack a specific server or network first. These tournaments could offer unique rewards and leaderboards.
-   - **Server Defense:** Players can take on the role of a server administrator and defend their servers from incoming hacks. This mini-game could involve setting up security measures, detecting and blocking hacks, and managing server resources.
-   - **Black Market:** Introduce a black market where players can trade hacking tools, software, and even servers. This could add an element of negotiation, bartering, and risk-taking to the game.
+Mini-Games and Side Activities:
+   - Hacking Tournaments: Organize timed hacking tournaments where players compete to hack a specific server or network first. These tournaments could offer unique rewards and leaderboards.
+   - Server Defense: Players can take on the role of a server administrator and defend their servers from incoming hacks. This mini-game could involve setting up security measures, detecting and blocking hacks, and managing server resources.
+   - Black Market: Introduce a black market where players can trade hacking tools, software, and even servers. This could add an element of negotiation, bartering, and risk-taking to the game.
 
-**Utilizing Earned Money:**
-   - **Server Upgrades:** Players can invest their earnings to upgrade server hardware, increasing their power and mining efficiency.
-   - **Research and Development:** Players can fund research to develop new hacking tools, software, or even create their own unique hacking techniques.
-   - **Charitable Donations:** Introduce a charitable aspect where players can donate a portion of their earnings to a virtual charity, unlocking unique rewards or achievements.
-   - **Hire Hackers:** Players can hire AI-controlled hackers to assist them in their hacking endeavors, providing a more diverse and strategic approach to the game.
+Utilizing Earned Money:
+   - Server Upgrades: Players can invest their earnings to upgrade server hardware, increasing their power and mining efficiency.
+   - Research and Development: Players can fund research to develop new hacking tools, software, or even create their own unique hacking techniques.
+   - Charitable Donations: Introduce a charitable aspect where players can donate a portion of their earnings to a virtual charity, unlocking unique rewards or achievements.
+   - Hire Hackers: Players can hire AI-controlled hackers to assist them in their hacking endeavors, providing a more diverse and strategic approach to the game.
 
-**Additional Features:**
-   - **Global Leaderboards:** Track players' progress and earnings on global leaderboards, encouraging competition and showcasing the top hackers.
-   - **Achievements and Badges:** Implement a system of achievements and badges for completing specific hacking challenges, reaching certain milestones, or employing unique strategies.
-   - **Dynamic Server Generation:** Generate new servers with unique characteristics, security measures, and resource distributions, ensuring a fresh and challenging experience for players.
-   - **Player-to-Player Trading:** Allow players to trade servers, hacking tools, or even money with each other, fostering a vibrant in-game economy.
+Additional Features:
+   - Global Leaderboards: Track players' progress and earnings on global leaderboards, encouraging competition and showcasing the top hackers.
+   - Achievements and Badges: Implement a system of achievements and badges for completing specific hacking challenges, reaching certain milestones, or employing unique strategies.
+   - Dynamic Server Generation: Generate new servers with unique characteristics, security measures, and resource distributions, ensuring a fresh and challenging experience for players.
+   - Player-to-Player Trading: Allow players to trade servers, hacking tools, or even money with each other, fostering a vibrant in-game economy.
 
 Remember to keep the game balanced and engaging by carefully considering the impact of each new feature on the overall gameplay experience.
