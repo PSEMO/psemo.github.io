@@ -24,7 +24,7 @@ const containerForWallet = document.getElementById('containerForWallet');
 const validCommands = 
 [
     "pass", "clear", "clean", "cls", "hack", "mine",
-    "list", "connect"
+    "list", "help", "connect", "scan"
 ];
 const validCommandsWithMessages = 
 [
@@ -244,8 +244,27 @@ function processCommands(commands, isThereMessage)
                     listServers();
                 }
             }
+            //show avaliable commands
+            else if(commands.includes("help"))
+            {
+                if(commands.length > 1)
+                {
+                    addErrorToOutput("The command help cannot be combined with other commands or values.");
+                }
+                else
+                {
+                    help();
+                }
+            }
         }
     }
+}
+
+function help()
+{
+    let __helpMessage = validCommands.join(", ");
+    let __helpMessageWMessages = validCommandsWithMessages.join(", ");
+    addSysMessageToOutput("Avaliable commands are; " + __helpMessage + ". These ones can be combined with variables; " + __helpMessageWMessages + ".");
 }
 
 function showTheServerInfo(serverName)
