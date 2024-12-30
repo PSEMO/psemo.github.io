@@ -157,3 +157,89 @@ button:hover {
 {
     outline: 1px solid red;
 }*/
+
+/*---------resizable window---------*/
+
+/* General styling for the window */
+.window {
+    position: absolute;
+    /* Allow placement anywhere on the page */
+    width: 300px;
+    /* Default width */
+    height: 200px;
+    /* Default height */
+    border: 2px solid #333;
+    /* Dark border */
+    border-radius: 8px;
+    /* Rounded corners */
+    background-color: white;
+    /* White background */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    /* Subtle shadow */
+    overflow: hidden;
+    /* Hide content that overflows the window */
+}
+
+/* Styling for the draggable window header */
+.window-header {
+    background-color: #333;
+    /* Dark background */
+    color: white;
+    /* White text */
+    padding: 8px;
+    /* Add padding inside the header */
+    cursor: grab;
+    /* Indicate the header is draggable */
+    user-select: none;
+    /* Prevent text selection */
+    display: flex;
+    /* Align content horizontally */
+    justify-content: space-between;
+    /* Push close button to the right */
+    align-items: center;
+    /* Center content vertically */
+    height: 25px;
+    /* Fixed header height */
+}
+
+/* Styling for the close button */
+.close-btn {
+    background: none;
+    /* Remove default button background */
+    color: white;
+    /* White text */
+    border: none;
+    /* Remove default border */
+    font-size: 16px;
+    /* Larger font size */
+    cursor: pointer;
+    /* Pointer cursor on hover */
+}
+
+/* Change close button color on hover */
+.close-btn:hover {
+    color: #FF5555;
+    /* Light red */
+}
+
+/* Content inside the window */
+.window-content {
+    padding: 10px;
+    /* Add padding around the content */
+    font-size: 14px;
+    /* Text size */
+    overflow: auto;
+    /* Allow scrolling if content overflows */
+}
+
+/* Resizable handle */
+.resize-handle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: #333;
+    bottom: 0;
+    right: 0;
+    cursor: se-resize;
+    /* Indicate resizing */
+}
