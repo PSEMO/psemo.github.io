@@ -1,9 +1,7 @@
 const content = document.getElementById("content");
 
-function showProjects()
-{
-    for (let index = 0; index < 24; index++)
-    {
+function showProjects() {
+    for (let index = 0; index < 24; index++) {
         const div = document.createElement('div');
         div.className = "wrapper";
         div.innerHTML = `

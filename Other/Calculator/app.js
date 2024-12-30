@@ -36,13 +36,11 @@ function calculateStatus(status, value) {
         status.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-info';
         status.innerHTML = `Durum: İyi`;
     } else {
-        if(value > 800)
-        {
+        if (value > 800) {
             status.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success';
             status.innerHTML = `Durum: Sırılsıklam aşık`;
         }
-        else
-        {
+        else {
             status.className = 'position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success';
             status.innerHTML = `Durum: Gerçek aşk`;
         }
@@ -75,7 +73,7 @@ function calculateResult(str1, str2) {
         calculateStatus(status1, 999);
         calculateStatus(status2, 800);
         calculateStatus(status3, 900);
-    } 
+    }
     else if ((str1L == nameToLove) && (str2L == nameToHate)) {
         section1.style.display = 'block';
         yourCounter.textContent = `${1}%`;
@@ -108,13 +106,13 @@ function calculateResult(str1, str2) {
         calculateStatus(status3, mutualAverage);
     }
 
-    btnMutualLove.addEventListener('click', function() {
+    btnMutualLove.addEventListener('click', function () {
         btnMutualLove.style.display = 'none';
         section2.style.display = 'block';
     })
 }
 
-btnSubmit.onclick = function() {
+btnSubmit.onclick = function () {
     let str1 = yourName.value;
     let str2 = partnerName.value;
     str1 = str1.toLowerCase();

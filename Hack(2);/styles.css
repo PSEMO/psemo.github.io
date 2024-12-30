@@ -1,5 +1,4 @@
-body
-{
+body {
     justify-content: center;
     align-items: center;
     margin: 0;
@@ -8,15 +7,14 @@ body
     color: rgb(0, 165, 0);
     transition: background-color 0.3s, color 0.3s;
 }
-body.dark-theme
-{
+
+body.dark-theme {
     background-color: rgb(0, 30, 0);
     color: rgb(90, 255, 90);
 }
 
 
-.theme-toggle
-{
+.theme-toggle {
     position: absolute;
     top: 10px;
     right: 10px;
@@ -25,11 +23,11 @@ body.dark-theme
 }
 
 
-.container
-{
+.container {
     padding: 35px 60px 20px 35px;
     border-radius: 10px;
 }
+
 /*
 .dark-theme .container
 {
@@ -38,8 +36,7 @@ body.dark-theme
 */
 
 
-.containerForText
-{
+.containerForText {
     padding: 5px 5px 5px 5px;
     border: 30px;
     border-radius: 8px;
@@ -47,40 +44,38 @@ body.dark-theme
     text-align: left;
     transition: background-color 0.3s, color 0.3s;
 }
-.dark-theme .containerForText
-{
+
+.dark-theme .containerForText {
     background-color: rgb(0, 45, 0);
 }
 
 
-#containerForWallet
-{
+#containerForWallet {
     width: fit-content;
 }
-.dark-theme #containerForWallet
-{
+
+.dark-theme #containerForWallet {
     width: fit-content;
 }
 
 
-#containerForInput
-{
+#containerForInput {
     border-radius: 0px;
     background: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, color 0.3s;
-    
+
     color: rgb(10, 85, 10);
     text-align: center;
 }
-.dark-theme #containerForInput
-{
+
+.dark-theme #containerForInput {
     background-color: rgb(20, 20, 20);
 
     color: rgb(0, 255, 0);
 }
-.absolute-bottom
-{
+
+.absolute-bottom {
     padding: 20px 0px 20px 0px;
     position: absolute;
     bottom: 0;
@@ -89,8 +84,7 @@ body.dark-theme
 }
 
 
-input[type="text"]
-{
+input[type="text"] {
     padding: 10px;
     width: 90%;
     margin-bottom: 10px;
@@ -100,16 +94,15 @@ input[type="text"]
     border-radius: 4px;
     transition: background-color 0.3s, color 0.3s, border-color 0.3s;
 }
-.dark-theme input[type="text"]
-{
+
+.dark-theme input[type="text"] {
     background-color: rgb(0, 0, 0);
     color: rgb(0, 255, 0);
     border-color: rgb(85, 85, 85);
 }
 
 
-button
-{
+button {
     padding: 10px 20px;
     font-size: 16px;
     color: #fff;
@@ -119,46 +112,43 @@ button
     cursor: pointer;
     transition: background-color 0.15s;
 }
-button:hover
-{
+
+button:hover {
     background-color: rgb(152, 0, 0);
 }
-.transparent
-{
+
+.transparent {
     color: #00000000;
     background-color: #00000000;
 }
-.transparent:hover
-{
+
+.transparent:hover {
     color: #00000000;
     background-color: #00000000;
 }
 
 
-.error
-{
+.error {
     color: rgb(165, 0, 0);
 }
-.dark-theme .error
-{
+
+.dark-theme .error {
     color: rgb(255, 90, 90);
 }
 
-.warning
-{
+.warning {
     color: rgb(165, 165, 0);
 }
-.dark-theme .warning
-{
+
+.dark-theme .warning {
     color: rgb(255, 255, 90);
 }
 
-.sysmsg
-{
+.sysmsg {
     color: rgb(0, 0, 165);
 }
-.dark-theme .sysmsg
-{
+
+.dark-theme .sysmsg {
     color: rgb(90, 90, 255);
 }
 

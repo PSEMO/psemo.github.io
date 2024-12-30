@@ -86,16 +86,19 @@ body {
 }
 
 @media only screen and (max-width: 425px) {
+
     /*Small smartphones [325px -> 425px]*/
     #text {
         font-size: 1rem;
         width: 80%;
     }
+
     .text1 {
         font-size: .856rem !important;
         width: 95% !important;
         padding: 3px;
     }
+
     .text3 {
         font-size: .875rem !important;
         width: 62% !important;
