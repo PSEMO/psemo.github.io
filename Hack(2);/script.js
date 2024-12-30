@@ -89,7 +89,8 @@ function runUserCode()
             //a command is not valid
             else if (faultyCommands.length === 1)
             {
-                addErrorToOutput("A command was not recognized as a valid internal or external command: " + faultyCommands[0]);
+                addErrorToOutput("A command was not recognized as a valid internal or external command: " +
+                    faultyCommands[0]);
             }
             //all commands are valid
             else
