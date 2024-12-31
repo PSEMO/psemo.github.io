@@ -408,7 +408,7 @@ function createWindow() {
     // Create the close button
     const closeButton = document.createElement('button');
     closeButton.className = 'close-btn';
-    closeButton.textContent = '×';
+    closeButton.textContent = 'X';
     closeButton.addEventListener('click', () => windowElement.remove());
 
     // Append title and close button to the header

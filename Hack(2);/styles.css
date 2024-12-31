@@ -13,7 +13,6 @@ body.dark-theme {
     color: rgb(90, 255, 90);
 }
 
-
 .theme-toggle {
     position: absolute;
     top: 10px;
@@ -22,19 +21,10 @@ body.dark-theme {
     cursor: pointer;
 }
 
-
 .container {
     padding: 35px 60px 20px 35px;
     border-radius: 10px;
 }
-
-/*
-.dark-theme .container
-{
-    
-}
-*/
-
 
 .containerForText {
     padding: 5px 5px 5px 5px;
@@ -49,7 +39,6 @@ body.dark-theme {
     background-color: rgb(0, 45, 0);
 }
 
-
 #containerForWallet {
     width: fit-content;
 }
@@ -58,20 +47,17 @@ body.dark-theme {
     width: fit-content;
 }
 
-
 #containerForInput {
     border-radius: 0px;
     background: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     transition: background-color 0.3s, color 0.3s;
-
     color: rgb(10, 85, 10);
     text-align: center;
 }
 
 .dark-theme #containerForInput {
     background-color: rgb(20, 20, 20);
-
     color: rgb(0, 255, 0);
 }
 
@@ -82,7 +68,6 @@ body.dark-theme {
     left: 0;
     width: 100%;
 }
-
 
 input[type="text"] {
     padding: 10px;
@@ -100,7 +85,6 @@ input[type="text"] {
     color: rgb(0, 255, 0);
     border-color: rgb(85, 85, 85);
 }
-
 
 button {
     padding: 10px 20px;
@@ -127,7 +111,6 @@ button:hover {
     background-color: #00000000;
 }
 
-
 .error {
     color: rgb(165, 0, 0);
 }
@@ -152,94 +135,66 @@ button:hover {
     color: rgb(90, 90, 255);
 }
 
-
-/**
-{
-    outline: 1px solid red;
-}*/
-
-/*---------resizable window---------*/
-
-/* General styling for the window */
 .window {
     position: absolute;
-    /* Allow placement anywhere on the page */
     width: 300px;
-    /* Default width */
     height: 200px;
-    /* Default height */
-    border: 2px solid #333;
-    /* Dark border */
+    border: 2px solid #222;
     border-radius: 8px;
-    /* Rounded corners */
     background-color: white;
-    /* White background */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    /* Subtle shadow */
     overflow: hidden;
-    /* Hide content that overflows the window */
+}
+.dark-theme .window {
+    border: 2px solid #007070;
+    background-color: #222;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Styling for the draggable window header */
 .window-header {
-    background-color: #333;
-    /* Dark background */
+    background-color: #222;
     color: white;
-    /* White text */
-    padding: 8px;
-    /* Add padding inside the header */
+    padding: 4px 4px 4px 4px;
     cursor: grab;
-    /* Indicate the header is draggable */
     user-select: none;
-    /* Prevent text selection */
     display: flex;
-    /* Align content horizontally */
     justify-content: space-between;
-    /* Push close button to the right */
     align-items: center;
-    /* Center content vertically */
-    height: 25px;
-    /* Fixed header height */
+    height: 20px;
+}
+.dark-theme .window-header {
+    background-color: #007070;
+    color: rgb(0, 0, 0);
 }
 
-/* Styling for the close button */
-.close-btn {
-    background: none;
-    /* Remove default button background */
-    color: white;
-    /* White text */
-    border: none;
-    /* Remove default border */
-    font-size: 16px;
-    /* Larger font size */
-    cursor: pointer;
-    /* Pointer cursor on hover */
-}
-
-/* Change close button color on hover */
-.close-btn:hover {
-    color: #FF5555;
-    /* Light red */
-}
-
-/* Content inside the window */
-.window-content {
-    padding: 10px;
-    /* Add padding around the content */
-    font-size: 14px;
-    /* Text size */
-    overflow: auto;
-    /* Allow scrolling if content overflows */
-}
-
-/* Resizable handle */
 .resize-handle {
     position: absolute;
     width: 10px;
     height: 10px;
-    background-color: #333;
+    background-color: #222;
     bottom: 0;
     right: 0;
     cursor: se-resize;
-    /* Indicate resizing */
+}
+.dark-theme .resize-handle {
+    background-color: #007070;
+}
+
+.close-btn {
+    background: none;
+    color: white;
+    border: none;
+    font-size: 15px;
+    font-weight: bold;
+    padding: 3px 7px;
+    cursor: pointer;
+}
+.dark-theme .close-btn {
+    color: rgb(0, 0, 0);
+}
+
+.window-content {
+    padding: 10px;
+    font-size: 14px;
+    overflow: auto;
 }
