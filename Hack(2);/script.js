@@ -61,9 +61,21 @@ function runUserCode() {
 
         EditedInput = inputValue.toLowerCase();
         EditedInput = EditedInput.replaceAll("();", "");
-        commands = EditedInput.split(' ');
+
+        let messages = [];
+        while(getTextBetween(EditedInput, "(", ");") != false)
+        {
+            messages.push(getTextBetween(EditedInput, "(", ");"));
+        }
+        
+        let commands = EditedInput.split(' ');
+
+        //we are handling messages like any other commands for now.
+        commands = commands.concat(messages);
+
         console.log("detected commands are, ");
         console.log(commands);
+        
 
         // Find strings in commands that are not in validCommands
         const faultyCommands = commands.filter(command_ => !validCommands.includes(command_));
@@ -277,7 +289,7 @@ function getTextBetween(text, startMarker, endMarker) {
         return [concatenatedWithMarkers, concatenatedWithoutMarkers];
     }
     else {
-        return -1;
+        return false;
     }
 }
 
