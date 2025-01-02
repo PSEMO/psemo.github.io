@@ -14,6 +14,9 @@ const ColorMode =
     LIGHT: 1
 };
 
+let windowCount = 0; // Track the number of created windows
+let zIndexCounter = 1; // Initialize z-index counter
+
 const userInputField = document.getElementById('userInputField');
 const runButton = document.getElementById('runButton');
 const themeToggleButton = document.getElementById('themeToggleButton');
@@ -44,13 +47,11 @@ var totalMoney = 0;
 
 let servers =
     [
-        new server("localServer", 10, 1, 1),
-        new server("MinebuildGameServer", 15, 2, 0),
-        new server("dataVault", 30, 5, 0),
-        new server("cryptoFarm", 50, 8, 0),
-        new server("mainframe", 100, 10, 0)
+        new server("localServer", 10, 1, 1)
     ]
 var CurrentServer = servers[0];
+
+servers = servers.concat(generateServers(19));
 
 //Deal with the input.
 function runUserCode() {
@@ -236,6 +237,50 @@ function processCommands(commands, isThereMessage) {
     }
 }
 
+//(inclusive)
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function generateUniqueName(existingNames) {
+    const adjectives = ["Quantum", "Alpha", "Mega", "Hyper", "Cyber", "Nano", "Shadow", "Giga"];
+    const nouns = ["Server", "Node", "Vault", "Farm", "Core", "Hub", "Grid", "Cluster"];
+
+    let name;
+    do {
+        const adjective = adjectives[getRandomInt(0, adjectives.length - 1)];
+        const noun = nouns[getRandomInt(0, nouns.length - 1)];
+        const number = getRandomInt(1, 9999);
+        name = `${adjective}${noun}${number}`;
+    } while (existingNames.has(name));
+
+    existingNames.add(name);
+    return name;
+}
+
+function createRandomServer(existingNames) {
+    const name = generateUniqueName(existingNames);
+    const power = getRandomInt(10, 100); // Random power between 10 and 100
+    const securityLevel = getRandomInt(1, 10); // Random security level between 1 and 10
+    const hackedLevel = getRandomInt(0, securityLevel - 1); // Random hacked level less than security level
+    return new server(name, power, securityLevel, hackedLevel);
+}
+
+function generateServers(count) {
+    const servers = [];
+    const existingNames = new Set(); // Keep track of unique names
+
+    for (let i = 0; i < count; i++) {
+        servers.push(createRandomServer(existingNames));
+    }
+
+    return servers;
+}
+
+function getServerNames(servers) {
+    return servers.map(server => server.name);
+}
+
 function help() {
     let __helpMessage = validCommands.join(", ");
     let __helpMessageWMessages = validCommandsWithMessages.join(", ");
@@ -385,47 +430,6 @@ function anyElementInArray(array1, array2) {
     return false; // Return false if no matches are found
 }
 
-//Event listeners for buttons
-themeToggleButton.addEventListener('click', toggleTheme);
-runButton.addEventListener('click', runUserCode);
-
-//Event listeners for key presses
-userInputField.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        runUserCode();
-    }
-});
-
-window.onload = update();
-function update() {
-    delay = 16;
-    multiplier = 16 / 1000;
-
-    function fnc() {
-        totalMoney = totalMoney + (profitPerSecond * multiplier);
-
-        stringMoney = (totalMoney + "");
-        indexOfDot = stringMoney.indexOf(".");
-
-        if (indexOfDot != -1) {
-            stringMoney = stringMoney.substring(0, stringMoney.indexOf(".") + 3);
-        }
-
-        containerForWallet.innerHTML = stringMoney + "$";
-    }
-    setInterval(fnc, delay);
-}
-
-toggleTheme(); //makes the default theme dark.
-
-//---------resizable window---------
-
-let windowCount = 0; // Track the number of created windows
-let zIndexCounter = 1; // Initialize z-index counter
-
-// Event listener for creating a new window
-document.getElementById('create-window').addEventListener('click', createWindow);
-
 function createWindow() {
     // Create the main window element
     const windowElement = document.createElement('div');
@@ -538,3 +542,37 @@ function makeResizable(windowElement, resizeHandle) {
         isResizing = false;
     });
 }
+
+//Event listeners for buttons
+themeToggleButton.addEventListener('click', toggleTheme);
+runButton.addEventListener('click', runUserCode);
+document.getElementById('create-window').addEventListener('click', createWindow);
+
+//Event listeners for key presses
+userInputField.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        runUserCode();
+    }
+});
+
+window.onload = update();
+function update() {
+    delay = 16;
+    multiplier = 16 / 1000;
+
+    function fnc() {
+        totalMoney = totalMoney + (profitPerSecond * multiplier);
+
+        stringMoney = (totalMoney + "");
+        indexOfDot = stringMoney.indexOf(".");
+
+        if (indexOfDot != -1) {
+            stringMoney = stringMoney.substring(0, stringMoney.indexOf(".") + 3);
+        }
+
+        containerForWallet.innerHTML = stringMoney + "$";
+    }
+    setInterval(fnc, delay);
+}
+
+toggleTheme(); //makes the default theme dark.
