@@ -66,6 +66,8 @@ function runUserCode() {
         while(getTextBetween(EditedInput, "(", ");") != false)
         {
             messages.push(getTextBetween(EditedInput, "(", ");"));
+            EditedInput = EditedInput.replace(");", "");
+            EditedInput = EditedInput.replace("(", "");
         }
         
         let commands = EditedInput.split(' ');
