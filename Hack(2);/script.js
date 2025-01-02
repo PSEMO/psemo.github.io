@@ -63,21 +63,22 @@ function runUserCode() {
         EditedInput = EditedInput.replaceAll("();", "");
 
         let messages = [];
-        while(getTextBetween(EditedInput, "(", ");") != false)
+
+        let __TempEditedInput = EditedInput;
+        while(getTextBetween(__TempEditedInput, "(", ");") !== false)
         {
-            messages.push(getTextBetween(EditedInput, "(", ");"));
-            EditedInput = EditedInput.replace(");", "");
-            EditedInput = EditedInput.replace("(", "");
+            messages.push(getTextBetween(__TempEditedInput, "(", ");").withoutStrings);
+            //remove "(" and ");"
+            __TempEditedInput = (__TempEditedInput.replace("(", "")).replace(");", "");
         }
         
         let commands = EditedInput.split(' ');
-
-        //we are handling messages like any other commands for now.
+        commands = removeMessageFromCommands(commands);
+        //we are handling messages like any other command. They are being detected as messages later down the line.
         commands = commands.concat(messages);
 
         console.log("detected commands are, ");
         console.log(commands);
-        
 
         // Find strings in commands that are not in validCommands
         const faultyCommands = commands.filter(command_ => !validCommands.includes(command_));
@@ -284,24 +285,42 @@ function startMining() {
     addSysMessageToOutput("Mining started on the {" + CurrentServer.name + "} server.");
 }
 
-function getTextBetween(text, startMarker, endMarker) {
-    const regex = new RegExp(`${startMarker}(.*?)${endMarker}`, 'g');
-    const matches = [];
-    let match;
+function getTextBetween(text, startString, endString) {
+    // Check if startString and endString exist in the text
+    const startIndex = text.indexOf(startString);
+    const endIndex = text.indexOf(endString, startIndex + startString.length);
 
-    while ((match = regex.exec(text)) !== null) {
-        matches.push(`${startMarker}${match[1]}${endMarker}`);
-    }
-
-    if (matches != []) {
-        let concatenatedWithMarkers = matches.join(' ');
-        let concatenatedWithoutMarkers = concatenatedWithMarkers.slice(1, -2);
-
-        return [concatenatedWithMarkers, concatenatedWithoutMarkers];
-    }
-    else {
+    // If either string is not found or no text exists between them, return false
+    if (startIndex === -1 || endIndex === -1 || startIndex + startString.length >= endIndex) {
         return false;
     }
+
+    // Extract the text between startString and endString
+    const textBetween = text.substring(startIndex + startString.length, endIndex);
+
+    // Return the results
+    return {
+        withStrings: text.substring(startIndex, endIndex + endString.length),
+        withoutStrings: textBetween
+    };
+}
+
+function removeTextBetween(text, startString, endString) {
+    // Check if startString and endString exist in the text
+    const startIndex = text.indexOf(startString);
+    const endIndex = text.indexOf(endString, startIndex + startString.length);
+
+    // If either string is not found or no text exists between them, return the original text
+    if (startIndex === -1 || endIndex === -1 || startIndex + startString.length >= endIndex) {
+        return text;
+    }
+
+    // Remove the text between startString and endString, including the strings themselves
+    return text.substring(0, startIndex) + text.substring(endIndex + endString.length);
+}
+
+function removeMessageFromCommands(commands) {
+    return commands.map(command => removeTextBetween(command, "(", ");"));
 }
 
 function addSysMessageToOutput(text) {
