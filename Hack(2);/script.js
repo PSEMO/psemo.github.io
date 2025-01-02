@@ -22,7 +22,7 @@ const containerForWallet = document.getElementById('containerForWallet');
 const validCommands =
     [
         "pass", "clear", "clean", "cls", "hack", "mine",
-        "list", "help", "connect", "scan"
+        "list", "help", "connect", "scan", "pwd"
     ];
 const validCommandsWithMessages =
     [
@@ -218,6 +218,15 @@ function processCommands(commands, isThereMessage) {
                 }
                 else {
                     help();
+                }
+            }
+            //list given server defaul is current
+            else if (commands.includes("pwd")) {
+                if (commands.length === 1) {
+                    showTheServerInfo(CurrentServer.name);
+                }
+                else if (commands.length > 1) {
+                    addErrorToOutput("The command pwd cannot be combined with other commands or values.");
                 }
             }
         }
