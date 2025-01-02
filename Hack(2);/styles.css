@@ -41,7 +41,6 @@ body.dark-theme {
 #containerForWallet {
     width: fit-content;
 }
-
 .dark-theme #containerForWallet {
     width: fit-content;
 }
@@ -54,7 +53,6 @@ body.dark-theme {
     color: rgb(10, 85, 10);
     text-align: center;
 }
-
 .dark-theme #containerForInput {
     background-color: rgb(20, 20, 20);
     color: rgb(0, 255, 0);
