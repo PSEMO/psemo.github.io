@@ -20,7 +20,7 @@ class item {
 }
 let market =
     [
-        
+        new server("ram")
     ]
 
 const ColorMode =
