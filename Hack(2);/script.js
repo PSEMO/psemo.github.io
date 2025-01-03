@@ -7,6 +7,21 @@ class server {
         this.working = false;
     }
 }
+let servers =
+    [
+        new server("localServer", 10, 1, 1)
+    ]
+var CurrentServer = servers[0];
+
+class item {
+    constructor(name) {
+        this.name = name;
+    }
+}
+let market =
+    [
+        
+    ]
 
 const ColorMode =
 {
@@ -44,12 +59,6 @@ themeToggleImg.src = themeAdjustDark;
 
 var profitPerSecond = 0;
 var totalMoney = 0;
-
-let servers =
-    [
-        new server("localServer", 10, 1, 1)
-    ]
-var CurrentServer = servers[0];
 
 servers = servers.concat(generateServers(19));
 
@@ -233,8 +242,22 @@ function processCommands(commands, isThereMessage) {
                     addErrorToOutput("The command pwd cannot be combined with other commands or values.");
                 }
             }
+            //list market content
+            else if (commands.includes("market")) {
+                if (commands.length === 1) {
+                    showMarket();
+                }
+                else if (commands.length > 1) {
+                    addErrorToOutput("The command market cannot be combined with other commands or values.");
+                }
+            }
         }
     }
+}
+
+function showMarket()
+{
+    
 }
 
 //(inclusive)
