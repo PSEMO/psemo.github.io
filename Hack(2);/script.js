@@ -7,21 +7,64 @@ class server {
         this.working = false;
     }
 }
+
 let servers =
     [
         new server("localServer", 10, 1, 1)
     ]
 var CurrentServer = servers[0];
 
-class item {
-    constructor(name) {
+// Enum-like object for component types
+const ComponentType = {
+    CPU: "CPU",
+    RAM: "RAM",
+    PSU: "PSU",
+    GPU: "GPU",
+};
+
+// Enum-like object for units
+const UnitType = {
+    WATT: "Watt",
+    GB: "GB",
+    CinebenchR20: "Cinebench R20",
+    TimeSpy3dMark: "3DMark Time Spy"
+};
+
+// Unified class for all components
+class Component {
+    constructor(type, name, specs = {}) {
+        if (!Object.values(ComponentType).includes(type)) {
+            throw new Error(`Invalid component type: ${type}`);
+        }
+        this.type = type;
         this.name = name;
+        this.specs = specs;
+    }
+
+    getDescription() {
+        const statDetails = this.specs.stat ? `${this.specs.stat.value} ${this.specs.stat.unit}` : "N/A";
+        const powerDetails = this.specs.power ? `${this.specs.power.value} ${this.specs.power.unit}` : "N/A";
+        return `Component: ${this.name} (${this.type})\nStat: ${statDetails}\nPower: ${powerDetails}`;
     }
 }
-let market =
-    [
-        new server("ram")
-    ]
+
+let market = []
+
+// Example usage
+market.push(new Component(ComponentType.GPU, "RTX 4090", {
+    stat: { value: 33400, unit: UnitType.TimeSpy3dMark },
+    power: { value: 450, unit: UnitType.WATT } }));
+market.push(new Component(ComponentType.CPU, "i9 14900k", {
+    stat: { value: 15600, unit: UnitType.CinebenchR20 },
+    power: { value: 250, unit: UnitType.WATT } }));
+market.push(new Component(ComponentType.RAM, "16GB DDR4", {
+    stat: { value: 16, unit: UnitType.GB },
+    power: { value: 3, unit: UnitType.WATT } }));
+market.push(new Component(ComponentType.PSU, "850 Watt 80+ White", {
+    stat: { value: 850, unit: UnitType.WATT },
+    power: { value: 1060, unit: UnitType.WATT } }));
+
+console.log(getMarketDetails(market));
 
 const ColorMode =
 {
@@ -258,6 +301,14 @@ function processCommands(commands, isThereMessage) {
 function showMarket()
 {
     
+}
+
+// Function to return a string with all market elements' details
+function getMarketDetails(market) {
+    if (market.length === 0) {
+        return "The market is empty.";
+    }
+    return market.map(component => component.getDescription()).join("\n--------------------\n");
 }
 
 //(inclusive)
