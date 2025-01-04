@@ -8,12 +8,6 @@ class server {
     }
 }
 
-let servers =
-    [
-        new server("localServer", 10, 1, 1)
-    ]
-var CurrentServer = servers[0];
-
 // Enum-like object for component types
 const ComponentType = {
     CPU: "CPU",
@@ -48,53 +42,114 @@ class Component {
     }
 }
 
-let market = []
-
-// Example usage
-market.push(new Component(ComponentType.GPU, "RTX 4090", {
-    stat: { value: 33400, unit: UnitType.TimeSpy3dMark },
-    power: { value: 450, unit: UnitType.WATT } }));
-market.push(new Component(ComponentType.CPU, "i9 14900k", {
-    stat: { value: 15600, unit: UnitType.CinebenchR20 },
-    power: { value: 250, unit: UnitType.WATT } }));
-market.push(new Component(ComponentType.RAM, "16GB DDR4", {
-    stat: { value: 16, unit: UnitType.GB },
-    power: { value: 3, unit: UnitType.WATT } }));
-market.push(new Component(ComponentType.PSU, "850 Watt 80+ White", {
-    stat: { value: 850, unit: UnitType.WATT },
-    power: { value: 1060, unit: UnitType.WATT } }));
-
-console.log(getMarketDetails(market));
-
 const ColorMode =
 {
     DARK: 0,
     LIGHT: 1
 };
 
-let windowCount = 0; // Track the number of created windows
-let zIndexCounter = 1; // Initialize z-index counter
+//#region market
+let market = []
 
+market.push(new Component(ComponentType.GPU, "RX 470", {
+    stat: { value: 450, unit: UnitType.TimeSpy3dMark },
+    power: { value: 120, unit: UnitType.WATT }
+}));
+market.push(new Component(ComponentType.CPU, "FX-6300", {
+    stat: { value: 850, unit: UnitType.CinebenchR20 },
+    power: { value: 95, unit: UnitType.WATT }
+}));
+market.push(new Component(ComponentType.RAM, "8GB", {
+    stat: { value: 8, unit: UnitType.GB },
+    power: { value: 3, unit: UnitType.WATT }
+}));
+market.push(new Component(ComponentType.PSU, "400 Watt", {
+    stat: { value: 400, unit: UnitType.WATT },
+    power: { value: 550, unit: UnitType.WATT }
+}));
+market.push(new Component(ComponentType.GPU, "RTX 4090", {
+    stat: { value: 33400, unit: UnitType.TimeSpy3dMark },
+    power: { value: 450, unit: UnitType.WATT }
+}));
+market.push(new Component(ComponentType.CPU, "i9 14900k", {
+    stat: { value: 15600, unit: UnitType.CinebenchR20 },
+    power: { value: 250, unit: UnitType.WATT }
+}));
+market.push(new Component(ComponentType.RAM, "16GB", {
+    stat: { value: 16, unit: UnitType.GB },
+    power: { value: 3, unit: UnitType.WATT }
+}));
+market.push(new Component(ComponentType.PSU, "850 Watt 80+ White", {
+    stat: { value: 850, unit: UnitType.WATT },
+    power: { value: 1060, unit: UnitType.WATT }
+}));
+
+console.log(getMarketDetails(market));
+//#endregion
+
+//#region servers
+let servers = [
+    new server("localServer", 10, 1, 1)
+]
+    
+servers = servers.concat(generateServers(19));
+
+var CurrentServer = servers[0];
+let localServerHardware = {
+    cpuList: [market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1],
+    market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1], market[1]],
+
+    gpuList: [market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0],
+    market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0], market[0]],
+
+    ramList: [market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2],
+    market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2], market[2]],
+
+    psuList: [market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3],
+    market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3], market[3]]
+}
+
+let maxLocalServerLevel = 2500;
+//#endregion
+
+//#region HTML document element
 const userInputField = document.getElementById('userInputField');
 const runButton = document.getElementById('runButton');
 const themeToggleButton = document.getElementById('themeToggleButton');
 const containerForWallet = document.getElementById('containerForWallet');
+const containerForOutput = document.getElementById("containerForOutput");
+const themeToggleImg = document.getElementById("themeToggleImg");
+//#endregion
 
-const validCommands =
-    [
-        "pass", "clear", "clean", "cls", "hack", "mine",
-        "list", "help", "connect", "scan", "pwd"
-    ];
-const validCommandsWithMessages =
-    [
-        "connect", "scan"
-    ];
+//#region commands
+const validCommands = [
+    "pass", "clear", "clean", "cls", "hack", "mine",
+    "list", "help", "connect", "scan", "pwd"
+];
+const validCommandsWithMessages = [
+    "connect", "scan"
+];
+//#endregion
 
-var containerForOutput = document.getElementById("containerForOutput");
-var themeToggleImg = document.getElementById("themeToggleImg");
+//#region event listeners
+//Event listeners for buttons
+themeToggleButton.addEventListener('click', toggleTheme);
+runButton.addEventListener('click', runUserCode);
+document.getElementById('create-window').addEventListener('click', createWindow);
 
-var themeAdjustDark = "themeAdjustDark.png";
-var themeAdjustLight = "themeAdjustLight.png";
+//Event listeners for key presses
+userInputField.addEventListener('keydown', function (event) {
+    if (event.key === 'Enter') {
+        runUserCode();
+    }
+});
+//#endregion
+
+let windowCount = 0; // Track the number of created windows
+let zIndexCounter = 1; // Initialize z-index counter
+
+const themeAdjustDark = "themeAdjustDark.png";
+const themeAdjustLight = "themeAdjustLight.png";
 
 var CurrentTheme = ColorMode.LIGHT;
 
@@ -103,7 +158,22 @@ themeToggleImg.src = themeAdjustDark;
 var profitPerSecond = 0;
 var totalMoney = 0;
 
-servers = servers.concat(generateServers(19));
+window.onload = update();
+function update() {
+    delay = 16;
+    multiplier = 16 / 1000;
+
+    function fnc() {
+        totalMoney = totalMoney + (profitPerSecond * multiplier);
+
+        stringMoney = formatNumber(totalMoney);
+
+        containerForWallet.innerHTML = stringMoney + "$";
+    }
+    setInterval(fnc, delay);
+}
+
+toggleTheme(); //makes the default theme dark.
 
 //Deal with the input.
 function runUserCode() {
@@ -303,6 +373,78 @@ function showMarket()
     
 }
 
+console.log(setLocalServerPower());
+
+function setLocalServerPower() {
+    servers[0].power = (10 * (2 ** miningLevel(localServerHardware.cpuList,localServerHardware.gpuList,localServerHardware.ramList,localServerHardware.psuList)[0]));
+
+    return servers[0].power;
+}
+
+function getLevelDetails(level) {
+    if (level < 1) {
+        level = 1;
+    }
+    else if (level > maxLocalServerLevel) {
+        level = maxLocalServerLevel
+    }
+
+    let baseCpu = 1000;
+    let baseGpu = 500;
+    let baseRam = 4;
+
+    // Calculate values dynamically based on level
+    let cpu = baseCpu + Math.floor((level - 1) / 4) * 1000;
+    let gpu = baseGpu + ((level - 1) % 4) * 500 + Math.floor((level - 1) / 4) * 2000;
+    let ram = baseRam + Math.floor((level - 1) / 2) * 2;
+    
+    return { cpu: cpu, gpu: gpu, ram: ram, level: level };
+}
+
+function miningLevel(cpuList, gpuList, ramList, psuList) {
+    // Calculate total stats for the provided components
+    let totalCpuPower = cpuList.reduce((sum, cpu) => sum + cpu.specs.stat.value, 0);
+    let totalGpuPower = gpuList.reduce((sum, gpu) => sum + gpu.specs.stat.value, 0);
+    let totalRam = ramList.reduce((sum, ram) => sum + ram.specs.stat.value, 0);
+    let totalPsuCapacity = psuList.reduce((sum, psu) => sum + psu.specs.stat.value, 0);
+    let powerConsumptionFromWall = psuList.reduce((sum, psu) => sum + psu.specs.power.value, 0);
+    let totalPowerConsumption = 
+        cpuList.reduce((sum, cpu) => sum + cpu.specs.power.value, 0) +
+        gpuList.reduce((sum, gpu) => sum + gpu.specs.power.value, 0) +
+        ramList.reduce((sum, ram) => sum + ram.specs.power.value, 0);
+
+    function affoardableLevel(levelCount) {
+        let level = getLevelDetails(levelCount);
+        return (
+            totalCpuPower >= level.cpu &&
+            totalGpuPower >= level.gpu &&
+            totalRam >= level.ram &&
+            totalPsuCapacity >= totalPowerConsumption
+        );
+    }
+
+    // Determine the mining level
+    for (let i = maxLocalServerLevel; i >= 0; i -= (maxLocalServerLevel / 10)) {
+        if (affoardableLevel(i))
+        {
+            for (let j = i + (maxLocalServerLevel / 10); j >= 0; j -= (maxLocalServerLevel / 100)) {
+                if (affoardableLevel(j))
+                {
+                    for (let z = j + (maxLocalServerLevel / 100); z >= 0; z--) {
+                        if (affoardableLevel(z))
+                        {
+                            return [z, powerConsumptionFromWall];
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    // If no level is met
+    return [0, powerConsumptionFromWall];
+}
+
 // Function to return a string with all market elements' details
 function getMarketDetails(market) {
     if (market.length === 0) {
@@ -324,7 +466,17 @@ function generateUniqueName(existingNames) {
     do {
         const adjective = adjectives[getRandomInt(0, adjectives.length - 1)];
         const noun = nouns[getRandomInt(0, nouns.length - 1)];
-        const number = getRandomInt(1, 9999);
+
+        let number;
+        if(randomOutcome = Math.random() < 0.5)
+        {
+            number = getRandomInt(1, 9999);
+        }
+        else
+        {
+            number = "";
+        }
+
         name = `${adjective}${noun}${number}`;
     } while (existingNames.has(name));
 
@@ -617,36 +769,13 @@ function makeResizable(windowElement, resizeHandle) {
     });
 }
 
-//Event listeners for buttons
-themeToggleButton.addEventListener('click', toggleTheme);
-runButton.addEventListener('click', runUserCode);
-document.getElementById('create-window').addEventListener('click', createWindow);
+function formatNumber(number) {
+    // Split the number into integer and decimal parts
+    let [integerPart, decimalPart] = number.toFixed(2).split('.');
 
-//Event listeners for key presses
-userInputField.addEventListener('keydown', function (event) {
-    if (event.key === 'Enter') {
-        runUserCode();
-    }
-});
+    // Add thousands separator to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
 
-window.onload = update();
-function update() {
-    delay = 16;
-    multiplier = 16 / 1000;
-
-    function fnc() {
-        totalMoney = totalMoney + (profitPerSecond * multiplier);
-
-        stringMoney = (totalMoney + "");
-        indexOfDot = stringMoney.indexOf(".");
-
-        if (indexOfDot != -1) {
-            stringMoney = stringMoney.substring(0, stringMoney.indexOf(".") + 3);
-        }
-
-        containerForWallet.innerHTML = stringMoney + "$";
-    }
-    setInterval(fnc, delay);
+    // Format the number with a comma as the decimal separator
+    return `${integerPart},${decimalPart}`;
 }
-
-toggleTheme(); //makes the default theme dark.
