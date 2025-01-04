@@ -514,8 +514,25 @@ function help() {
 }
 
 function showTheServerInfo(serverName) {
+    function printComponentDetails(componentList) {
+        componentList.forEach(component => {
+            addSysMessageToOutput(component.getDescription());
+            addSysMessageToOutput('-----------------------------------');
+        });
+    }
     if(serverName == "localServer") {
-        
+        addSysMessageToOutput(`Server Name: ${servers[i].name}`);
+        addSysMessageToOutput(`Server Power: ${servers[i].power}`);
+        addSysMessageToOutput(`Server Hardware:`);
+        addSysMessageToOutput("CPU List;");
+        printComponentDetails(localServerHardware.cpuList);
+        addSysMessageToOutput("GPU List;");
+        printComponentDetails(localServerHardware.gpuList);
+        addSysMessageToOutput("RAM List;");
+        printComponentDetails(localServerHardware.ramList);
+        addSysMessageToOutput("PSU List;");
+        printComponentDetails(localServerHardware.psuList);
+        getDescription
     }
     else {
         for (let i = 0; i < servers.length; i++) {
