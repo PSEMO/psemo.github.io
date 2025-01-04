@@ -1,3 +1,4 @@
+//#region classes and enums
 class server {
     constructor(name, power, SecurityLevel, HackedLevel) {
         this.name = name;
@@ -47,6 +48,7 @@ const ColorMode =
     DARK: 0,
     LIGHT: 1
 };
+//#endregion
 
 //#region market
 let market = []
@@ -118,10 +120,11 @@ const themeToggleImg = document.getElementById("themeToggleImg");
 //#region commands
 const validCommands = [
     "pass", "clear", "clean", "cls", "hack", "mine",
-    "list", "help", "connect", "scan", "pwd"
+    "list", "help", "connect", "scan", "pwd", "market",
+    "buy"
 ];
 const validCommandsWithMessages = [
-    "connect", "scan"
+    "connect", "scan", "market", "buy"
 ];
 //#endregion
 
@@ -139,6 +142,7 @@ userInputField.addEventListener('keydown', function (event) {
 });
 //#endregion
 
+//#region creating windows and light/dark theme
 let windowCount = 0; // Track the number of created windows
 let zIndexCounter = 1; // Initialize z-index counter
 
@@ -148,6 +152,7 @@ const themeAdjustLight = "themeAdjustLight.png";
 var CurrentTheme = ColorMode.LIGHT;
 
 themeToggleImg.src = themeAdjustDark;
+//#endregion
 
 var profitPerSecond = 0;
 var totalMoney = 0;
@@ -273,6 +278,38 @@ function processCommands(commands, isThereMessage) {
                     addErrorToOutput("The command scan cannot be combined with more than one command or value.");
                 }
             }
+            //list market content or buy
+            else if (commands.includes("buy")) {
+                if (commands.length === 1) {
+                    addErrorToOutput("No product was given.");
+                }
+                else if (commands.length === 2) {
+                    let productToBuy;
+                    if(commands[0] == "buy")
+                    {
+                        productToBuy = getProduct(commands[1]);
+                    }
+                    else
+                    {
+                        productToBuy = getProduct(commands[0]);
+                    }
+
+                    buy(productToBuy);
+                }
+                else if (commands.length > 2) {
+                    addErrorToOutput("Multiple item buys are not ready yet!");
+                }
+            }
+            //list market content or buy
+            else if (commands.includes("market")) {
+                if (commands.length === 1) {
+                    showMarket();
+                }
+                else if (commands.length > 1) {
+                    commands = updateElement(commands, "market", "buy");
+                    processCommands(commands, true);
+                }
+            }
         }
         else {
             //clean or clear command
@@ -349,17 +386,45 @@ function processCommands(commands, isThereMessage) {
                     addErrorToOutput("The command pwd cannot be combined with other commands or values.");
                 }
             }
-            //list market content
-            else if (commands.includes("market")) {
-                if (commands.length === 1) {
-                    showMarket();
-                }
-                else if (commands.length > 1) {
-                    addErrorToOutput("The command market cannot be combined with other commands or values.");
-                }
-            }
         }
     }
+}
+
+function buy(product)
+{
+    if(product.type == ComponentType.CPU)
+    {
+        localServerHardware.cpuList.push(product);
+    }
+    else if(product.type == ComponentType.GPU)
+    {
+        localServerHardware.gpuList.push(product);
+    }
+    else if(product.type == ComponentType.RAM)
+    {
+        localServerHardware.ramList.push(product);
+    }
+    else if(product.type == ComponentType.PSU)
+    {
+        localServerHardware.psuList.push(product);
+    }
+}
+
+function getProduct(name) {
+    const product = market.find(component => component.name.toLowerCase() === name.toLowerCase());
+    return product || null; // Return null if no matching product is found
+}
+
+function updateElement(array, targetValue, newValue) {
+    if (!Array.isArray(array)) {
+        throw new Error("The first parameter must be an array.");
+    }
+
+    const index = array.indexOf(targetValue); // Find the index of the target value
+    if (index !== -1) {
+        array[index] = newValue; // Update the value at the found index
+    }
+    return array; // Return the updated array
 }
 
 function showMarket()
@@ -438,7 +503,7 @@ function miningLevel(cpuList, gpuList, ramList, psuList) {
 }
 
 // Function to return a string with all market elements' details
-function getMarketDetails(market) {
+function getMarketDetails() {
     if (market.length === 0) {
         return "The market is empty.";
     }
