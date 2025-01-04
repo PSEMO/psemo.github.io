@@ -514,25 +514,42 @@ function help() {
 }
 
 function showTheServerInfo(serverName) {
-    function printComponentDetails(componentList) {
+    function getComponentDetailsWithCount(componentList) {
+        const componentCounts = {};
+    
+        // Count occurrences of each component
         componentList.forEach(component => {
-            addSysMessageToOutput(component.getDescription());
-            addSysMessageToOutput('-----------------------------------');
+            const key = `${component.type}-${component.name}`;
+            if (componentCounts[key]) {
+                componentCounts[key].count++;
+            } else {
+                componentCounts[key] = { count: 1, component };
+            }
         });
+    
+        // Print the components with their count
+        output = "<br>";
+        for (const key in componentCounts) {
+            const { count, component } = componentCounts[key];
+            output = output + `${count}x ${component.getDescription()}` + `<br>`;
+        }
+        return output;
     }
+
     if(serverName == "localServer") {
-        addSysMessageToOutput(`Server Name: ${servers[i].name}`);
-        addSysMessageToOutput(`Server Power: ${servers[i].power}`);
-        addSysMessageToOutput(`Server Hardware:`);
-        addSysMessageToOutput("CPU List;");
-        printComponentDetails(localServerHardware.cpuList);
-        addSysMessageToOutput("GPU List;");
-        printComponentDetails(localServerHardware.gpuList);
-        addSysMessageToOutput("RAM List;");
-        printComponentDetails(localServerHardware.ramList);
-        addSysMessageToOutput("PSU List;");
-        printComponentDetails(localServerHardware.psuList);
-        getDescription
+        addSysMessageToOutput(`<br>` +
+            `Server Name: ${servers[0].name}` + "<br>" +
+            `Server Power: ${servers[0].power}` + "<br>" +
+            `Server Hardware:` + "<br>" +
+            "CPU List;" +
+            getComponentDetailsWithCount(localServerHardware.cpuList) +
+            "GPU List;" +
+            getComponentDetailsWithCount(localServerHardware.gpuList) +
+            "RAM List;" +
+            getComponentDetailsWithCount(localServerHardware.ramList) +
+            "PSU List;" +
+            getComponentDetailsWithCount(localServerHardware.psuList)
+        );
     }
     else {
         for (let i = 0; i < servers.length; i++) {
