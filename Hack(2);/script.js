@@ -370,7 +370,7 @@ function processCommands(commands, isThereMessage) {
 
 function showMarket()
 {
-    
+    addSysMessageToOutput(getMarketDetails());
 }
 
 console.log(setLocalServerPower());
@@ -514,17 +514,21 @@ function help() {
 }
 
 function showTheServerInfo(serverName) {
-    for (let i = 0; i < servers.length; i++) {
-        if (servers[i].name.toLowerCase() === serverName.toLowerCase()) {
-            addSysMessageToOutput(`Server Name: ${servers[i].name}`);
-            addSysMessageToOutput(`Server Power: ${servers[i].power}`);
-            addSysMessageToOutput(`Security Level: ${servers[i].SecurityLevel}`);
-            addSysMessageToOutput(`Hacked Level: ${servers[i].HackedLevel}`);
-            return;
-        }
+    if(serverName == "localServer") {
+        
     }
-
-    addErrorToOutput("The server \"" + serverName + "\" was not found.");
+    else {
+        for (let i = 0; i < servers.length; i++) {
+            if (servers[i].name.toLowerCase() === serverName.toLowerCase()) {
+                addSysMessageToOutput(`Server Name: ${servers[i].name}`);
+                addSysMessageToOutput(`Server Power: ${servers[i].power}`);
+                addSysMessageToOutput(`Security Level: ${servers[i].SecurityLevel}`);
+                addSysMessageToOutput(`Hacked Level: ${servers[i].HackedLevel}`);
+                return;
+            }
+        }
+        addErrorToOutput("The server \"" + serverName + "\" was not found.");
+    }
 }
 
 function connectToServer(serverName) {
