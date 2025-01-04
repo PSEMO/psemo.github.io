@@ -96,10 +96,10 @@ servers = servers.concat(generateServers(19));
 
 var CurrentServer = servers[0];
 let localServerHardware = {
-    cpuList: [market[1], market[1], market[1], market[1], market[5], market[5], market[5], market[1]],
-    gpuList: [market[0], market[0], market[0], market[0], market[4], market[4], market[4],  market[0]],
-    ramList: [market[2], market[2], market[2], market[2], market[6], market[6], market[6], market[2]],
-    psuList: [market[3], market[3], market[3], market[3], market[7], market[7], market[7], market[3]]
+    cpuList: [market[1], market[1], market[5], market[5], market[1], market[1]],
+    gpuList: [market[0], market[0], market[4], market[4], market[0], market[0]],
+    ramList: [market[2], market[2], market[6], market[6], market[2], market[2]],
+    psuList: [market[3], market[3], market[7], market[7], market[3], market[3]]
 }
 
 let maxLocalServerLevel = 2500;
@@ -368,7 +368,7 @@ function showMarket()
 }
 
 function setLocalServerPower() {
-    servers[0].power = (10 * (2 ** miningLevel(localServerHardware.cpuList,localServerHardware.gpuList,localServerHardware.ramList,localServerHardware.psuList)[0]));
+    servers[0].power = (10 * (1.2 ** miningLevel(localServerHardware.cpuList,localServerHardware.gpuList,localServerHardware.ramList,localServerHardware.psuList)[0]));
 
     return servers[0].power;
 }
