@@ -408,6 +408,7 @@ function buy(product)
     {
         localServerHardware.psuList.push(product);
     }
+    setLocalServerPower();
 }
 
 function getProduct(name) {
