@@ -27,19 +27,20 @@ const UnitType = {
 
 // Unified class for all components
 class Component {
-    constructor(type, name, specs = {}) {
+    constructor(type, name, specs = {}, price) {
         if (!Object.values(ComponentType).includes(type)) {
             throw new Error(`Invalid component type: ${type}`);
         }
         this.type = type;
         this.name = name;
         this.specs = specs;
+        this.price = price
     }
 
     getDescription() {
         const statDetails = this.specs.stat ? `${this.specs.stat.value} ${this.specs.stat.unit}` : "N/A";
         const powerDetails = this.specs.power ? `${this.specs.power.value} ${this.specs.power.unit}` : "N/A";
-        return `Component: ${this.name} (${this.type})\nStat: ${statDetails}\nPower: ${powerDetails}`;
+        return `Component: ${this.name} (${this.type})\n, Stat: ${statDetails}\n, Power: ${powerDetails}, Power: ${this.price}`;
     }
 }
 
@@ -55,35 +56,43 @@ let market = []
 
 market.push(new Component(ComponentType.GPU, "RX 470", {
     stat: { value: 450, unit: UnitType.TimeSpy3dMark },
-    power: { value: 120, unit: UnitType.WATT }
+    power: { value: 120, unit: UnitType.WATT },
+    price: 1
 }));
 market.push(new Component(ComponentType.CPU, "FX-6300", {
     stat: { value: 850, unit: UnitType.CinebenchR20 },
-    power: { value: 95, unit: UnitType.WATT }
+    power: { value: 95, unit: UnitType.WATT },
+    price: 1
 }));
 market.push(new Component(ComponentType.RAM, "8GB", {
     stat: { value: 8, unit: UnitType.GB },
-    power: { value: 3, unit: UnitType.WATT }
+    power: { value: 3, unit: UnitType.WATT },
+    price: 1
 }));
 market.push(new Component(ComponentType.PSU, "400 Watt", {
     stat: { value: 400, unit: UnitType.WATT },
-    power: { value: 550, unit: UnitType.WATT }
+    power: { value: 550, unit: UnitType.WATT },
+    price: 1
 }));
 market.push(new Component(ComponentType.GPU, "RTX 4090", {
     stat: { value: 33400, unit: UnitType.TimeSpy3dMark },
-    power: { value: 450, unit: UnitType.WATT }
+    power: { value: 450, unit: UnitType.WATT },
+    price: 1
 }));
 market.push(new Component(ComponentType.CPU, "i9 14900k", {
     stat: { value: 15600, unit: UnitType.CinebenchR20 },
-    power: { value: 250, unit: UnitType.WATT }
+    power: { value: 250, unit: UnitType.WATT },
+    price: 1
 }));
 market.push(new Component(ComponentType.RAM, "16GB", {
     stat: { value: 16, unit: UnitType.GB },
-    power: { value: 3, unit: UnitType.WATT }
+    power: { value: 3, unit: UnitType.WATT },
+    price: 1
 }));
 market.push(new Component(ComponentType.PSU, "850 Watt 80+ White", {
     stat: { value: 850, unit: UnitType.WATT },
-    power: { value: 1060, unit: UnitType.WATT }
+    power: { value: 1060, unit: UnitType.WATT },
+    price: 1
 }));
 
 console.log(getMarketDetails(market));
@@ -173,7 +182,7 @@ function update() {
 }
 
 toggleTheme(); //makes the default theme dark.
-            
+
 //Deal and execute the commands.
 function processCommands(commands, isThereMessage) {
     //ignore the pass command
@@ -392,23 +401,32 @@ function runUserCode() {
 
 function buy(product)
 {
-    if(product.type == ComponentType.CPU)
+    if(totalMoney > product.price)
     {
-        localServerHardware.cpuList.push(product);
+        totalMoney -= product.price;
+
+        if(product.type == ComponentType.CPU)
+        {
+            localServerHardware.cpuList.push(product);
+        }
+        else if(product.type == ComponentType.GPU)
+        {
+            localServerHardware.gpuList.push(product);
+        }
+        else if(product.type == ComponentType.RAM)
+        {
+            localServerHardware.ramList.push(product);
+        }
+        else if(product.type == ComponentType.PSU)
+        {
+            localServerHardware.psuList.push(product);
+        }
+        setLocalServerPower();
     }
-    else if(product.type == ComponentType.GPU)
+    else
     {
-        localServerHardware.gpuList.push(product);
+        addErrorToOutput("Insufficient funds.");
     }
-    else if(product.type == ComponentType.RAM)
-    {
-        localServerHardware.ramList.push(product);
-    }
-    else if(product.type == ComponentType.PSU)
-    {
-        localServerHardware.psuList.push(product);
-    }
-    setLocalServerPower();
 }
 
 function getProduct(name) {
