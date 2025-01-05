@@ -27,19 +27,19 @@ const UnitType = {
 
 // Unified class for all components
 class Component {
-    constructor(type, name, specs = {}, price) {
+    constructor(type, name, specs = {}) {
         if (!Object.values(ComponentType).includes(type)) {
             throw new Error(`Invalid component type: ${type}`);
         }
         this.type = type;
         this.name = name;
-        this.specs = specs
+        this.specs = specs;
     }
 
     getDescription() {
         const statDetails = this.specs.stat ? `${this.specs.stat.value} ${this.specs.stat.unit}` : "N/A";
         const powerDetails = this.specs.power ? `${this.specs.power.value} ${this.specs.power.unit}` : "N/A";
-        return `Component: ${this.name} (${this.type})\n, Stat: ${statDetails}\n, Power: ${powerDetails}, Price: ${this.specs.price}`;
+        return `Component: ${this.name} (${this.type})<br>Stat: ${statDetails}<br>Power: ${powerDetails}<br>Price: ${this.specs.price}`;
     }
 }
 
@@ -48,51 +48,63 @@ const ColorMode =
     DARK: 0,
     LIGHT: 1
 };
+
+const Products =
+{
+    rx470: (new Component(ComponentType.GPU, "RX-470", {
+        stat: { value: 450, unit: UnitType.TimeSpy3dMark },
+        power: { value: 120, unit: UnitType.WATT },
+        price: 1
+    })),
+    fx6300: (new Component(ComponentType.CPU, "FX-6300", {
+        stat: { value: 850, unit: UnitType.CinebenchR20 },
+        power: { value: 95, unit: UnitType.WATT },
+        price: 1
+    })),
+    ram8gb: (new Component(ComponentType.RAM, "8GB", {
+        stat: { value: 8, unit: UnitType.GB },
+        power: { value: 3, unit: UnitType.WATT },
+        price: 1
+    })),
+    psu400Watt: (new Component(ComponentType.PSU, "400 Watt", {
+        stat: { value: 400, unit: UnitType.WATT },
+        power: { value: 550, unit: UnitType.WATT },
+        price: 1
+    })),
+    rtx4090: (new Component(ComponentType.GPU, "RTX 4090", {
+        stat: { value: 33400, unit: UnitType.TimeSpy3dMark },
+        power: { value: 450, unit: UnitType.WATT },
+        price: 1
+    })),
+    i9_14900k: (new Component(ComponentType.CPU, "i9 14900k", {
+        stat: { value: 15600, unit: UnitType.CinebenchR20 },
+        power: { value: 250, unit: UnitType.WATT },
+        price: 1
+    })),
+    ram16gb: (new Component(ComponentType.RAM, "16GB", {
+        stat: { value: 16, unit: UnitType.GB },
+        power: { value: 3, unit: UnitType.WATT },
+        price: 1
+    })),
+    psu850Watt80W: (new Component(ComponentType.PSU, "850 Watt 80+ White", {
+        stat: { value: 850, unit: UnitType.WATT },
+        power: { value: 1060, unit: UnitType.WATT },
+        price: 1
+    })),
+};
 //#endregion
 
 //#region market
 let market = []
 
-market.push(new Component(ComponentType.GPU, "RX 470", {
-    stat: { value: 450, unit: UnitType.TimeSpy3dMark },
-    power: { value: 120, unit: UnitType.WATT },
-    price: 1
-}));
-market.push(new Component(ComponentType.CPU, "FX-6300", {
-    stat: { value: 850, unit: UnitType.CinebenchR20 },
-    power: { value: 95, unit: UnitType.WATT },
-    price: 1
-}));
-market.push(new Component(ComponentType.RAM, "8GB", {
-    stat: { value: 8, unit: UnitType.GB },
-    power: { value: 3, unit: UnitType.WATT },
-    price: 1
-}));
-market.push(new Component(ComponentType.PSU, "400 Watt", {
-    stat: { value: 400, unit: UnitType.WATT },
-    power: { value: 550, unit: UnitType.WATT },
-    price: 1
-}));
-market.push(new Component(ComponentType.GPU, "RTX 4090", {
-    stat: { value: 33400, unit: UnitType.TimeSpy3dMark },
-    power: { value: 450, unit: UnitType.WATT },
-    price: 1
-}));
-market.push(new Component(ComponentType.CPU, "i9 14900k", {
-    stat: { value: 15600, unit: UnitType.CinebenchR20 },
-    power: { value: 250, unit: UnitType.WATT },
-    price: 1
-}));
-market.push(new Component(ComponentType.RAM, "16GB", {
-    stat: { value: 16, unit: UnitType.GB },
-    power: { value: 3, unit: UnitType.WATT },
-    price: 1
-}));
-market.push(new Component(ComponentType.PSU, "850 Watt 80+ White", {
-    stat: { value: 850, unit: UnitType.WATT },
-    power: { value: 1060, unit: UnitType.WATT },
-    price: 1
-}));
+market.push(Products.rx470);
+market.push(Products.fx6300);
+market.push(Products.ram8gb);
+market.push(Products.psu400Watt);
+market.push(Products.rtx4090);
+market.push(Products.i9_14900k);
+market.push(Products.ram16gb);
+market.push(Products.psu850Watt80W);
 
 console.log(getMarketDetails(market));
 //#endregion
@@ -106,10 +118,18 @@ servers = servers.concat(generateServers(19));
 
 var CurrentServer = servers[0];
 let localServerHardware = {
-    cpuList: [market[1], market[1], market[5], market[5], market[1], market[1]],
-    gpuList: [market[0], market[0], market[4], market[4], market[0], market[0]],
-    ramList: [market[2], market[2], market[6], market[6], market[2], market[2]],
-    psuList: [market[3], market[3], market[7], market[7], market[3], market[3]]
+    cpuList: [Products.fx6300, Products.fx6300, Products.fx6300,
+        Products.fx6300, Products.i9_14900k, Products.i9_14900k
+    ],
+    gpuList: [Products.rx470, Products.rx470, Products.rx470,
+        Products.rx470, Products.rtx4090, Products.rtx4090
+    ],
+    ramList: [Products.ram8gb, Products.ram8gb, Products.ram8gb,
+        Products.ram8gb, Products.ram16gb, Products.ram16gb
+    ],
+    psuList: [Products.psu400Watt, Products.psu400Watt, Products.psu400Watt,
+        Products.psu400Watt, Products.psu850Watt80W, Products.psu850Watt80W
+    ]
 }
 
 let maxLocalServerLevel = 2500;
@@ -261,7 +281,9 @@ function processCommands(commands, isThereMessage) {
         }
         else {
             //clean or clear command
-            if (commands.includes("clear") || commands.includes("clean") || commands.includes("cls")) {
+            if (commands.includes("clear") ||
+            commands.includes("clean") ||
+            commands.includes("cls")) {
                 if (commands.length > 1) {
                     if (commands.includes("clean"))
                         addErrorToOutput("The command clean cannot be combined with other commands or values.");
@@ -450,8 +472,16 @@ function showMarket()
     addSysMessageToOutput(getMarketDetails());
 }
 
+// Function to return a string with all market elements' details
+function getMarketDetails() {
+    if (market.length === 0) {
+        return "The market is empty.";
+    }
+    return "<br>" + (market.map(component => component.getDescription()).join("<br>"));
+}
+
 function setLocalServerPower() {
-    servers[0].power = (10 * (1.2 ** miningLevel(localServerHardware.cpuList,localServerHardware.gpuList,localServerHardware.ramList,localServerHardware.psuList)[0]));
+    servers[0].power = (10 * (1.2 ** miningLevel(localServerHardware.cpuList, localServerHardware.gpuList, localServerHardware.ramList, localServerHardware.psuList)[0]));
 
     return servers[0].power;
 }
@@ -518,14 +548,6 @@ function miningLevel(cpuList, gpuList, ramList, psuList) {
 
     // If no level is met
     return [0, powerConsumptionFromWall];
-}
-
-// Function to return a string with all market elements' details
-function getMarketDetails() {
-    if (market.length === 0) {
-        return "The market is empty.";
-    }
-    return market.map(component => component.getDescription()).join("\n--------------------\n");
 }
 
 //(inclusive)
