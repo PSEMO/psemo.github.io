@@ -173,67 +173,7 @@ function update() {
 }
 
 toggleTheme(); //makes the default theme dark.
-
-//Deal with the input.
-function runUserCode() {
-    const inputValue = userInputField.value.trim();
-    if (inputValue) {
-        addUserInputToOutput(inputValue); // Print the input
-        userInputField.value = ''; // Clear the input field
-
-        EditedInput = inputValue.toLowerCase();
-        EditedInput = EditedInput.replaceAll("();", "");
-
-        let messages = [];
-
-        let __TempEditedInput = EditedInput;
-        while(getTextBetween(__TempEditedInput, "(", ");") !== false)
-        {
-            messages.push(getTextBetween(__TempEditedInput, "(", ");").withoutStrings);
-            //remove "(" and ");"
-            __TempEditedInput = (__TempEditedInput.replace("(", "")).replace(");", "");
-        }
-        
-        let commands = EditedInput.split(' ');
-        commands = removeMessageFromCommands(commands);
-        //we are handling messages like any other command. They are being detected as messages later down the line.
-        commands = commands.concat(messages);
-
-        console.log("detected commands are, ");
-        console.log(commands);
-
-        // Find strings in commands that are not in validCommands
-        const faultyCommands = commands.filter(command_ => !validCommands.includes(command_));
-
-        // If true than a command with variable was inputed
-        const commandShouldContainAMessage = anyElementInArray(commands, validCommandsWithMessages)
-        if (faultyCommands.length > 0 && commandShouldContainAMessage) {
-            processCommands(commands, true);
-        }
-        else {
-            //more than one commands are valid
-            if (faultyCommands.length > 1) {
-                addErrorToOutput("Some commands were not recognized as a valid internal or external command: \"" +
-                    (faultyCommands.join("\", \"")) + "\"");
-            }
-            //a command is not valid
-            else if (faultyCommands.length === 1) {
-                addErrorToOutput("A command was not recognized as a valid internal or external command: " +
-                    faultyCommands[0]);
-            }
-            //all commands are valid
-            else {
-                if (commandShouldContainAMessage) {
-                    processCommands(commands, true);
-                }
-                else {
-                    processCommands(commands, false);
-                }
-            }
-        }
-    }
-}
-
+            
 //Deal and execute the commands.
 function processCommands(commands, isThereMessage) {
     //ignore the pass command
@@ -384,6 +324,66 @@ function processCommands(commands, isThereMessage) {
                 }
                 else if (commands.length > 1) {
                     addErrorToOutput("The command pwd cannot be combined with other commands or values.");
+                }
+            }
+        }
+    }
+}
+
+//Deal with the input.
+function runUserCode() {
+    const inputValue = userInputField.value.trim();
+    if (inputValue) {
+        addUserInputToOutput(inputValue); // Print the input
+        userInputField.value = ''; // Clear the input field
+
+        EditedInput = inputValue.toLowerCase();
+        EditedInput = EditedInput.replaceAll("();", "");
+
+        let messages = [];
+
+        let __TempEditedInput = EditedInput;
+        while(getTextBetween(__TempEditedInput, "(", ");") !== false)
+        {
+            messages.push(getTextBetween(__TempEditedInput, "(", ");").withoutStrings);
+            //remove "(" and ");"
+            __TempEditedInput = (__TempEditedInput.replace("(", "")).replace(");", "");
+        }
+        
+        let commands = EditedInput.split(' ');
+        commands = removeMessageFromCommands(commands);
+        //we are handling messages like any other command. They are being detected as messages later down the line.
+        commands = commands.concat(messages);
+
+        console.log("detected commands are, ");
+        console.log(commands);
+
+        // Find strings in commands that are not in validCommands
+        const faultyCommands = commands.filter(command_ => !validCommands.includes(command_));
+
+        // If true than a command with variable was inputed
+        const commandShouldContainAMessage = anyElementInArray(commands, validCommandsWithMessages)
+        if (faultyCommands.length > 0 && commandShouldContainAMessage) {
+            processCommands(commands, true);
+        }
+        else {
+            //more than one commands are valid
+            if (faultyCommands.length > 1) {
+                addErrorToOutput("Some commands were not recognized as a valid internal or external command: \"" +
+                    (faultyCommands.join("\", \"")) + "\"");
+            }
+            //a command is not valid
+            else if (faultyCommands.length === 1) {
+                addErrorToOutput("A command was not recognized as a valid internal or external command: " +
+                    faultyCommands[0]);
+            }
+            //all commands are valid
+            else {
+                if (commandShouldContainAMessage) {
+                    processCommands(commands, true);
+                }
+                else {
+                    processCommands(commands, false);
                 }
             }
         }
