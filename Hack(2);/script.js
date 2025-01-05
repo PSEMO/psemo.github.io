@@ -1,3 +1,12 @@
+//#region HTML document element
+const userInputField = document.getElementById('userInputField');
+const runButton = document.getElementById('runButton');
+const themeToggleButton = document.getElementById('themeToggleButton');
+const containerForWallet = document.getElementById('containerForWallet');
+const containerForOutput = document.getElementById("containerForOutput");
+const themeToggleImg = document.getElementById("themeToggleImg");
+//#endregion
+
 //#region classes and enums
 class server {
     constructor(name, power, SecurityLevel, HackedLevel) {
@@ -134,15 +143,6 @@ let localServerHardware = {
 
 let maxLocalServerLevel = 2500;
 setLocalServerPower();
-//#endregion
-
-//#region HTML document element
-const userInputField = document.getElementById('userInputField');
-const runButton = document.getElementById('runButton');
-const themeToggleButton = document.getElementById('themeToggleButton');
-const containerForWallet = document.getElementById('containerForWallet');
-const containerForOutput = document.getElementById("containerForOutput");
-const themeToggleImg = document.getElementById("themeToggleImg");
 //#endregion
 
 //#region commands
@@ -486,6 +486,7 @@ function setLocalServerPower() {
 
     servers[0].power = (10 * (1.2 ** miningLevel(localServerHardware.cpuList, localServerHardware.gpuList, localServerHardware.ramList, localServerHardware.psuList)[0]));
     console.log(servers[0].power);
+    addSysMessageToOutput(miningLevel(localServerHardware.cpuList, localServerHardware.gpuList, localServerHardware.ramList, localServerHardware.psuList)[2]);
 
     //add the new mining power.
     profitPerSecond = profitPerSecond + servers[0].power;
@@ -525,7 +526,7 @@ function miningLevel(cpuList, gpuList, ramList, psuList) {
         gpuList.reduce((sum, gpu) => sum + gpu.specs.power.value, 0) +
         ramList.reduce((sum, ram) => sum + ram.specs.power.value, 0);
 
-    function affoardableLevel(levelCount) {
+    function affordableLevel(levelCount) {
         let level = getLevelDetails(levelCount);
         return (
             totalCpuPower >= level.cpu &&
@@ -535,26 +536,61 @@ function miningLevel(cpuList, gpuList, ramList, psuList) {
         );
     }
 
+    let currentLevel = 0;
+
     // Determine the mining level
     for (let i = maxLocalServerLevel; i >= 0; i -= (maxLocalServerLevel / 10)) {
-        if (affoardableLevel(i))
-        {
+        if (affordableLevel(i)) {
             for (let j = i + (maxLocalServerLevel / 10); j >= 0; j -= (maxLocalServerLevel / 100)) {
-                if (affoardableLevel(j))
-                {
+                if (affordableLevel(j)) {
                     for (let z = j + (maxLocalServerLevel / 100); z >= 0; z--) {
-                        if (affoardableLevel(z))
-                        {
-                            return [z, powerConsumptionFromWall];
+                        if (affordableLevel(z)) {
+                            currentLevel = z;
+                            break;
                         }
                     }
+                    break;
                 }
             }
+            break;
         }
     }
 
-    // If no level is met
-    return [0, powerConsumptionFromWall];
+    // Calculate the needed stats for the next level
+    let nextLevel = currentLevel + 1;
+    let nextLevelDetails = getLevelDetails(nextLevel);
+
+    // Compose the information string
+    let information = `Current Level: ${currentLevel}<br>` +
+                      `Total CPU Power: ${totalCpuPower}<br>` +
+                      `Total GPU Power: ${totalGpuPower}<br>` +
+                      `Total RAM: ${totalRam}<br>` +
+                      `Total PSU Capacity: ${totalPsuCapacity}<br>` +
+                      `Total Power Consumption: ${totalPowerConsumption}<br>` +
+                      `Needed for Next Level - CPU: ${nextLevelDetails.cpu}, GPU: ${nextLevelDetails.gpu}, RAM: ${nextLevelDetails.ram}<br>` +
+                      `Power Usage of Other Components: ${powerConsumptionFromWall}`;
+
+    // Return results
+    return [currentLevel, powerConsumptionFromWall, information];
+}
+
+function getLevelDetails(level) {
+    if (level < 1) {
+        level = 1;
+    } else if (level > maxLocalServerLevel) {
+        level = maxLocalServerLevel;
+    }
+
+    let baseCpu = 1000;
+    let baseGpu = 500;
+    let baseRam = 4;
+
+    // Calculate values dynamically based on level
+    let cpu = baseCpu + Math.floor((level - 1) / 4) * 1000;
+    let gpu = baseGpu + ((level - 1) % 4) * 500 + Math.floor((level - 1) / 4) * 2000;
+    let ram = baseRam + Math.floor((level - 1) / 2) * 2;
+
+    return { cpu: cpu, gpu: gpu, ram: ram, level: level };
 }
 
 //(inclusive)
