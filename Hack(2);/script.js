@@ -66,17 +66,17 @@ const Products =
         power: { value: 3, unit: UnitType.WATT },
         price: 1
     })),
-    psu400Watt: (new Component(ComponentType.PSU, "400 Watt", {
+    psu400Watt: (new Component(ComponentType.PSU, "400-Watt", {
         stat: { value: 400, unit: UnitType.WATT },
         power: { value: 550, unit: UnitType.WATT },
         price: 1
     })),
-    rtx4090: (new Component(ComponentType.GPU, "RTX 4090", {
+    rtx4090: (new Component(ComponentType.GPU, "RTX-4090", {
         stat: { value: 33400, unit: UnitType.TimeSpy3dMark },
         power: { value: 450, unit: UnitType.WATT },
         price: 1
     })),
-    i9_14900k: (new Component(ComponentType.CPU, "i9 14900k", {
+    i9_14900k: (new Component(ComponentType.CPU, "i9-14900k", {
         stat: { value: 15600, unit: UnitType.CinebenchR20 },
         power: { value: 250, unit: UnitType.WATT },
         price: 1
@@ -86,7 +86,7 @@ const Products =
         power: { value: 3, unit: UnitType.WATT },
         price: 1
     })),
-    psu850Watt80W: (new Component(ComponentType.PSU, "850 Watt 80+ White", {
+    psu850Watt80W: (new Component(ComponentType.PSU, "850-Watt-80+White", {
         stat: { value: 850, unit: UnitType.WATT },
         power: { value: 1060, unit: UnitType.WATT },
         price: 1
@@ -481,7 +481,14 @@ function getMarketDetails() {
 }
 
 function setLocalServerPower() {
+    //remove the current mining power.
+    profitPerSecond = profitPerSecond - servers[0].power;
+
     servers[0].power = (10 * (1.2 ** miningLevel(localServerHardware.cpuList, localServerHardware.gpuList, localServerHardware.ramList, localServerHardware.psuList)[0]));
+    console.log(servers[0].power);
+
+    //add the new mining power.
+    profitPerSecond = profitPerSecond + servers[0].power;
 
     return servers[0].power;
 }
