@@ -1,4 +1,4 @@
-//#region HTML document element
+//#region finding HTML document element
 const userInputField = document.getElementById('userInputField');
 const runButton = document.getElementById('runButton');
 const themeToggleButton = document.getElementById('themeToggleButton');
@@ -127,17 +127,14 @@ servers = servers.concat(generateServers(19));
 
 var CurrentServer = servers[0];
 let localServerHardware = {
-    cpuList: [Products.fx6300, Products.fx6300, Products.fx6300,
-        Products.fx6300, Products.i9_14900k, Products.i9_14900k
+    cpuList: [Products.fx6300, Products.fx6300
     ],
     gpuList: [Products.rx470, Products.rx470, Products.rx470,
-        Products.rx470, Products.rtx4090, Products.rtx4090
+        Products.rx470, Products.rx470, Products.rx470
     ],
-    ramList: [Products.ram8gb, Products.ram8gb, Products.ram8gb,
-        Products.ram8gb, Products.ram16gb, Products.ram16gb
+    ramList: [Products.ram8gb, Products.ram8gb
     ],
-    psuList: [Products.psu400Watt, Products.psu400Watt, Products.psu400Watt,
-        Products.psu400Watt, Products.psu850Watt80W, Products.psu850Watt80W
+    psuList: [Products.psu850Watt80W, Products.psu850Watt80W
     ]
 }
 
