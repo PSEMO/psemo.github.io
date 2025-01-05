@@ -63,42 +63,42 @@ const Products =
     rx470: (new Component(ComponentType.GPU, "RX-470", {
         stat: { value: 450, unit: UnitType.TimeSpy3dMark },
         power: { value: 120, unit: UnitType.WATT },
-        price: 1
+        price: 100
     })),
     fx6300: (new Component(ComponentType.CPU, "FX-6300", {
         stat: { value: 850, unit: UnitType.CinebenchR20 },
         power: { value: 95, unit: UnitType.WATT },
-        price: 1
+        price: 20
     })),
     ram8gb: (new Component(ComponentType.RAM, "8GB", {
         stat: { value: 8, unit: UnitType.GB },
         power: { value: 3, unit: UnitType.WATT },
-        price: 1
+        price: 25
     })),
     psu400Watt: (new Component(ComponentType.PSU, "400-Watt", {
         stat: { value: 400, unit: UnitType.WATT },
         power: { value: 550, unit: UnitType.WATT },
-        price: 1
+        price: 80
     })),
     rtx4090: (new Component(ComponentType.GPU, "RTX-4090", {
         stat: { value: 33400, unit: UnitType.TimeSpy3dMark },
         power: { value: 450, unit: UnitType.WATT },
-        price: 1
+        price: 1700
     })),
     i9_14900k: (new Component(ComponentType.CPU, "i9-14900k", {
         stat: { value: 15600, unit: UnitType.CinebenchR20 },
         power: { value: 250, unit: UnitType.WATT },
-        price: 1
+        price: 1000
     })),
     ram16gb: (new Component(ComponentType.RAM, "16GB", {
         stat: { value: 16, unit: UnitType.GB },
         power: { value: 3, unit: UnitType.WATT },
-        price: 1
+        price: 45
     })),
     psu850Watt80W: (new Component(ComponentType.PSU, "850-Watt-80+White", {
         stat: { value: 850, unit: UnitType.WATT },
         power: { value: 1060, unit: UnitType.WATT },
-        price: 1
+        price: 140
     })),
 };
 //#endregion
