@@ -33,14 +33,13 @@ class Component {
         }
         this.type = type;
         this.name = name;
-        this.specs = specs;
-        this.price = price
+        this.specs = specs
     }
 
     getDescription() {
         const statDetails = this.specs.stat ? `${this.specs.stat.value} ${this.specs.stat.unit}` : "N/A";
         const powerDetails = this.specs.power ? `${this.specs.power.value} ${this.specs.power.unit}` : "N/A";
-        return `Component: ${this.name} (${this.type})\n, Stat: ${statDetails}\n, Power: ${powerDetails}, Power: ${this.price}`;
+        return `Component: ${this.name} (${this.type})\n, Stat: ${statDetails}\n, Power: ${powerDetails}, Price: ${this.specs.price}`;
     }
 }
 
@@ -401,9 +400,9 @@ function runUserCode() {
 
 function buy(product)
 {
-    if(totalMoney > product.price)
+    if(totalMoney > product.specs.price)
     {
-        totalMoney -= product.price;
+        totalMoney -= product.specs.price;
 
         if(product.type == ComponentType.CPU)
         {
