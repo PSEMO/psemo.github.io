@@ -127,14 +127,14 @@ servers = servers.concat(generateServers(19));
 
 var CurrentServer = servers[0];
 let localServerHardware = {
-    cpuList: [Products.fx6300, Products.fx6300
+    cpuList: [Products.fx6300/*, Products.fx6300*/
     ],
-    gpuList: [Products.rx470, Products.rx470, Products.rx470,
-        Products.rx470, Products.rx470, Products.rx470
+    gpuList: [Products.rx470/*, Products.rx470, Products.rx470,
+        Products.rx470, Products.rx470, Products.rx470*/
     ],
-    ramList: [Products.ram8gb, Products.ram8gb
+    ramList: [Products.ram8gb/*, Products.ram8gb*/
     ],
-    psuList: [Products.psu500Watt80G, Products.psu500Watt80G
+    psuList: [Products.psu500Watt80G/*, Products.psu500Watt80G*/
     ]
 }
 
