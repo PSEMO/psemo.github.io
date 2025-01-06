@@ -75,30 +75,30 @@ const Products =
         power: { value: 3, unit: UnitType.WATT },
         price: 20
     })),
-    psu400Watt: (new Component(ComponentType.PSU, "500-Watt-80", {
+    psu500Watt80G: (new Component(ComponentType.PSU, "500-Watt-80+Gold", {
         stat: { value: 500, unit: UnitType.WATT },
-        power: { value: 550, unit: UnitType.WATT },
-        price: 80
+        power: { value: 590, unit: UnitType.WATT },
+        price: 40
     })),
     rtx4090: (new Component(ComponentType.GPU, "RTX-4090", {
         stat: { value: 33400, unit: UnitType.TimeSpy3dMark },
         power: { value: 450, unit: UnitType.WATT },
-        price: 1700
+        price: 1400
     })),
     i9_14900k: (new Component(ComponentType.CPU, "i9-14900k", {
         stat: { value: 15600, unit: UnitType.CinebenchR20 },
         power: { value: 250, unit: UnitType.WATT },
-        price: 1000
+        price: 460
     })),
     ram16gb: (new Component(ComponentType.RAM, "16GB", {
         stat: { value: 16, unit: UnitType.GB },
         power: { value: 3, unit: UnitType.WATT },
         price: 30
     })),
-    psu850Watt80W: (new Component(ComponentType.PSU, "850-Watt-80+White", {
-        stat: { value: 850, unit: UnitType.WATT },
-        power: { value: 1060, unit: UnitType.WATT },
-        price: 140
+    psu1600Watt85P: (new Component(ComponentType.PSU, "1600-Watt-85+Platinum", {
+        stat: { value: 1600, unit: UnitType.WATT },
+        power: { value: 1650, unit: UnitType.WATT },
+        price: 300
     })),
 };
 //#endregion
@@ -109,11 +109,11 @@ let market = []
 market.push(Products.rx470);
 market.push(Products.fx6300);
 market.push(Products.ram8gb);
-market.push(Products.psu400Watt);
+market.push(Products.psu500Watt80G);
 market.push(Products.rtx4090);
 market.push(Products.i9_14900k);
 market.push(Products.ram16gb);
-market.push(Products.psu850Watt80W);
+market.push(Products.psu1600Watt85P);
 
 console.log(getMarketDetails(market));
 //#endregion
@@ -134,7 +134,7 @@ let localServerHardware = {
     ],
     ramList: [Products.ram8gb, Products.ram8gb
     ],
-    psuList: [Products.psu850Watt80W, Products.psu850Watt80W
+    psuList: [Products.psu500Watt80G, Products.psu500Watt80G
     ]
 }
 
@@ -481,12 +481,20 @@ function setLocalServerPower() {
     //remove the current mining power.
     profitPerSecond = profitPerSecond - servers[0].power;
 
-    servers[0].power = (10 * (1.2 ** miningLevel(localServerHardware.cpuList, localServerHardware.gpuList, localServerHardware.ramList, localServerHardware.psuList)[0]));
-    console.log(servers[0].power);
-    addSysMessageToOutput(miningLevel(localServerHardware.cpuList, localServerHardware.gpuList, localServerHardware.ramList, localServerHardware.psuList)[2]);
+    const _miningLevel = miningLevel(localServerHardware.cpuList, localServerHardware.gpuList, localServerHardware.ramList, localServerHardware.psuList);
+    const _miningLevelIntoPower = (_miningLevel[0] / 10);
+    const _miningExponential = (1.01 ** _miningLevel[0]);
+    servers[0].power = _miningLevelIntoPower + _miningExponential;
+
+    addSysMessageToOutput(_miningLevel[2]);
 
     //add the new mining power.
     profitPerSecond = profitPerSecond + servers[0].power;
+
+    console.log("_miningLevel[0]: " + _miningLevel[0]);
+    console.log("_miningLevelIntoPower: " + _miningLevelIntoPower);
+    console.log("_miningExponential: " + _miningExponential);
+    console.log("servers[0].power: " + servers[0].power);
 
     return servers[0].power;
 }
@@ -674,7 +682,7 @@ function showTheServerInfo(serverName) {
     }
 
     if(serverName == "localServer") {
-        addSysMessageToOutput(`<br>` +
+        let serverInfo = (`<br>` +
             `Server Name: ${servers[0].name}` + "<br>" +
             `Server Power: ${servers[0].power}` + "<br>" +
             `Server Hardware:` + "<br>" +
@@ -687,14 +695,20 @@ function showTheServerInfo(serverName) {
             "PSU List;" +
             getComponentDetailsWithCount(localServerHardware.psuList)
         );
+        //getComponentDetailsWithCount function adds a <br> at the end. this is to get rid of it
+        addSysMessageToOutput(serverInfo.substring(0, serverInfo.length - 4));
     }
     else {
         for (let i = 0; i < servers.length; i++) {
             if (servers[i].name.toLowerCase() === serverName.toLowerCase()) {
-                addSysMessageToOutput(`Server Name: ${servers[i].name}`);
-                addSysMessageToOutput(`Server Power: ${servers[i].power}`);
-                addSysMessageToOutput(`Security Level: ${servers[i].SecurityLevel}`);
-                addSysMessageToOutput(`Hacked Level: ${servers[i].HackedLevel}`);
+                let serverInfo = (`<br>` +
+                    `Server Name: ${servers[i].name}` + `<br>` +
+                    `Server Power: ${servers[i].power}` + `<br>` +
+                    `Security Level: ${servers[i].SecurityLevel}` + `<br>` +
+                    `Hacked Level: ${servers[i].HackedLevel}`
+                );
+                addSysMessageToOutput(serverInfo);
+                
                 return;
             }
         }
