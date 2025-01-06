@@ -579,25 +579,6 @@ function miningLevel(cpuList, gpuList, ramList, psuList) {
     return [currentLevel, powerConsumptionFromWall, information];
 }
 
-function getLevelDetails(level) {
-    if (level < 1) {
-        level = 1;
-    } else if (level > maxLocalServerLevel) {
-        level = maxLocalServerLevel;
-    }
-
-    let baseCpu = 1000;
-    let baseGpu = 500;
-    let baseRam = 4;
-
-    // Calculate values dynamically based on level
-    let cpu = baseCpu + Math.floor((level - 1) / 4) * 1000;
-    let gpu = baseGpu + ((level - 1) % 4) * 500 + Math.floor((level - 1) / 4) * 2000;
-    let ram = baseRam + Math.floor((level - 1) / 2) * 2;
-
-    return { cpu: cpu, gpu: gpu, ram: ram, level: level };
-}
-
 //(inclusive)
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -676,7 +657,7 @@ function showTheServerInfo(serverName) {
         output = "<br>";
         for (const key in componentCounts) {
             const { count, component } = componentCounts[key];
-            output = output + `${count}x ${component.getDescription()}` + `<br>`;
+            output = output + `${count}x ${component.name}` + `<br>`;
         }
         return output;
     }
