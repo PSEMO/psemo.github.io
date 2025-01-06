@@ -319,7 +319,7 @@ function processCommands(commands, isThereMessage) {
                 }
                 else {
                     if (CurrentServer.HackedLevel >= CurrentServer.SecurityLevel) {
-                        addErrorToOutput("You already have full access to this servers kernel");
+                        addWarningToOutput("You already have full access to this servers kernel");
                     }
                     else {
                         hackServer();
@@ -507,14 +507,14 @@ function getLevelDetails(level) {
         level = maxLocalServerLevel
     }
 
-    let baseCpu = 1000;
+    let baseCpu = 500;
     let baseGpu = 500;
-    let baseRam = 4;
+    let baseRam = 3;
 
     // Calculate values dynamically based on level
-    let cpu = baseCpu + Math.floor((level - 1) / 4) * 1000;
-    let gpu = baseGpu + ((level - 1) % 4) * 500 + Math.floor((level - 1) / 4) * 2000;
-    let ram = baseRam + Math.floor((level - 1) / 2) * 2;
+    let cpu = baseCpu + Math.ceil(Math.floor((level - 1) / 4) * 500);
+    let gpu = baseGpu + Math.ceil(((level - 1) % 4) * 500 + Math.floor((level - 1) / 4) * 2000);
+    let ram = baseRam + Math.ceil(Math.floor((level - 1) / 2) * 0.6);
     
     return { cpu: cpu, gpu: gpu, ram: ram, level: level };
 }
