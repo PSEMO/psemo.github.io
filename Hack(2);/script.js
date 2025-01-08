@@ -5,6 +5,7 @@ const themeToggleButton = document.getElementById('themeToggleButton');
 const containerForWallet = document.getElementById('containerForWallet');
 const containerForOutput = document.getElementById("containerForOutput");
 const themeToggleImg = document.getElementById("themeToggleImg");
+const createWindowButtonTest = document.getElementById('create-window');
 //#endregion
 
 //#region classes and enums
@@ -157,7 +158,7 @@ const validCommandsWithMessages = [
 //Event listeners for buttons
 themeToggleButton.addEventListener('click', toggleTheme);
 runButton.addEventListener('click', runUserCode);
-document.getElementById('create-window').addEventListener('click', createWindow);
+createWindowButtonTest.addEventListener('click', () => createWindow("Example Window", "This is a draggable and resizable window."));
 
 //Event listeners for key presses
 userInputField.addEventListener('keydown', function (event) {
@@ -167,10 +168,12 @@ userInputField.addEventListener('keydown', function (event) {
 });
 //#endregion
 
-//#region creating windows and light/dark theme
+//#region tracker variables for creating windows
 let windowCount = 0; // Track the number of created windows
 let zIndexCounter = 1; // Initialize z-index counter
+//#endregion
 
+//#region light/dark theme
 const themeAdjustDark = "themeAdjustDark.png";
 const themeAdjustLight = "themeAdjustLight.png";
 
@@ -179,6 +182,7 @@ var CurrentTheme = ColorMode.LIGHT;
 themeToggleImg.src = themeAdjustDark;
 //#endregion
 
+//#region UPDATE
 var profitPerSecond = 0;
 var totalMoney = 0;
 
@@ -196,8 +200,7 @@ function update() {
     }
     setInterval(fnc, delay);
 }
-
-toggleTheme(); //makes the default theme dark.
+//#endregion
 
 //Deal and execute the commands.
 function processCommands(commands, isThereMessage) {
@@ -271,6 +274,8 @@ function processCommands(commands, isThereMessage) {
                     showMarket();
                 }
                 else if (commands.length > 1) {
+                    //change the market command with the buy command.
+                    //'[market] [other]' means '[buy] [other]'
                     commands = updateElement(commands, "market", "buy");
                     processCommands(commands, true);
                 }
@@ -466,7 +471,8 @@ function updateElement(array, targetValue, newValue) {
 
 function showMarket()
 {
-    addSysMessageToOutput(getMarketDetails());
+    // Slice removes the first <br>
+    createWindow("Market", getMarketDetails().slice(4));
 }
 
 // Function to return a string with all market elements' details
@@ -826,7 +832,7 @@ function anyElementInArray(array1, array2) {
     return false; // Return false if no matches are found
 }
 
-function createWindow() {
+function createWindow(HeadText, BodyText) {
     // Create the main window element
     const windowElement = document.createElement('div');
     windowElement.className = 'window';
@@ -845,7 +851,7 @@ function createWindow() {
 
     // Add a title to the header
     const title = document.createElement('span');
-    title.textContent = `Window ${windowCount + 1}`;
+    title.textContent = HeadText;
 
     // Create the close button
     const closeButton = document.createElement('button');
@@ -860,7 +866,7 @@ function createWindow() {
     // Create the content area
     const content = document.createElement('div');
     content.className = 'window-content';
-    content.textContent = 'This is a draggable and resizable window.';
+    content.innerHTML = BodyText;
 
     // Create the resizable handle
     const resizeHandle = document.createElement('div');
@@ -949,3 +955,6 @@ function formatNumber(number) {
     // Format the number with a comma as the decimal separator
     return `${integerPart},${decimalPart}`;
 }
+
+
+toggleTheme(); //changes the theme to dark, effectively making the default theme dark.
