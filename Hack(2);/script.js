@@ -16,7 +16,7 @@ class server {
 
         this.SecurityLevel = SecurityLevel;
         this.SecurityName = "";
-        this.HackedLevel = 1;
+        this.HackedLevel = HackedLevel;
         this.HackedName = "";
 
         this.updateSecurityName();
