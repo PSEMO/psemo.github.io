@@ -13,9 +13,13 @@ class server {
     constructor(name, power, SecurityLevel, HackedLevel) {
         this.name = name;
         this.power = power;
+
         this.SecurityLevel = SecurityLevel;
         this.HackedLevel = HackedLevel;
+
         this.working = false;
+
+        this.SecurityName = securityLevelToName(SecurityLevel);
     }
 }
 
@@ -180,6 +184,11 @@ const themeAdjustLight = "themeAdjustLight.png";
 var CurrentTheme = ColorMode.LIGHT;
 
 themeToggleImg.src = themeAdjustDark;
+//#endregion
+
+//#region variables about active hacking
+let CurrentlyHacking = false;
+let HackingMode = 0;
 //#endregion
 
 //#region UPDATE
@@ -360,65 +369,71 @@ function processCommands(commands, isThereMessage) {
     }
 }
 
-//Deal with the input.
+// Deal with the input.
 function runUserCode() {
     const inputValue = userInputField.value.trim();
     if (inputValue) {
-        addUserInputToOutput(inputValue); // Print the input
-        userInputField.value = ''; // Clear the input field
-
-        EditedInput = inputValue.toLowerCase();
-        EditedInput = EditedInput.replaceAll("();", "");
-
-        let messages = [];
-
-        let __TempEditedInput = EditedInput;
-        while (getTextBetween(__TempEditedInput, "(", ");") !== false) {
-            messages.push(getTextBetween(__TempEditedInput, "(", ");").withoutStrings);
-            //remove "(" and ");"
-            __TempEditedInput = (__TempEditedInput.replace("(", "")).replace(");", "");
-        }
-
-        let commands = EditedInput.split(' ');
-        commands = removeMessageFromCommands(commands);
-        //we are handling messages like any other command. They are being detected as messages later down the line.
-        commands = commands.concat(messages);
-
-        console.log("detected commands are, ");
-        console.log(commands);
-
-        // Find strings in commands that are not in validCommands
-        const faultyCommands = commands.filter(command_ => !validCommands.includes(command_));
-
-        // If true than a command with variable was inputed
-        const commandShouldContainAMessage = anyElementInArray(commands, validCommandsWithMessages)
-        if (faultyCommands.length > 0 && commandShouldContainAMessage) {
-            processCommands(commands, true);
-        }
-        else {
-            //more than one commands are valid
-            if (faultyCommands.length > 1) {
-                addErrorToOutput("Some commands were not recognized as a valid internal or external command: \"" +
-                    (faultyCommands.join("\", \"")) + "\"");
+        if (CurrentlyHacking === false) {
+            addUserInputToOutput(inputValue); // Print the input
+            userInputField.value = ''; // Clear the input field
+    
+            EditedInput = inputValue.toLowerCase();
+            EditedInput = EditedInput.replaceAll("();", "");
+    
+            let messages = [];
+    
+            let __TempEditedInput = EditedInput;
+            while (getTextBetween(__TempEditedInput, "(", ");") !== false) {
+                messages.push(getTextBetween(__TempEditedInput, "(", ");").withoutStrings);
+                //remove "(" and ");"
+                __TempEditedInput = (__TempEditedInput.replace("(", "")).replace(");", "");
             }
-            //a command is not valid
-            else if (faultyCommands.length === 1) {
-                addErrorToOutput("A command was not recognized as a valid internal or external command: " +
-                    faultyCommands[0]);
+    
+            let commands = EditedInput.split(' ');
+            commands = removeMessageFromCommands(commands);
+            //we are handling messages like any other command. They are being detected as messages later down the line.
+            commands = commands.concat(messages);
+    
+            console.log("detected commands are, ");
+            console.log(commands);
+    
+            // Find strings in commands that are not in validCommands
+            const faultyCommands = commands.filter(command_ => !validCommands.includes(command_));
+    
+            // If true than a command with variable was inputed
+            const commandShouldContainAMessage = anyElementInArray(commands, validCommandsWithMessages)
+            if (faultyCommands.length > 0 && commandShouldContainAMessage) {
+                processCommands(commands, true);
             }
-            //all commands are valid
             else {
-                if (commandShouldContainAMessage) {
-                    processCommands(commands, true);
+                //more than one commands are valid
+                if (faultyCommands.length > 1) {
+                    addErrorToOutput("Some commands were not recognized as a valid internal or external command: \"" +
+                        (faultyCommands.join("\", \"")) + "\"");
                 }
+                //a command is not valid
+                else if (faultyCommands.length === 1) {
+                    addErrorToOutput("A command was not recognized as a valid internal or external command: " +
+                        faultyCommands[0]);
+                }
+                //all commands are valid
                 else {
-                    processCommands(commands, false);
+                    if (commandShouldContainAMessage) {
+                        processCommands(commands, true);
+                    }
+                    else {
+                        processCommands(commands, false);
+                    }
                 }
             }
+        }
+        else if (CurrentlyHacking === true) {
+            //manage inputs differently
         }
     }
 }
 
+// Buy given product
 function buy(product) {
     if (totalMoney > product.specs.price) {
         totalMoney -= product.specs.price;
@@ -442,11 +457,13 @@ function buy(product) {
     }
 }
 
+// Find and return the given product according to its name if it exists on the market
 function getProduct(name) {
     const product = market.find(component => component.name.toLowerCase() === name.toLowerCase());
     return product || null; // Return null if no matching product is found
 }
 
+// This function updates an element in an array by replacing a target value with a new value.
 function updateElement(array, targetValue, newValue) {
     if (!Array.isArray(array)) {
         throw new Error("The first parameter must be an array.");
@@ -459,6 +476,7 @@ function updateElement(array, targetValue, newValue) {
     return array; // Return the updated array
 }
 
+// This function shows the market details
 function showMarket() {
     // Slice removes the first <br>
     createWindow("Market", getMarketDetails().slice(4));
@@ -472,6 +490,7 @@ function getMarketDetails() {
     return "<br>" + (market.map(component => component.getDescription()).join("<br>"));
 }
 
+// This function sets the local server's power based on hardware specifications.
 function setLocalServerPower() {
     //remove the current mining power.
     profitPerSecond = profitPerSecond - servers[0].power;
@@ -494,6 +513,7 @@ function setLocalServerPower() {
     return servers[0].power;
 }
 
+// This function returns the details (CPU, GPU, RAM) for a given level of a server.
 function getLevelDetails(level) {
     if (level < 1) {
         level = 1;
@@ -514,6 +534,7 @@ function getLevelDetails(level) {
     return { cpu: cpu, gpu: gpu, ram: ram, level: level };
 }
 
+// This function calculates the mining level based on the components of the local server.
 function miningLevel(cpuList, gpuList, ramList, psuList) {
     // Calculate total stats for the provided components
     let totalCpuPower = cpuList.reduce((sum, cpu) => sum + cpu.specs.stat.value, 0);
@@ -574,11 +595,12 @@ function miningLevel(cpuList, gpuList, ramList, psuList) {
     return [currentLevel, powerConsumptionFromWall, information];
 }
 
-//(inclusive)
+// Random integer generator (inclusive)
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+// This function generates a unique name using random adjectives and nouns, checking against existing names.
 function generateUniqueName(existingNames) {
     const adjectives = ["Quantum", "Alpha", "Mega", "Hyper", "Cyber", "Nano", "Shadow", "Giga"];
     const nouns = ["Server", "Node", "Vault", "Farm", "Core", "Hub", "Grid", "Cluster"];
@@ -603,6 +625,7 @@ function generateUniqueName(existingNames) {
     return name;
 }
 
+// This function creates a random server object with a unique name and random power and security level.
 function createRandomServer(existingNames) {
     const name = generateUniqueName(existingNames);
     const power = getRandomInt(10, 100); // Random power between 10 and 100
@@ -611,6 +634,7 @@ function createRandomServer(existingNames) {
     return new server(name, power, securityLevel, hackedLevel);
 }
 
+// This function generates a list of random servers.
 function generateServers(count) {
     const servers = [];
     const existingNames = new Set(); // Keep track of unique names
@@ -622,16 +646,19 @@ function generateServers(count) {
     return servers;
 }
 
+// This function returns the names of all the servers in an array.
 function getServerNames(servers) {
     return servers.map(server => server.name);
 }
 
+// This function displays the available commands and their valid combinations.
 function help() {
     let __helpMessage = validCommands.join(", ");
     let __helpMessageWMessages = validCommandsWithMessages.join(", ");
     addSysMessageToOutput("Avaliable commands are; " + __helpMessage + ". These ones can be combined with variables; " + __helpMessageWMessages + ".");
 }
 
+// This function displays detailed information about a specific server.
 function showTheServerInfo(serverName) {
     function getComponentDetailsWithCount(componentList) {
         const componentCounts = {};
@@ -678,7 +705,7 @@ function showTheServerInfo(serverName) {
                 let serverInfo = (`<br>` +
                     `Server Name: ${servers[i].name}` + `<br>` +
                     `Server Power: ${servers[i].power}` + `<br>` +
-                    `Security Level: ${servers[i].SecurityLevel}` + `<br>` +
+                    `Security Level: ${servers[i].SecurityName}` + `<br>` +
                     `Hacked Level: ${servers[i].HackedLevel}`
                 );
                 addSysMessageToOutput(serverInfo);
@@ -690,6 +717,7 @@ function showTheServerInfo(serverName) {
     }
 }
 
+// This function allows the user to connect to a specific server.
 function connectToServer(serverName) {
     tempCurrentServer = CurrentServer;
 
@@ -703,11 +731,13 @@ function connectToServer(serverName) {
     addErrorToOutput("The server \"" + serverName + "\" was not found.");
 }
 
+// This function lists all the available servers.
 function listServers() {
     const serverList = servers.map((server, index) => `${index + 1}. ${server.name}`).join("<br>");
     addSysMessageToOutput("Available Servers:<br>" + serverList);
 }
 
+// This function hacks the current connected server.
 function hackServer() {
     currentConnectedServerHackedLevel = CurrentServer.HackedLevel;
 
@@ -715,35 +745,10 @@ function hackServer() {
         CurrentServer.HackedLevel = currentConnectedServerHackedLevel + 1;
         addSysMessageToOutput("Succesfully hacked the {" + CurrentServer.name + "} server.");
     }
-    else if (currentConnectedServerHackedLevel === 1) {
-
-    }
-    else if (currentConnectedServerHackedLevel === 2) {
-
-    }
-    else if (currentConnectedServerHackedLevel === 3) {
-
-    }
-    else if (currentConnectedServerHackedLevel === 4) {
-
-    }
-    else if (currentConnectedServerHackedLevel === 5) {
-
-    }
-    else if (currentConnectedServerHackedLevel === 6) {
-
-    }
-    else if (currentConnectedServerHackedLevel === 7) {
-
-    }
-    else if (currentConnectedServerHackedLevel === 8) {
-
-    }
-    else if (currentConnectedServerHackedLevel === 9) {
-
-    }
-    else if (currentConnectedServerHackedLevel === 10) {
-
+    else if (currentConnectedServerHackedLevel >= 1 && currentConnectedServerHackedLevel <= 10) {
+        CurrentlyHacking = currentConnectedServerHackedLevel;
+        HackingMode = currentConnectedServerHackedLevel;
+        addWarningToOutput("Hacking session started, security level to breach is; \"" + CurrentServer + "\".")
     }
     else {
         addErrorToOutput("Unexpected {CurrentServer.HackedLevel} value. (hx2-0)");
@@ -992,6 +997,32 @@ function formatNumber(number) {
 
     // Format the number with a comma as the decimal separator
     return `${integerPart},${decimalPart}`;
+}
+
+// This function converts numbers from 1 to 10 into their corresponding English words.
+function securityLevelToName(number) {
+    const numberWords = [
+        "Unrestricted",
+        "Restricted",
+        "Standard",
+        "Intermediate",
+        "Secure",
+        "Encapsulated",
+        "Hypersecure",
+        "Quantum",
+        "Adaptive",
+        "Immune"
+    ];
+
+    const level = (Math.random() * 999) + (1000 * number);
+    
+    if (number >= 1 && number <= 10) {
+        return numberWords[number - 1] + " (" + level + ").";
+    }
+    else {
+        console.log("NUMBER OUT OF RANGE");
+        return "NUMBER OUT OF RANGE";
+    }
 }
 
 
