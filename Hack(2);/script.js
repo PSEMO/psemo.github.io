@@ -16,7 +16,7 @@ class server {
 
         this.SecurityLevel = SecurityLevel;
         this.SecurityName = "";
-        this.HackedLevel = HackedLevel;
+        this.HackedLevel = 1;
         this.HackedName = "";
 
         this.updateSecurityName();
@@ -30,7 +30,7 @@ class server {
     }
     
     updateHackedName() {
-        if (this.HackedLevel >= this.securityLevel) {
+        if (this.HackedLevel >= this.SecurityLevel) {
             this.HackedName = "Overrun"
         }
         else {
@@ -444,9 +444,9 @@ function runUserCode() {
             }
         }
         else if (CurrentlyHacking === true) {
-            //player wanted to hack a server and the statemant below returned true
-            //currentConnectedServerHackedLevel >= 2 && currentConnectedServerHackedLevel <= 10
-            //manage inputs differently now
+            // Player wanted to hack a server but the statemant below returned true
+            // CurrentConnectedServerHackedLevel >= 2 && currentConnectedServerHackedLevel <= 10
+            // Manage inputs differently now!
         }
     }
 }
@@ -724,7 +724,7 @@ function showTheServerInfo(serverName) {
                     `Server Name: ${servers[i].name}` + `<br>` +
                     `Server Power: ${servers[i].power}` + `<br>` +
                     `Security Level: ${servers[i].SecurityName}` + `<br>` +
-                    `Hacked Level: ${servers[i].HackedLevel}`
+                    `Hacked Level: ${servers[i].HackedName}`
                 );
                 addSysMessageToOutput(serverInfo);
 
@@ -757,7 +757,8 @@ function listServers() {
 
 // This function hacks the current connected server.
 function hackServer() {
-    currentConnectedServerHackedLevel = CurrentServer.HackedLevel;
+    const currentConnectedServerHackedLevel = CurrentServer.HackedLevel;
+    console.log(CurrentServer.HackedLevel);
 
     if (currentConnectedServerHackedLevel >= 0 && currentConnectedServerHackedLevel < 2) {
         CurrentServer.HackedLevel = currentConnectedServerHackedLevel + 1;
@@ -1007,21 +1008,6 @@ function makeResizable(windowElement, resizeHandle) {
     });
 }
 
-// Formats a number with thousands separators and a dynamic number of decimal places
-function formatNumber(number, numberAfterDecimal) {
-    // Round the number to the specified decimal places
-    let formattedNumber = number.toFixed(numberAfterDecimal);
-    
-    // Split the number into integer and decimal parts
-    let [integerPart, decimalPart] = formattedNumber.split('.');
-
-    // Add thousands separator to the integer part
-    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-
-    // Format the number with a comma as the decimal separator
-    return `${integerPart},${decimalPart}`;
-}
-
 // This function converts numbers from 1 to 10 into their corresponding English words.
 function securityLevelToName(number) {
     const numberWords = [
@@ -1034,13 +1020,14 @@ function securityLevelToName(number) {
         "Hypersecure",
         "Quantum",
         "Adaptive",
-        "Immune"
+        "Immune",
+        "Secluded"
     ];
 
     const level = levelToCoolNumber(number);
     
-    if (number >= 1 && number <= 10) {
-        return numberWords[number - 1] + " (" + level + ")";
+    if (number >= 0 && number <= 10) {
+        return numberWords[number] + " - " + level;
     }
     else {
         console.log("NUMBER OUT OF RANGE");
@@ -1050,7 +1037,26 @@ function securityLevelToName(number) {
 
 // This function converts numbers to cool big numbers.
 function levelToCoolNumber(number) {
-    return formatNumber((Math.random() * 999) + (1000 * number), 1);
+    return formatNumber((Math.random() * 999) + (1000 * number), 0);
+}
+
+// Formats a number with thousands separators and a dynamic number of decimal places
+function formatNumber(number, numberAfterDecimal) {
+    // Round the number to the specified decimal places
+    let formattedNumber = number.toFixed(numberAfterDecimal);
+    
+    // Split the number into integer and decimal parts
+    let [integerPart, decimalPart] = formattedNumber.split('.');
+
+    // Add thousands separator to the integer part
+    integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    
+    if(numberAfterDecimal == 0) {
+        return `${integerPart}`;
+    }
+    else {
+        return `${integerPart},${decimalPart}`;
+    }
 }
 
 
