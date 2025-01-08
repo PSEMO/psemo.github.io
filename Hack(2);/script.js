@@ -15,16 +15,18 @@ class server {
         this.power = power;
 
         this.SecurityLevel = SecurityLevel;
+        this.SecurityName = "";
         this.HackedLevel = HackedLevel;
+        this.HackedName = "";
 
-        updateSecurityName();
-        updateHackedName();
+        this.updateSecurityName();
+        this.updateHackedName();
 
         this.working = false;
     }
-    
+
     updateSecurityName() {
-        this.SecurityName = securityLevelToName(SecurityLevel);
+        this.SecurityName = securityLevelToName(this.SecurityLevel);
     }
     
     updateHackedName() {
@@ -32,7 +34,7 @@ class server {
             this.HackedName = "Overrun"
         }
         else {
-            this.HackedName = levelToCoolNumber(HackedLevel);
+            this.HackedName = levelToCoolNumber(this.HackedLevel);
         }
     }
 }
