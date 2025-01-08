@@ -121,9 +121,9 @@ console.log(getMarketDetails(market));
 
 //#region servers
 let servers = [
-    new server("localServer", 10, 1, 1)
+    new server("localServer", 10, 0, 0)
 ]
-    
+
 servers = servers.concat(generateServers(19));
 
 var CurrentServer = servers[0];
@@ -253,12 +253,10 @@ function processCommands(commands, isThereMessage) {
                 }
                 else if (commands.length === 2) {
                     let productToBuy;
-                    if(commands[0] == "buy")
-                    {
+                    if (commands[0] == "buy") {
                         productToBuy = getProduct(commands[1]);
                     }
-                    else
-                    {
+                    else {
                         productToBuy = getProduct(commands[0]);
                     }
 
@@ -284,8 +282,8 @@ function processCommands(commands, isThereMessage) {
         else {
             //clean or clear command
             if (commands.includes("clear") ||
-            commands.includes("clean") ||
-            commands.includes("cls")) {
+                commands.includes("clean") ||
+                commands.includes("cls")) {
                 if (commands.length > 1) {
                     if (commands.includes("clean"))
                         addErrorToOutput("The command clean cannot be combined with other commands or values.");
@@ -375,13 +373,12 @@ function runUserCode() {
         let messages = [];
 
         let __TempEditedInput = EditedInput;
-        while(getTextBetween(__TempEditedInput, "(", ");") !== false)
-        {
+        while (getTextBetween(__TempEditedInput, "(", ");") !== false) {
             messages.push(getTextBetween(__TempEditedInput, "(", ");").withoutStrings);
             //remove "(" and ");"
             __TempEditedInput = (__TempEditedInput.replace("(", "")).replace(");", "");
         }
-        
+
         let commands = EditedInput.split(' ');
         commands = removeMessageFromCommands(commands);
         //we are handling messages like any other command. They are being detected as messages later down the line.
@@ -422,32 +419,25 @@ function runUserCode() {
     }
 }
 
-function buy(product)
-{
-    if(totalMoney > product.specs.price)
-    {
+function buy(product) {
+    if (totalMoney > product.specs.price) {
         totalMoney -= product.specs.price;
 
-        if(product.type == ComponentType.CPU)
-        {
+        if (product.type == ComponentType.CPU) {
             localServerHardware.cpuList.push(product);
         }
-        else if(product.type == ComponentType.GPU)
-        {
+        else if (product.type == ComponentType.GPU) {
             localServerHardware.gpuList.push(product);
         }
-        else if(product.type == ComponentType.RAM)
-        {
+        else if (product.type == ComponentType.RAM) {
             localServerHardware.ramList.push(product);
         }
-        else if(product.type == ComponentType.PSU)
-        {
+        else if (product.type == ComponentType.PSU) {
             localServerHardware.psuList.push(product);
         }
         setLocalServerPower();
     }
-    else
-    {
+    else {
         addErrorToOutput("Insufficient funds.");
     }
 }
@@ -469,8 +459,7 @@ function updateElement(array, targetValue, newValue) {
     return array; // Return the updated array
 }
 
-function showMarket()
-{
+function showMarket() {
     // Slice removes the first <br>
     createWindow("Market", getMarketDetails().slice(4));
 }
@@ -521,7 +510,7 @@ function getLevelDetails(level) {
     let cpu = baseCpu + Math.ceil(Math.floor((level - 1) / 4) * 500);
     let gpu = baseGpu + Math.ceil(((level - 1) % 4) * 500 + Math.floor((level - 1) / 4) * 2000);
     let ram = baseRam + Math.ceil(Math.floor((level - 1) / 2) * 0.6);
-    
+
     return { cpu: cpu, gpu: gpu, ram: ram, level: level };
 }
 
@@ -532,7 +521,7 @@ function miningLevel(cpuList, gpuList, ramList, psuList) {
     let totalRam = ramList.reduce((sum, ram) => sum + ram.specs.stat.value, 0);
     let totalPsuCapacity = psuList.reduce((sum, psu) => sum + psu.specs.stat.value, 0);
     let powerConsumptionFromWall = psuList.reduce((sum, psu) => sum + psu.specs.power.value, 0);
-    let totalPowerConsumption = 
+    let totalPowerConsumption =
         cpuList.reduce((sum, cpu) => sum + cpu.specs.power.value, 0) +
         gpuList.reduce((sum, gpu) => sum + gpu.specs.power.value, 0) +
         ramList.reduce((sum, ram) => sum + ram.specs.power.value, 0);
@@ -573,13 +562,13 @@ function miningLevel(cpuList, gpuList, ramList, psuList) {
 
     // Compose the information string
     let information = `Current Level: ${currentLevel}<br>` +
-                      `Total CPU Power: ${totalCpuPower}<br>` +
-                      `Total GPU Power: ${totalGpuPower}<br>` +
-                      `Total RAM: ${totalRam}<br>` +
-                      `Total PSU Capacity: ${totalPsuCapacity}<br>` +
-                      `Total Power Consumption: ${totalPowerConsumption}<br>` +
-                      `Needed for Next Level - CPU: ${nextLevelDetails.cpu}, GPU: ${nextLevelDetails.gpu}, RAM: ${nextLevelDetails.ram}<br>` +
-                      `Power Usage of Other Components: ${powerConsumptionFromWall}`;
+        `Total CPU Power: ${totalCpuPower}<br>` +
+        `Total GPU Power: ${totalGpuPower}<br>` +
+        `Total RAM: ${totalRam}<br>` +
+        `Total PSU Capacity: ${totalPsuCapacity}<br>` +
+        `Total Power Consumption: ${totalPowerConsumption}<br>` +
+        `Needed for Next Level - CPU: ${nextLevelDetails.cpu}, GPU: ${nextLevelDetails.gpu}, RAM: ${nextLevelDetails.ram}<br>` +
+        `Power Usage of Other Components: ${powerConsumptionFromWall}`;
 
     // Return results
     return [currentLevel, powerConsumptionFromWall, information];
@@ -600,12 +589,10 @@ function generateUniqueName(existingNames) {
         const noun = nouns[getRandomInt(0, nouns.length - 1)];
 
         let number;
-        if(randomOutcome = Math.random() < 0.5)
-        {
+        if (randomOutcome = Math.random() < 0.5) {
             number = getRandomInt(1, 9999);
         }
-        else
-        {
+        else {
             number = "";
         }
 
@@ -648,7 +635,7 @@ function help() {
 function showTheServerInfo(serverName) {
     function getComponentDetailsWithCount(componentList) {
         const componentCounts = {};
-    
+
         // Count occurrences of each component
         componentList.forEach(component => {
             const key = `${component.type}-${component.name}`;
@@ -658,7 +645,7 @@ function showTheServerInfo(serverName) {
                 componentCounts[key] = { count: 1, component };
             }
         });
-    
+
         // Print the components with their count
         output = "<br>";
         for (const key in componentCounts) {
@@ -668,7 +655,7 @@ function showTheServerInfo(serverName) {
         return output;
     }
 
-    if(serverName == "localServer") {
+    if (serverName == "localServer") {
         let serverInfo = (`<br>` +
             `Server Name: ${servers[0].name}` + "<br>" +
             `Server Power: ${servers[0].power}` + "<br>" +
@@ -695,7 +682,7 @@ function showTheServerInfo(serverName) {
                     `Hacked Level: ${servers[i].HackedLevel}`
                 );
                 addSysMessageToOutput(serverInfo);
-                
+
                 return;
             }
         }
@@ -722,16 +709,55 @@ function listServers() {
 }
 
 function hackServer() {
-    CurrentServer.HackedLevel = CurrentServer.HackedLevel + 1;
-    addSysMessageToOutput("Succesfully hacked the {" + CurrentServer.name + "} server.");
+    currentConnectedServerHackedLevel = CurrentServer.HackedLevel;
+
+    if (currentConnectedServerHackedLevel === 0) {
+        CurrentServer.HackedLevel = currentConnectedServerHackedLevel + 1;
+        addSysMessageToOutput("Succesfully hacked the {" + CurrentServer.name + "} server.");
+    }
+    else if (currentConnectedServerHackedLevel === 1) {
+
+    }
+    else if (currentConnectedServerHackedLevel === 2) {
+
+    }
+    else if (currentConnectedServerHackedLevel === 3) {
+
+    }
+    else if (currentConnectedServerHackedLevel === 4) {
+
+    }
+    else if (currentConnectedServerHackedLevel === 5) {
+
+    }
+    else if (currentConnectedServerHackedLevel === 6) {
+
+    }
+    else if (currentConnectedServerHackedLevel === 7) {
+
+    }
+    else if (currentConnectedServerHackedLevel === 8) {
+
+    }
+    else if (currentConnectedServerHackedLevel === 9) {
+
+    }
+    else if (currentConnectedServerHackedLevel === 10) {
+
+    }
+    else {
+        addErrorToOutput("Unexpected {CurrentServer.HackedLevel} value. (hx2-0)");
+    }
 }
 
+// Starts the mining process on the current server
 function startMining() {
     CurrentServer.working = true;
     profitPerSecond = profitPerSecond + CurrentServer.power;
     addSysMessageToOutput("Mining started on the {" + CurrentServer.name + "} server.");
 }
 
+// Extracts text between specified start and end strings
 function getTextBetween(text, startString, endString) {
     // Check if startString and endString exist in the text
     const startIndex = text.indexOf(startString);
@@ -752,6 +778,7 @@ function getTextBetween(text, startString, endString) {
     };
 }
 
+// Removes text between specified start and end strings, including the strings themselves
 function removeTextBetween(text, startString, endString) {
     // Check if startString and endString exist in the text
     const startIndex = text.indexOf(startString);
@@ -766,10 +793,12 @@ function removeTextBetween(text, startString, endString) {
     return text.substring(0, startIndex) + text.substring(endIndex + endString.length);
 }
 
+// Removes messages enclosed in parentheses from a list of commands
 function removeMessageFromCommands(commands) {
     return commands.map(command => removeTextBetween(command, "(", ");"));
 }
 
+// Adds a system message to the output with proper formatting based on the theme
 function addSysMessageToOutput(text) {
     if (CurrentTheme === ColorMode.DARK) {
         addToOutput("<span class=\"sysmsg dark-theme\">SYSTEM: " + text + "</span>");
@@ -778,6 +807,7 @@ function addSysMessageToOutput(text) {
         addToOutput("<span class=\"sysmsg\">SYSTEM: " + text + "</span>");
     }
 }
+// Adds a warning message to the output with proper formatting based on the theme
 function addWarningToOutput(text) {
     if (CurrentTheme === ColorMode.DARK) {
         addToOutput("<span class=\"warning\">WARNING: " + text + "</span>");
@@ -786,6 +816,7 @@ function addWarningToOutput(text) {
         addToOutput("<span class=\"warning\">WARNING: " + text + "</span>");
     }
 }
+// Adds an error message to the output with proper formatting based on the theme
 function addErrorToOutput(text) {
     if (CurrentTheme === ColorMode.DARK) {
         addToOutput("<span class=\"error\">ERROR: " + text + "</span>");
@@ -794,6 +825,7 @@ function addErrorToOutput(text) {
         addToOutput("<span class=\"error\">ERROR: " + text + "</span>");
     }
 }
+// Adds user input to the output with proper formatting based on the theme
 function addUserInputToOutput(text) {
     if (CurrentTheme === ColorMode.DARK) {
         addToOutput("<span class=\"sysmsg\">></span>" + text);
@@ -802,14 +834,16 @@ function addUserInputToOutput(text) {
         addToOutput("<span class=\"sysmsg\">></span>" + text);
     }
 }
+// Appends text to the output container
 function addToOutput(text) {
     setOutput(containerForOutput.innerHTML + text + "<br>");
 }
+// Sets the output container's content to the specified text
 function setOutput(text) {
     containerForOutput.innerHTML = text;
 }
 
-// Function to toggle dark theme
+// Toggles between light and dark themes for the application
 function toggleTheme() {
     document.body.classList.toggle('dark-theme');
     if (CurrentTheme === ColorMode.DARK) {
@@ -822,7 +856,7 @@ function toggleTheme() {
     }
 }
 
-// Check if any of the arrays includes an element that is in the other array.
+// Checks if any element in one array exists in another array
 function anyElementInArray(array1, array2) {
     for (let i = 0; i < array1.length; i++) {
         if (array2.includes(array1[i])) {
@@ -832,6 +866,7 @@ function anyElementInArray(array1, array2) {
     return false; // Return false if no matches are found
 }
 
+// Creates a draggable and resizable window with the specified title and content
 function createWindow(HeadText, BodyText) {
     // Create the main window element
     const windowElement = document.createElement('div');
@@ -890,6 +925,7 @@ function createWindow(HeadText, BodyText) {
     windowCount++;
 }
 
+// Makes a specified window element draggable using its header
 function makeDraggable(windowElement, header) {
     let isDragging = false;
     let offsetX, offsetY;
@@ -919,6 +955,7 @@ function makeDraggable(windowElement, header) {
     });
 }
 
+// Makes a specified window element resizable using its resize handle
 function makeResizable(windowElement, resizeHandle) {
     let isResizing = false;
 
@@ -945,6 +982,7 @@ function makeResizable(windowElement, resizeHandle) {
     });
 }
 
+// Formats a number with thousands separators and two decimal places (1234,5678 to 1.234,56)
 function formatNumber(number) {
     // Split the number into integer and decimal parts
     let [integerPart, decimalPart] = number.toFixed(2).split('.');

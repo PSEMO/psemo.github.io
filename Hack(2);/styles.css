@@ -34,6 +34,7 @@ body.dark-theme {
     text-align: left;
     transition: background-color 0.3s, color 0.3s;
 }
+
 .dark-theme .containerForText {
     background-color: rgb(0, 45, 0);
 }
@@ -41,6 +42,7 @@ body.dark-theme {
 #containerForWallet {
     width: fit-content;
 }
+
 .dark-theme #containerForWallet {
     width: fit-content;
 }
@@ -53,6 +55,7 @@ body.dark-theme {
     color: rgb(10, 85, 10);
     text-align: center;
 }
+
 .dark-theme #containerForInput {
     background-color: rgb(20, 20, 20);
     color: rgb(0, 255, 0);
@@ -142,6 +145,7 @@ button:hover {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     overflow: hidden;
 }
+
 .dark-theme .window {
     border: 2px solid #007070;
     background-color: #222;
@@ -159,6 +163,7 @@ button:hover {
     align-items: center;
     height: 20px;
 }
+
 .dark-theme .window-header {
     background-color: #007070;
     color: rgb(0, 0, 0);
@@ -173,6 +178,7 @@ button:hover {
     right: 0;
     cursor: se-resize;
 }
+
 .dark-theme .resize-handle {
     background-color: #007070;
 }
@@ -186,6 +192,7 @@ button:hover {
     padding: 3px 7px;
     cursor: pointer;
 }
+
 .dark-theme .close-btn {
     color: rgb(0, 0, 0);
 }
