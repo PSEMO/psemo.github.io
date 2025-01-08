@@ -17,9 +17,23 @@ class server {
         this.SecurityLevel = SecurityLevel;
         this.HackedLevel = HackedLevel;
 
-        this.working = false;
+        updateSecurityName();
+        updateHackedName();
 
+        this.working = false;
+    }
+    
+    updateSecurityName() {
         this.SecurityName = securityLevelToName(SecurityLevel);
+    }
+    
+    updateHackedName() {
+        if (this.HackedLevel >= this.securityLevel) {
+            this.HackedName = "Overrun"
+        }
+        else {
+            this.HackedName = levelToCoolNumber(HackedLevel);
+        }
     }
 }
 
@@ -203,7 +217,7 @@ function update() {
     function fnc() {
         totalMoney = totalMoney + (profitPerSecond * multiplier);
 
-        stringMoney = formatNumber(totalMoney);
+        stringMoney = formatNumber(totalMoney, 2);
 
         containerForWallet.innerHTML = stringMoney + "$";
     }
@@ -428,7 +442,9 @@ function runUserCode() {
             }
         }
         else if (CurrentlyHacking === true) {
-            //manage inputs differently
+            //player wanted to hack a server and the statemant below returned true
+            //currentConnectedServerHackedLevel >= 2 && currentConnectedServerHackedLevel <= 10
+            //manage inputs differently now
         }
     }
 }
@@ -741,12 +757,14 @@ function listServers() {
 function hackServer() {
     currentConnectedServerHackedLevel = CurrentServer.HackedLevel;
 
-    if (currentConnectedServerHackedLevel === 0) {
+    if (currentConnectedServerHackedLevel >= 0 && currentConnectedServerHackedLevel < 2) {
         CurrentServer.HackedLevel = currentConnectedServerHackedLevel + 1;
         addSysMessageToOutput("Succesfully hacked the {" + CurrentServer.name + "} server.");
+
+        CurrentServer.updateHackedName();
     }
-    else if (currentConnectedServerHackedLevel >= 1 && currentConnectedServerHackedLevel <= 10) {
-        CurrentlyHacking = currentConnectedServerHackedLevel;
+    else if (currentConnectedServerHackedLevel >= 2 && currentConnectedServerHackedLevel <= 10) {
+        CurrentlyHacking = true;
         HackingMode = currentConnectedServerHackedLevel;
         addWarningToOutput("Hacking session started, security level to breach is; \"" + CurrentServer + "\".")
     }
@@ -987,10 +1005,13 @@ function makeResizable(windowElement, resizeHandle) {
     });
 }
 
-// Formats a number with thousands separators and two decimal places (1234,5678 to 1.234,56)
-function formatNumber(number) {
+// Formats a number with thousands separators and a dynamic number of decimal places
+function formatNumber(number, numberAfterDecimal) {
+    // Round the number to the specified decimal places
+    let formattedNumber = number.toFixed(numberAfterDecimal);
+    
     // Split the number into integer and decimal parts
-    let [integerPart, decimalPart] = number.toFixed(2).split('.');
+    let [integerPart, decimalPart] = formattedNumber.split('.');
 
     // Add thousands separator to the integer part
     integerPart = integerPart.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
@@ -1014,15 +1035,20 @@ function securityLevelToName(number) {
         "Immune"
     ];
 
-    const level = (Math.random() * 999) + (1000 * number);
+    const level = levelToCoolNumber(number);
     
     if (number >= 1 && number <= 10) {
-        return numberWords[number - 1] + " (" + level + ").";
+        return numberWords[number - 1] + " (" + level + ")";
     }
     else {
         console.log("NUMBER OUT OF RANGE");
         return "NUMBER OUT OF RANGE";
     }
+}
+
+// This function converts numbers to cool big numbers.
+function levelToCoolNumber(number) {
+    return formatNumber((Math.random() * 999) + (1000 * number), 1);
 }
 
 
