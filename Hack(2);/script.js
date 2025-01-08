@@ -769,7 +769,7 @@ function hackServer() {
     else if (currentConnectedServerHackedLevel >= 2 && currentConnectedServerHackedLevel <= 10) {
         CurrentlyHacking = true;
         HackingMode = currentConnectedServerHackedLevel;
-        addWarningToOutput("Hacking session started, security level to breach is; \"" + CurrentServer + "\".")
+        addWarningToOutput("Hacking session started, security level to breach is; \"" + CurrentServer.SecurityName + "\".");
     }
     else {
         addErrorToOutput("Unexpected {CurrentServer.HackedLevel} value. (hx2-0)");
