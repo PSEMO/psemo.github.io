@@ -1059,8 +1059,9 @@ function formatNumber(number, numberAfterDecimal) {
     }
 }
 
-
-function generateRandomIDs(length, amount, exclusiveLetters) {
+//Generates an array of random strings with specified length and amount. 
+//One of the strings will contain a set of exclusive letters.
+function generateUniqueCodes(length, amount, exclusiveLetters) {
     const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     const strings = [];
     
@@ -1081,14 +1082,6 @@ function generateRandomIDs(length, amount, exclusiveLetters) {
   
     return strings;
 }
-  
-  // Usage
-  const length = 10; // Length of each string
-  const amount = 5;  // Number of strings to generate
-  const exclusiveLetters = "XYZ"; // Letters that should appear in only one string
-  
-  const randomStrings = generateRandomIDs(length, amount, exclusiveLetters);
-  console.log(randomStrings);
-  
+
 
 toggleTheme(); //changes the theme to dark, effectively making the default theme dark.
