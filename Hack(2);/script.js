@@ -7,7 +7,11 @@ const containerForOutput = document.getElementById("containerForOutput");
 const themeToggleImg = document.getElementById("themeToggleImg");
 const createWindowButtonTest = document.getElementById('create-window');
 //#endregion
-
+//=
+//==
+//===
+//==
+//=
 //#region classes and enums
 class server {
     constructor(name, power, SecurityLevel, HackedLevel) {
@@ -123,7 +127,11 @@ const Products =
     })),
 };
 //#endregion
-
+//=
+//==
+//===
+//==
+//=
 //#region market
 let market = []
 
@@ -138,7 +146,11 @@ market.push(Products.psu1600Watt85P);
 
 console.log(getMarketDetails(market));
 //#endregion
-
+//=
+//==
+//===
+//==
+//=
 //#region servers
 let servers = [
     new server("localServer", 10, 0, 0)
@@ -162,7 +174,11 @@ let localServerHardware = {
 let maxLocalServerLevel = 2500;
 setLocalServerPower();
 //#endregion
-
+//=
+//==
+//===
+//==
+//=
 //#region commands
 const validCommands = [
     "pass", "clear", "clean", "cls", "hack", "mine",
@@ -173,7 +189,11 @@ const validCommandsWithMessages = [
     "connect", "scan", "market", "buy"
 ];
 //#endregion
-
+//=
+//==
+//===
+//==
+//=
 //#region event listeners
 //Event listeners for buttons
 themeToggleButton.addEventListener('click', toggleTheme);
@@ -187,12 +207,20 @@ userInputField.addEventListener('keydown', function (event) {
     }
 });
 //#endregion
-
+//=
+//==
+//===
+//==
+//=
 //#region tracker variables for creating windows
 let windowCount = 0; // Track the number of created windows
 let zIndexCounter = 1; // Initialize z-index counter
 //#endregion
-
+//=
+//==
+//===
+//==
+//=
 //#region light/dark theme
 const themeAdjustDark = "themeAdjustDark.png";
 const themeAdjustLight = "themeAdjustLight.png";
@@ -201,12 +229,20 @@ var CurrentTheme = ColorMode.LIGHT;
 
 themeToggleImg.src = themeAdjustDark;
 //#endregion
-
+//=
+//==
+//===
+//==
+//=
 //#region variables about active hacking
 let CurrentlyHacking = false;
 let HackingMode = 0;
 //#endregion
-
+//=
+//==
+//===
+//==
+//=
 //#region UPDATE
 var profitPerSecond = 0;
 var totalMoney = 0;
@@ -226,6 +262,11 @@ function update() {
     setInterval(fnc, delay);
 }
 //#endregion
+//=
+//==
+//===
+//==
+//=
 
 //Deal and execute the commands.
 function processCommands(commands, isThereMessage) {
