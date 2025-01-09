@@ -1123,6 +1123,6 @@ function generateUniqueCodes(length, amount, exclusiveLetters) {
   
     return strings;
 }
-  
+
 
 toggleTheme(); //changes the theme to dark, effectively making the default theme dark.
