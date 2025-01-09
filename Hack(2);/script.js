@@ -1060,4 +1060,35 @@ function formatNumber(number, numberAfterDecimal) {
 }
 
 
+function generateRandomIDs(length, amount, exclusiveLetters) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const strings = [];
+    
+    for (let i = 0; i < amount; i++) {
+      let randomString = "";
+      
+      for (let j = 0; j < length; j++) {
+        randomString += characters.charAt(Math.floor(Math.random() * characters.length));
+      }
+  
+      strings.push(randomString);
+    }
+  
+    // Ensure exclusive letters are in only one random string
+    const exclusiveIndex = Math.floor(Math.random() * amount);
+    strings[exclusiveIndex] = 
+      strings[exclusiveIndex].slice(0, length - exclusiveLetters.length) + exclusiveLetters;
+  
+    return strings;
+}
+  
+  // Usage
+  const length = 10; // Length of each string
+  const amount = 5;  // Number of strings to generate
+  const exclusiveLetters = "XYZ"; // Letters that should appear in only one string
+  
+  const randomStrings = generateRandomIDs(length, amount, exclusiveLetters);
+  console.log(randomStrings);
+  
+
 toggleTheme(); //changes the theme to dark, effectively making the default theme dark.
