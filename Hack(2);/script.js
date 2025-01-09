@@ -488,6 +488,34 @@ function runUserCode() {
             // Player wanted to hack a server but the statemant below returned true
             // CurrentConnectedServerHackedLevel >= 2 && currentConnectedServerHackedLevel <= 10
             // Manage inputs differently now!
+            const currentConnectedServerHackedLevel = CurrentServer.HackedLevel;
+            if(currentConnectedServerHackedLevel === 2) {
+
+            }
+            else if(currentConnectedServerHackedLevel === 3) {
+
+            }
+            else if(currentConnectedServerHackedLevel === 4) {
+
+            }
+            else if(currentConnectedServerHackedLevel === 5) {
+
+            }
+            else if(currentConnectedServerHackedLevel === 6) {
+
+            }
+            else if(currentConnectedServerHackedLevel === 7) {
+
+            }
+            else if(currentConnectedServerHackedLevel === 8) {
+
+            }
+            else if(currentConnectedServerHackedLevel === 9) {
+
+            }
+            else if(currentConnectedServerHackedLevel === 10) {
+
+            }
         }
     }
 }
