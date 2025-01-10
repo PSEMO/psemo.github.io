@@ -504,7 +504,10 @@ function runUserCode() {
                 }
                 else if(commands.length == 1)
                 {
-                    
+                    if(commands[0])
+                    {
+                        
+                    }
                 }
             }
             else if(currentConnectedServerHackedLevel === 3) {
@@ -848,7 +851,10 @@ function hackServer() {
         addWarningToOutput("Hacking session started, security level to breach is; \"" + CurrentServer.SecurityName + "\".");
         if(currentConnectedServerHackedLevel === 2) {
             selectedID = "X2";
-            generateUniqueCodes(8, 20, selectedID);
+            const _generatedUniqueCode = generateUniqueCodes(8, 20, selectedID);
+            allIDs = _generatedUniqueCode.strings.join('<br>');
+            exclusiveID = _generatedUniqueCode.exclusiveString;
+            createWindow(CurrentServer.name + "\'s IDs", allIDs);
         }
         else if(currentConnectedServerHackedLevel === 3) {
         }
@@ -1176,7 +1182,7 @@ function generateUniqueCodes(length, amount, exclusiveLetters) {
     strings[exclusiveIndex] = 
       strings[exclusiveIndex].slice(0, length - exclusiveLetters.length) + exclusiveLetters;
   
-    return strings;
+    return {strings: strings, exclusiveString: strings[exclusiveIndex]};
 }
 
 
