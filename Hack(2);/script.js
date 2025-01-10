@@ -505,7 +505,7 @@ function runUserCode() {
                 }
                 else if(commands.length == 1)
                 {
-                    if(commands[0] == )
+                    if(commands[0].toLowerCase() == exclusiveID.toLowerCase())
                     {
                         
                     }
@@ -841,10 +841,7 @@ function hackServer() {
     console.log(CurrentServer.HackedLevel);
 
     if (currentConnectedServerHackedLevel >= 0 && currentConnectedServerHackedLevel < 2) {
-        CurrentServer.HackedLevel = currentConnectedServerHackedLevel + 1;
-        addSysMessageToOutput("Succesfully hacked the {" + CurrentServer.name + "} server.");
-
-        CurrentServer.updateHackedName();
+        SuccesfullyHackedServer();
     }
     else if (currentConnectedServerHackedLevel >= 2 && currentConnectedServerHackedLevel <= 10) {
         CurrentlyHacking = true;
@@ -877,6 +874,14 @@ function hackServer() {
     else {
         addErrorToOutput("Unexpected {CurrentServer.HackedLevel} value. (hx2-0)");
     }
+}
+
+// Succesfully hack the server
+function SuccesfullyHackedServer() {
+    CurrentServer.HackedLevel = CurrentServer.HackedLevel + 1;
+    addSysMessageToOutput("Succesfully hacked the {" + CurrentServer.name + "} server.");
+
+    CurrentServer.updateHackedName();
 }
 
 // Starts the mining process on the current server
