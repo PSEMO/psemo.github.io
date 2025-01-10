@@ -518,7 +518,8 @@ function runUserCode() {
                     }
                 }
             }
-            else if(currentConnectedServerHackedLevel === 3) {
+            //TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+            /*else if(currentConnectedServerHackedLevel === 3) {
             }
             else if(currentConnectedServerHackedLevel === 4) {
             }
@@ -533,6 +534,12 @@ function runUserCode() {
             else if(currentConnectedServerHackedLevel === 9) {
             }
             else if(currentConnectedServerHackedLevel === 10) {
+            }*/
+            //TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+            else {
+                addErrorToOutput("This section of the game is not ready yet");
+                addWarningToOutput("You can quit the current hacking process by entering " +
+                    exitWords.map(word => `[${word}]`).join(", ") + " without the brackets");
             }
         }
     }
@@ -863,7 +870,8 @@ function hackServer() {
 
             addSysMessageToOutput("Enter the full key that ends with, \"" + exclusivePart + "\".");
         }
-        else if(currentConnectedServerHackedLevel === 3) {
+        //TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+        /*else if(currentConnectedServerHackedLevel === 3) {
         }
         else if(currentConnectedServerHackedLevel === 4) {
         }
@@ -878,6 +886,12 @@ function hackServer() {
         else if(currentConnectedServerHackedLevel === 9) {
         }
         else if(currentConnectedServerHackedLevel === 10) {
+        }*/
+        //TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+        else {
+            addErrorToOutput("This section of the game is not ready yet");
+            addWarningToOutput("You can quit the current hacking process by entering " +
+                exitWords.map(word => `[${word}]`).join(", ") + " without the brackets");
         }
     }
     else {
