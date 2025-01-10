@@ -502,6 +502,10 @@ function runUserCode() {
                 if(commands.length > 1) {
                     addErrorToOutput("You need to provide the ")
                 }
+                else if(commands.length == 1)
+                {
+                    
+                }
             }
             else if(currentConnectedServerHackedLevel === 3) {
             }
@@ -841,9 +845,10 @@ function hackServer() {
     else if (currentConnectedServerHackedLevel >= 2 && currentConnectedServerHackedLevel <= 10) {
         CurrentlyHacking = true;
         HackingMode = currentConnectedServerHackedLevel;
-        addWarningToOutput("Hacking session started, security level to breach is; \"" + CurrentServer.SecurityName + "\".");selectedID
+        addWarningToOutput("Hacking session started, security level to breach is; \"" + CurrentServer.SecurityName + "\".");
         if(currentConnectedServerHackedLevel === 2) {
-            
+            selectedID = "X2";
+            generateUniqueCodes(8, 20, selectedID);
         }
         else if(currentConnectedServerHackedLevel === 3) {
         }
