@@ -267,6 +267,14 @@ function update() {
 //===
 //==
 //=
+//#region variables for different hack levels
+var selectedID = "";
+//#endregion
+//=
+//==
+//===
+//==
+//=
 
 //Deal and execute the commands.
 function processCommands(commands, isThereMessage) {
@@ -430,30 +438,31 @@ function processCommands(commands, isThereMessage) {
 function runUserCode() {
     const inputValue = userInputField.value.trim();
     if (inputValue) {
-        if (CurrentlyHacking === false) {
-            addUserInputToOutput(inputValue); // Print the input
-            userInputField.value = ''; // Clear the input field
-    
-            EditedInput = inputValue.toLowerCase();
-            EditedInput = EditedInput.replaceAll("();", "");
-    
-            let messages = [];
-    
-            let __TempEditedInput = EditedInput;
-            while (getTextBetween(__TempEditedInput, "(", ");") !== false) {
-                messages.push(getTextBetween(__TempEditedInput, "(", ");").withoutStrings);
-                //remove "(" and ");"
-                __TempEditedInput = (__TempEditedInput.replace("(", "")).replace(");", "");
-            }
-    
-            let commands = EditedInput.split(' ');
-            commands = removeMessageFromCommands(commands);
-            //we are handling messages like any other command. They are being detected as messages later down the line.
-            commands = commands.concat(messages);
-    
-            console.log("detected commands are, ");
-            console.log(commands);
-    
+
+        addUserInputToOutput(inputValue); // Print the input
+        userInputField.value = ''; // Clear the input field
+
+        EditedInput = inputValue.toLowerCase();
+        EditedInput = EditedInput.replaceAll("();", "");
+
+        let messages = [];
+
+        let __TempEditedInput = EditedInput;
+        while (getTextBetween(__TempEditedInput, "(", ");") !== false) {
+            messages.push(getTextBetween(__TempEditedInput, "(", ");").withoutStrings);
+            //remove "(" and ");"
+            __TempEditedInput = (__TempEditedInput.replace("(", "")).replace(");", "");
+        }
+
+        let commands = EditedInput.split(' ');
+        commands = removeMessageFromCommands(commands);
+        //we are handling messages like any other command. They are being detected as messages later down the line.
+        commands = commands.concat(messages);
+
+        console.log("detected commands are, ");
+        console.log(commands);
+
+        if (CurrentlyHacking === false) {    
             // Find strings in commands that are not in validCommands
             const faultyCommands = commands.filter(command_ => !validCommands.includes(command_));
     
@@ -490,6 +499,9 @@ function runUserCode() {
             // Manage inputs differently now!
             const currentConnectedServerHackedLevel = CurrentServer.HackedLevel;
             if(currentConnectedServerHackedLevel === 2) {
+                if(commands.length > 1) {
+                    addErrorToOutput("You need to provide the ")
+                }
             }
             else if(currentConnectedServerHackedLevel === 3) {
             }
@@ -829,7 +841,26 @@ function hackServer() {
     else if (currentConnectedServerHackedLevel >= 2 && currentConnectedServerHackedLevel <= 10) {
         CurrentlyHacking = true;
         HackingMode = currentConnectedServerHackedLevel;
-        addWarningToOutput("Hacking session started, security level to breach is; \"" + CurrentServer.SecurityName + "\".");
+        addWarningToOutput("Hacking session started, security level to breach is; \"" + CurrentServer.SecurityName + "\".");selectedID
+        if(currentConnectedServerHackedLevel === 2) {
+            
+        }
+        else if(currentConnectedServerHackedLevel === 3) {
+        }
+        else if(currentConnectedServerHackedLevel === 4) {
+        }
+        else if(currentConnectedServerHackedLevel === 5) {
+        }
+        else if(currentConnectedServerHackedLevel === 6) {
+        }
+        else if(currentConnectedServerHackedLevel === 7) {
+        }
+        else if(currentConnectedServerHackedLevel === 8) {
+        }
+        else if(currentConnectedServerHackedLevel === 9) {
+        }
+        else if(currentConnectedServerHackedLevel === 10) {
+        }
     }
     else {
         addErrorToOutput("Unexpected {CurrentServer.HackedLevel} value. (hx2-0)");
