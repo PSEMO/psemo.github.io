@@ -234,9 +234,13 @@ themeToggleImg.src = themeAdjustDark;
 //===
 //==
 //=
-//#region variables about active hacking
+//#region variables about hacking
 let CurrentlyHacking = false;
 let HackingMode = 0;
+
+var exclusivePart = "";
+var exclusiveID = "";
+var allIDs = "";
 //#endregion
 //=
 //==
@@ -261,16 +265,6 @@ function update() {
     }
     setInterval(fnc, delay);
 }
-//#endregion
-//=
-//==
-//===
-//==
-//=
-//#region variables for different hack levels
-var exclusivePart = "";
-var exclusiveID = "";
-var allIDs = "";
 //#endregion
 //=
 //==
@@ -866,6 +860,8 @@ function hackServer() {
             allIDs = _generatedUniqueCode.strings.join('<br>');
             exclusiveID = _generatedUniqueCode.exclusiveString;
             createWindow(CurrentServer.name + "\'s IDs", allIDs);
+
+            addSysMessageToOutput("Enter the full key that ends with, \"" + exclusivePart + "\".");
         }
         else if(currentConnectedServerHackedLevel === 3) {
         }
