@@ -268,6 +268,7 @@ function update() {
 //==
 //=
 //#region variables for different hack levels
+var exclusivePart = "";
 var exclusiveID = "";
 var allIDs = "";
 //#endregion
@@ -498,16 +499,28 @@ function runUserCode() {
             // Player wanted to hack a server but the statemant below returned true
             // CurrentConnectedServerHackedLevel >= 2 && currentConnectedServerHackedLevel <= 10
             // Manage inputs differently now!
+
+            const exitWords = ["cancel", "abort", "close", "stop",
+                "end", "terminate", "break", "back", "halt",
+                "return","q", "esc", "quit", "exit"];
             const currentConnectedServerHackedLevel = CurrentServer.HackedLevel;
             if(currentConnectedServerHackedLevel === 2) {
-                if(commands.length > 1) {
-                    addErrorToOutput("You need to provide the ")
+                if(commands.length !== 1) {
+                    addErrorToOutput("You need to provide only the code that ends with \'" + exclusivePart + "\'");
+                    addWarningToOutput("You can quit the current hacking process by entering " +
+                        exitWords.map(word => `[${word}]`).join(", ") + " without the brackets");
                 }
-                else if(commands.length == 1)
-                {
-                    if(commands[0].toLowerCase() == exclusiveID.toLowerCase())
-                    {
-                        
+                else {
+                    if(commands[0].toLowerCase() == exclusiveID.toLowerCase()) {
+                        SuccesfullyHackedServer();
+                    }
+                    else if(exitWords.includes(commands[0])) {
+                        CurrentlyHacking = false;
+                    }
+                    else {
+                        addErrorToOutput("You need to provide only the code that ends with \'" + exclusivePart + "\'");
+                        addWarningToOutput("You can quit the current hacking process by entering " +
+                            exitWords.map(word => `[${word}]`).join(", ") + " without the brackets");
                     }
                 }
             }
@@ -848,8 +861,8 @@ function hackServer() {
         HackingMode = currentConnectedServerHackedLevel;
         addWarningToOutput("Hacking session started, security level to breach is; \"" + CurrentServer.SecurityName + "\".");
         if(currentConnectedServerHackedLevel === 2) {
-            selectedID = "X2";
-            const _generatedUniqueCode = generateUniqueCodes(8, 20, selectedID);
+            exclusivePart = "X2";
+            const _generatedUniqueCode = generateUniqueCodes(8, 20, exclusivePart);
             allIDs = _generatedUniqueCode.strings.join('<br>');
             exclusiveID = _generatedUniqueCode.exclusiveString;
             createWindow(CurrentServer.name + "\'s IDs", allIDs);
