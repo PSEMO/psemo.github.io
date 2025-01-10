@@ -892,12 +892,13 @@ function hackServer() {
 // Succesfully hack the server
 function SuccesfullyHackedServer() {
     CurrentServer.HackedLevel = CurrentServer.HackedLevel + 1;
-    addSysMessageToOutput("Succesfully hacked the {" + CurrentServer.name + "} server." +
-        " (" + CurrentServer.HackedName + "/" + CurrentServer.SecurityName + ")");
     
     CurrentlyHacking = false;
 
     CurrentServer.updateHackedName();
+    
+    addSysMessageToOutput("Succesfully hacked the {" + CurrentServer.name + "} server." +
+        " (" + CurrentServer.HackedName + "/" + CurrentServer.SecurityName + ")");
 }
 
 // Starts the mining process on the current server
