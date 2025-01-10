@@ -268,7 +268,8 @@ function update() {
 //==
 //=
 //#region variables for different hack levels
-var selectedID = "";
+var exclusiveID = "";
+var allIDs = "";
 //#endregion
 //=
 //==
@@ -504,7 +505,7 @@ function runUserCode() {
                 }
                 else if(commands.length == 1)
                 {
-                    if(commands[0])
+                    if(commands[0] == )
                     {
                         
                     }
