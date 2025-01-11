@@ -609,7 +609,7 @@ function setLocalServerPower() {
 
     const _miningLevel = miningLevel(localServerHardware.cpuList, localServerHardware.gpuList, localServerHardware.ramList, localServerHardware.psuList);
     const _miningLevelIntoPower = (_miningLevel[0] / 10);
-    const _miningExponential = (1.01 ** _miningLevel[0]);
+    const _miningExponential = (1.001 ** _miningLevel[0]);
     servers[0].power = _miningLevelIntoPower + _miningExponential;
 
     addSysMessageToOutput(_miningLevel[2]);
@@ -635,12 +635,12 @@ function getLevelDetails(level) {
     }
 
     let baseCpu = 500;
-    let baseGpu = 500;
+    let baseGpu = 1000;
     let baseRam = 3;
 
     // Calculate values dynamically based on level
     let cpu = baseCpu + Math.ceil(Math.floor((level - 1) / 4) * 500);
-    let gpu = baseGpu + Math.ceil(((level - 1) % 4) * 500 + Math.floor((level - 1) / 4) * 2000);
+    let gpu = baseGpu + Math.ceil(((level - 1) % 4) * 1000 + Math.floor((level - 1) / 4) * 4000);
     let ram = baseRam + Math.ceil(Math.floor((level - 1) / 2) * 0.6);
 
     return { cpu: cpu, gpu: gpu, ram: ram, level: level };
@@ -701,7 +701,7 @@ function miningLevel(cpuList, gpuList, ramList, psuList) {
         `Total PSU Capacity: ${totalPsuCapacity}<br>` +
         `Total Power Consumption: ${totalPowerConsumption}<br>` +
         `Needed for Next Level - CPU: ${nextLevelDetails.cpu}, GPU: ${nextLevelDetails.gpu}, RAM: ${nextLevelDetails.ram}<br>` +
-        `Power Usage of Other Components: ${powerConsumptionFromWall}`;
+        `Total Power Draw From Wall: ${powerConsumptionFromWall}`;
 
     // Return results
     return [currentLevel, powerConsumptionFromWall, information];
