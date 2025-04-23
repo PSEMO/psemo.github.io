@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grind Mindset</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <h1>Grind Mindset</h1>
+
+    <div id="controls">
+        <button id="save-button">Save Game</button> <!-- Added Save Button -->
+        <button id="restart-button">Restart Game</button>
+        <button id="dark-mode-button">Toggle Dark Mode</button>
+    </div>
+
+    <div id="stats">
+        <p>Money: $<span id="money">0</span></p>
+        <p>Income / sec: $<span id="income-rate">0</span></p>
+        <p id="current-work">Currently Working: None</p>
+        <p id="save-status" style="font-size: 0.8em; color: #888; margin-top: 5px;"></p>
+        <!-- Added Save Status Display -->
+    </div>
+
+    <div id="game-area">
+        <!-- Buildings will be added here by JavaScript -->
+    </div>
+
+    <!-- Building Info Modal (Keep as is) -->
+    <div id="building-modal" class="modal">
+        <!-- ... (modal content remains the same) ... -->
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <h2 id="modal-building-name">Building Name</h2>
+            <p>Type: <span id="modal-building-type">Type</span></p>
+            <p>Level: <span id="modal-building-level">1</span></p> <!-- Added Level display -->
+            <p>Price: $<span id="modal-building-price">0</span></p>
+            <p>Current Revenue/Boost: <span id="modal-building-revenue">0</span><span
+                    id="modal-revenue-unit">/sec</span></p>
+            <hr>
+            <div id="modal-worker-info" style="display: none;">
+                <p>Looking for Worker: <span id="modal-looking-worker">No</span></p>
+                <p>Worker Pay: $<span id="modal-worker-pay">0</span> / click</p>
+            </div>
+            <hr>
+            <!-- Upgrade Section (Shown only if owned) -->
+            <div id="modal-upgrade-section" style="display: none;">
+                <p>Next Upgrade Cost: $<span id="modal-upgrade-cost">0</span></p>
+                <p>Revenue/Boost Increase per Upgrade: +<span id="modal-upgrade-benefit">0</span><span
+                        id="modal-upgrade-benefit-unit">/sec</span></p>
+                <button id="modal-upgrade-button">Upgrade</button>
+                <hr>
+            </div>
+            <!-- End Upgrade Section -->
+            <div id="modal-actions">
+                <button id="modal-buy-button">Buy</button>
+                <button id="modal-work-button">Work Here</button>
+            </div>
+            <p id="modal-owned-message" class="owned-message">You own this building.</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
