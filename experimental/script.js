@@ -301,7 +301,7 @@ document.addEventListener('DOMContentLoaded', () => {
         div.classList.add('upgrade-item');
 
         // Add spacing class for layout (every 3rd item)
-        if ((index + 1) % 3 === 0 && index !== gameState.gameUpgrades.length - 1) {
+        if (index == 2 || index == 5) {
             div.classList.add('upgrade-spacing');
         }
 
