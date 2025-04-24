@@ -175,7 +175,7 @@ body {
     background-color: #fefefe;
     color: #333;
     /* Default text color for modal */
-    margin: 10% auto;
+    margin: 15% auto;
     /* Adjusted margin for better centering */
     padding: 25px;
     border: 1px solid #888;
@@ -277,16 +277,6 @@ body {
     cursor: not-allowed;
 }
 
-/* Other Modal Elements */
-.owned-message {
-    margin-top: 15px;
-    font-weight: bold;
-    color: #27ae60;
-    display: none;
-    /* Initially hidden */
-    transition: color 0.3s ease;
-}
-
 hr {
     border: 0;
     height: 1px;
@@ -374,11 +364,6 @@ body.dark-mode hr {
     /* Darker hr */
 }
 
-body.dark-mode .owned-message {
-    color: #4caf50;
-    /* Keep green readable, maybe adjust brightness */
-}
-
 /* Ensure buttons remain usable in dark mode */
 body.dark-mode #modal-actions button:disabled,
 body.dark-mode #modal-upgrade-section button:disabled {
@@ -388,8 +373,7 @@ body.dark-mode #modal-upgrade-section button:disabled {
     cursor: not-allowed;
 }
 
-/* Add this within your existing CSS file */
-
+/* --- Save Status --- */
 #save-status {
     transition: opacity 0.5s ease-out;
     opacity: 0;
@@ -407,3 +391,258 @@ body.dark-mode #save-status {
     color: #bbb;
     /* Lighter gray for dark mode */
 }
+
+/* --- Main Content Layout --- */
+#main-content {
+    display: flex;
+    justify-content: center;
+    /* Center game area and upgrades */
+    align-items: flex-start;
+    /* Align tops */
+    gap: 20px;
+    /* Space between game area and upgrades */
+    width: 95%;
+    /* Adjust overall width as needed */
+    max-width: 1600px;
+    /* Example max width */
+    margin: 0 auto;
+    /* Center the container */
+}
+
+/* Adjust Game Area Width */
+#game-area {
+    width: 73%;
+    /* Make space for upgrades */
+    /* Keep existing game-area styles (border, padding, etc.) */
+    max-height: 600px;
+    /* Match upgrade potential height */
+}
+
+/* Upgrades Section */
+#upgrades-section {
+    width: 128px;
+    /* Fixed width for upgrades */
+    padding: 15px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    max-height: 600px;
+    /* Match game area */
+    overflow-y: auto;
+    /* Allow scrolling if many upgrades */
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#upgrades-section h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #555;
+    /* Adjust color as needed */
+    transition: color 0.3s ease;
+}
+
+#upgrades-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack upgrades vertically */
+    align-items: center;
+    /* Center upgrades horizontally */
+    gap: 12px;
+    /* Space between upgrades */
+}
+
+/* Individual Upgrade Item */
+.upgrade-item {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    /* Needed for text overlay */
+    overflow: hidden;
+    /* Clip the gradient */
+    background-color: #f0f0f0;
+    /* Fallback bg */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    /* Added more transitions */
+    padding: 4px;
+    /* Padding around image */
+    box-sizing: border-box;
+    /* Include padding in size */
+}
+
+.upgrade-item:hover {
+    transform: scale(1.08);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.upgrade-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Use contain to see whole icon, adjust padding/size if needed */
+    border-radius: 3px;
+    /* Slightly round image corners */
+    transition: filter 0.3s ease;
+    /* Add transition for potential filters */
+}
+
+/* Gradient Overlay for Text - Shown by default */
+.upgrade-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45%;
+    /* Adjust height of gradient */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    pointer-events: none;
+    /* Allow clicks to pass through */
+    z-index: 1;
+    /* Above image, below text */
+    border-bottom-left-radius: 3px;
+    /* Match item rounding */
+    border-bottom-right-radius: 3px;
+    transition: opacity 0.3s ease;
+    /* Allow fading */
+}
+
+/* Text inside Upgrade Item - Shown by default */
+.upgrade-text {
+    position: absolute;
+    bottom: 2px;
+    /* Position text near the bottom */
+    left: 0;
+    right: 0;
+    color: white;
+    font-size: 0.7em;
+    /* Smaller font for limited space */
+    font-weight: bold;
+    text-align: center;
+    padding: 0 2px;
+    /* Prevent text touching edges */
+    text-shadow: 1px 1px 2px black;
+    z-index: 2;
+    /* Ensure text is above gradient */
+    pointer-events: none;
+    /* Allow clicks to pass through */
+    line-height: 1.1;
+    /* Prevent text wrapping issues */
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    transition: opacity 0.3s ease;
+    /* Allow fading */
+}
+
+.upgrade-spacing {
+    margin-bottom: 20px;
+}
+
+
+/* --- Style for Bought Upgrades (NEW) --- */
+.upgrade-item.bought {
+    opacity: 0.6;
+    /* Keep some opacity to indicate interaction state */
+    cursor: default;
+    pointer-events: none;
+    /* Disable clicks */
+    border-color: #888;
+    /* Slightly darker border */
+}
+
+.upgrade-item.bought:hover {
+    transform: none;
+    /* No hover effect if bought */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    /* Revert shadow */
+}
+
+/* Hide the gradient overlay on bought items */
+.upgrade-item.bought::after {
+    opacity: 0;
+    /* Fade out the gradient */
+}
+
+/* Hide the text on bought items */
+.upgrade-item.bought .upgrade-text {
+    opacity: 0;
+    /* Fade out the text */
+}
+
+/* Optional: Slightly desaturate image */
+.upgrade-item.bought img {
+    filter: grayscale(40%);
+}
+
+/* --- Dark Mode Adjustments --- */
+body.dark-mode #upgrades-section {
+    background-color: #444;
+    border-color: #555;
+}
+
+body.dark-mode #upgrades-section h2 {
+    color: #ccc;
+}
+
+body.dark-mode .upgrade-item {
+    border-color: #777;
+    background-color: #555;
+    /* Darker fallback bg */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    /* Adjust shadow for dark */
+}
+
+body.dark-mode .upgrade-item:hover {
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    /* Adjust hover shadow */
+}
+
+/* Bought upgrades in Dark Mode */
+body.dark-mode .upgrade-item.bought {
+    opacity: 0.5;
+    /* Adjust opacity */
+    border-color: #666;
+    /* Darker border */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    /* Revert shadow */
+}
+
+body.dark-mode .upgrade-item.bought img {
+    filter: grayscale(50%);
+    /* Maybe slightly more grayscale */
+}
+
+/* Ensure dark mode gradient uses darker black if needed (though it's hidden when bought) */
+body.dark-mode .upgrade-item::after {
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.85), transparent);
+}
+
+/* Dark mode text shadow */
+body.dark-mode .upgrade-text {
+    text-shadow: 1px 1px 2px #000;
+}
+
+
+/* --- City Navigation --- */
+#city-navigation button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+/* Optional: Style current city display */
+#current-city-display {
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+/* --- Player Action Logging Placeholder --- */
+/* No visual styles needed for this */
