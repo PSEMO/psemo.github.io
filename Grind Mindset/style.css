@@ -1,0 +1,1068 @@
+/* General Body and Layout */
+body {
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    /* For dark mode */
+}
+
+/* Control Buttons */
+#controls {
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow wrapping on small screens */
+    justify-content: center;
+    /* Center buttons */
+    gap: 10px;
+}
+
+#controls button {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #e9e9e9;
+    transition: background-color 0.2s ease;
+}
+
+#controls button:hover:not(:disabled) {
+    /* Don't change bg on hover if disabled */
+    background-color: #dcdcdc;
+}
+
+#controls button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+/* Specific style for Prestige button */
+#prestige-button {
+    background-color: #ffcc00;
+    /* Gold-ish */
+    border-color: #e6b800;
+    font-weight: bold;
+}
+
+#prestige-button:hover:not(:disabled) {
+    background-color: #e6b800;
+}
+
+#prestige-button:disabled {
+    background-color: #f2e4a8;
+    /* Lighter gold when disabled */
+    border-color: #e6d591;
+    opacity: 0.7;
+}
+
+
+/* Statistics Display Area */
+#stats {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+    min-width: 300px;
+    /* Increased min-width slightly */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    /* For dark mode */
+}
+
+#stats p {
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+
+/* Highlight investors */
+#stats p:has(#investors) {
+    font-weight: bold;
+    color: #8e44ad;
+    /* Purple color for investors */
+}
+
+/* Main Game Area Container */
+#game-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    /* Align items to the start */
+    align-content: flex-start;
+    /* Align lines to the start */
+    gap: 10px;
+    padding: 15px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    /* Added border */
+    border-radius: 8px;
+    width: 76%;
+    max-width: 1920px;
+    min-height: 570px;
+    /* Use min-height to ensure it doesn't collapse */
+    max-height: 600px;
+    /* Match upgrade potential height */
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+    /* For dark mode */
+}
+
+/* Individual Building Styling */
+.building {
+    width: 130px;
+    height: 130px;
+    border: 2px solid #555;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px;
+    box-sizing: border-box;
+    font-size: 0.85em;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.3s ease, border-color 0.3s ease;
+    /* Added bg/border transition */
+    text-align: center;
+    overflow: hidden;
+    /* Ensure content fits */
+}
+
+
+.building:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Building Color Types */
+.green {
+    background-color: #2ecc71;
+    border-color: #27ae60;
+}
+
+.blue {
+    background-color: #3498db;
+    border-color: #2980b9;
+}
+
+.yellow {
+    background-color: #f1c40f;
+    border-color: #f39c12;
+}
+
+.purple {
+    background-color: #9b59b6;
+    border-color: #8e44ad;
+}
+
+/* Building Status Indicators */
+.owned-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    z-index: 1;
+    /* Ensure it's above level */
+}
+
+.working-indicator {
+    border: 3px dashed #ffffff;
+    box-shadow: 0 0 10px #ffcc00;
+}
+
+.building-level {
+    font-size: 0.8em;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    /* Ensure readable */
+    padding: 2px 4px;
+    border-radius: 3px;
+    line-height: 1;
+    align-self: flex-start;
+    margin-bottom: 5px;
+    z-index: 0;
+    /* Below owned indicator */
+}
+
+.building-name {
+    margin-top: auto;
+    /* Push name to the bottom */
+    font-weight: bold;
+    word-wrap: break-word;
+    /* Allow long names to wrap */
+}
+
+/* --- Add Building Button Style (NEW) --- */
+#add-building-button {
+    width: 130px;
+    height: 130px;
+    border: 3px dashed #888;
+    background-color: rgba(200, 200, 200, 0.3);
+    color: #555;
+    font-size: 3em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    box-sizing: border-box;
+}
+
+#add-building-button:hover {
+    background-color: rgba(180, 180, 180, 0.5);
+    border-color: #666;
+}
+
+#add-building-button:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+    background-color: rgba(220, 220, 220, 0.2);
+    border-color: #aaa;
+    color: #999;
+}
+
+/* Add title for cost */
+#add-building-button[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    bottom: 100%;
+    /* Position above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+    white-space: nowrap;
+    z-index: 10;
+    margin-bottom: 5px;
+    /* Space between button and tooltip */
+}
+
+
+/* Modal Base Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 100;
+    /* Ensure modal is on top */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    color: #333;
+    /* Default text color for modal */
+    margin: 10% auto;
+    /* Adjusted margin slightly */
+    padding: 25px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 550px;
+    /* Increased max-width for prestige modal */
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    /* For dark mode */
+}
+
+/* Specific width for building modal if needed */
+#building-modal .modal-content {
+    max-width: 450px;
+}
+
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+    /* Not used in Prestige modal, but keep for building modal */
+    z-index: 101;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    /* Will be overridden by dark mode if needed */
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Content Typography */
+.modal-content h2 {
+    margin-top: 0;
+    color: #333;
+    /* Default */
+    transition: color 0.3s ease;
+    text-align: center;
+    /* Center modal titles */
+}
+
+.modal-content h3 {
+    margin-top: 15px;
+    margin-bottom: 10px;
+    color: #444;
+    text-align: center;
+    transition: color 0.3s ease;
+}
+
+.modal-content p {
+    margin: 10px 0;
+    color: #555;
+    /* Default */
+    transition: color 0.3s ease;
+    line-height: 1.4;
+}
+
+/* Modal Action Buttons (Buy, Work) */
+#modal-actions button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+#modal-actions button:hover:not(:disabled) {
+    background-color: #45a049;
+}
+
+#modal-actions button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Specific Styling for "Stop Working" Button */
+#modal-work-button.stop-working {
+    background-color: #f44336;
+    /* Red for stop */
+}
+
+#modal-work-button.stop-working:hover:not(:disabled) {
+    background-color: #d32f2f;
+}
+
+/* Modal Upgrade Section Button */
+#modal-upgrade-section button {
+    background-color: #ff9800;
+    /* Orange for upgrade */
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+#modal-upgrade-section button:hover:not(:disabled) {
+    background-color: #f57c00;
+}
+
+#modal-upgrade-section button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #eee;
+    margin: 15px 0;
+    transition: background-color 0.3s ease;
+    /* For dark mode */
+}
+
+/* --- Prestige Modal Specific Styles --- */
+#prestige-modal .modal-content {
+    text-align: center;
+    /* Center text elements */
+}
+
+#prestige-modal p {
+    font-size: 1.1em;
+}
+
+#prestige-modal strong {
+    color: #8e44ad;
+    /* Purple for investor numbers */
+    font-size: 1.2em;
+}
+
+#prestige-upgrades-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack upgrades vertically */
+    gap: 15px;
+    /* Space between upgrades */
+    margin-top: 10px;
+    margin-bottom: 20px;
+    text-align: left;
+    /* Align text within items to the left */
+}
+
+.prestige-upgrade-item {
+    display: flex;
+    align-items: center;
+    /* Align items vertically */
+    gap: 15px;
+    /* Space between image, info, button */
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    /* Light background for item */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.prestige-upgrade-item img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    flex-shrink: 0;
+    /* Prevent image from shrinking */
+}
+
+.prestige-upgrade-info {
+    flex-grow: 1;
+    /* Allow info section to take remaining space */
+}
+
+.prestige-upgrade-info h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+    color: #333;
+}
+
+.prestige-upgrade-info p {
+    margin: 3px 0;
+    font-size: 0.9em;
+    color: #666;
+}
+
+.prestige-upgrade-info p.upgrade-cost {
+    /* Specific class for cost line */
+    font-weight: bold;
+    margin-top: 5px;
+    /* Add some space above cost */
+}
+
+.prestige-upgrade-buy {
+    padding: 8px 12px;
+    font-size: 0.9em;
+    cursor: pointer;
+    border-radius: 4px;
+    background-color: #9b59b6;
+    /* Purple theme */
+    color: white;
+    border: none;
+    transition: background-color 0.2s ease;
+    flex-shrink: 0;
+    /* Prevent button from shrinking */
+}
+
+.prestige-upgrade-buy:hover:not(:disabled) {
+    background-color: #8e44ad;
+}
+
+.prestige-upgrade-buy:disabled {
+    background-color: #c5a1d4;
+    /* Lighter purple */
+    cursor: not-allowed;
+}
+
+.prestige-upgrade-bought {
+    /* Renamed from .bought to .max-level */
+    font-weight: bold;
+    color: #27ae60;
+    /* Green */
+    font-size: 1em;
+    flex-shrink: 0;
+    margin-left: 10px;
+    /* Space from info if button is hidden */
+    text-align: center;
+    /* Center text */
+    width: 80px;
+    /* Give it some width */
+}
+
+
+#prestige-continue-button {
+    padding: 12px 25px;
+    font-size: 1.1em;
+    cursor: pointer;
+    background-color: #2ecc71;
+    /* Green */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    transition: background-color 0.2s ease;
+    margin-top: 10px;
+}
+
+#prestige-continue-button:hover {
+    background-color: #27ae60;
+}
+
+
+/* --- Dark Mode Styles --- */
+body.dark-mode {
+    background-color: #2c2c2c;
+    /* Dark background */
+    color: #e0e0e0;
+    /* Light text */
+}
+
+body.dark-mode #controls button {
+    background-color: #555;
+    color: #e0e0e0;
+    border-color: #777;
+}
+
+body.dark-mode #controls button:hover:not(:disabled) {
+    background-color: #666;
+}
+
+body.dark-mode #controls button:disabled {
+    background-color: #444;
+    border-color: #666;
+    opacity: 0.6;
+}
+
+/* Dark mode Prestige button */
+body.dark-mode #prestige-button {
+    background-color: #b38f00;
+    border-color: #997a00;
+    color: #fff;
+}
+
+body.dark-mode #prestige-button:hover:not(:disabled) {
+    background-color: #997a00;
+}
+
+body.dark-mode #prestige-button:disabled {
+    background-color: #665200;
+    border-color: #806600;
+    opacity: 0.7;
+}
+
+body.dark-mode #stats {
+    background-color: #3a3a3a;
+    /* Darker panel background */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Dark mode investors text */
+body.dark-mode #stats p:has(#investors) {
+    color: #c39bd3;
+    /* Lighter purple for dark mode */
+}
+
+body.dark-mode #game-area {
+    background-color: #444;
+    /* Darker game area background */
+    border-color: #555;
+}
+
+/* Adjust building text shadow for dark mode if needed */
+body.dark-mode .building {
+    text-shadow: 1px 1px 2px #111;
+    /* Darker shadow */
+    /* Keep background colors, maybe slightly desaturate? optional */
+}
+
+body.dark-mode .building.working-indicator {
+    border: 3px dashed #eee;
+    /* Lighter dash for dark */
+    box-shadow: 0 0 10px #ffee58;
+    /* Lighter yellow glow */
+}
+
+/* Dark Mode for Add Building Button */
+body.dark-mode #add-building-button {
+    border-color: #666;
+    background-color: rgba(70, 70, 70, 0.4);
+    color: #bbb;
+}
+
+body.dark-mode #add-building-button:hover {
+    background-color: rgba(90, 90, 90, 0.6);
+    border-color: #888;
+}
+
+body.dark-mode #add-building-button:disabled {
+    opacity: 0.5;
+    background-color: rgba(50, 50, 50, 0.3);
+    border-color: #555;
+    color: #777;
+}
+
+/* Dark mode tooltip */
+body.dark-mode #add-building-button[title]:hover::after {
+    background-color: #eee;
+    color: #333;
+}
+
+
+body.dark-mode .modal-content {
+    background-color: #4f4f4f;
+    /* Dark modal background */
+    color: #e0e0e0;
+    /* Light modal text */
+    border-color: #666;
+}
+
+body.dark-mode .modal-content h2 {
+    color: #f5f5f5;
+    /* Even lighter title text */
+}
+
+body.dark-mode .modal-content h3 {
+    color: #ddd;
+}
+
+body.dark-mode .modal-content p {
+    color: #dcdcdc;
+    /* Lighter paragraph text */
+}
+
+body.dark-mode .close-button {
+    color: #ccc;
+}
+
+body.dark-mode .close-button:hover,
+body.dark-mode .close-button:focus {
+    color: #fff;
+}
+
+body.dark-mode hr {
+    background-color: #666;
+    /* Darker hr */
+}
+
+/* Ensure buttons remain usable in dark mode */
+body.dark-mode #modal-actions button:disabled,
+body.dark-mode #modal-upgrade-section button:disabled {
+    background-color: #777;
+    /* Darker disabled background */
+    color: #aaa;
+    cursor: not-allowed;
+}
+
+/* Dark mode Prestige Modal */
+body.dark-mode #prestige-modal strong {
+    color: #d2b4de;
+    /* Lighter purple */
+}
+
+body.dark-mode .prestige-upgrade-item {
+    background-color: #5a5a5a;
+    border-color: #777;
+}
+
+body.dark-mode .prestige-upgrade-info h4 {
+    color: #eee;
+}
+
+body.dark-mode .prestige-upgrade-info p {
+    color: #ccc;
+}
+
+body.dark-mode .prestige-upgrade-buy {
+    background-color: #8e44ad;
+    /* Keep purple */
+}
+
+body.dark-mode .prestige-upgrade-buy:hover:not(:disabled) {
+    background-color: #7d3c98;
+}
+
+body.dark-mode .prestige-upgrade-buy:disabled {
+    background-color: #a569bd;
+    opacity: 0.6;
+}
+
+body.dark-mode .prestige-upgrade-bought {
+    /* Renamed from .bought */
+    color: #58d68d;
+    /* Lighter green */
+}
+
+body.dark-mode #prestige-continue-button {
+    background-color: #27ae60;
+    /* Keep green */
+}
+
+body.dark-mode #prestige-continue-button:hover {
+    background-color: #229954;
+}
+
+
+/* --- Save Status --- */
+#save-status {
+    transition: opacity 0.5s ease-out;
+    opacity: 0;
+    /* Start hidden */
+    height: 1.2em;
+    /* Prevent layout shift when text appears */
+}
+
+#save-status.visible {
+    opacity: 1;
+}
+
+/* Optional: Adjust dark mode for save status if needed */
+body.dark-mode #save-status {
+    color: #bbb;
+    /* Lighter gray for dark mode */
+}
+
+/* --- Main Content Layout --- */
+#main-content {
+    display: flex;
+    justify-content: center;
+    /* Center game area and upgrades */
+    align-items: flex-start;
+    /* Align tops */
+    gap: 20px;
+    /* Space between game area and upgrades */
+    width: 95%;
+    /* Adjust overall width as needed */
+    max-width: 1600px;
+    /* Example max width */
+    margin: 0 auto;
+    /* Center the container */
+}
+
+/* Adjust Game Area Width */
+#game-area {
+    width: 73%;
+    /* Make space for upgrades */
+    /* Keep existing game-area styles (border, padding, etc.) */
+    /* max-height: 600px; -> Already set */
+}
+
+/* Upgrades Section */
+#upgrades-section {
+    width: 128px;
+    /* Fixed width for upgrades */
+    padding: 15px;
+    background-color: #e0e0e0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    max-height: 600px;
+    /* Match game area */
+    overflow-y: auto;
+    /* Allow scrolling if many upgrades */
+    box-sizing: border-box;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+#upgrades-section h2 {
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: #555;
+    /* Adjust color as needed */
+    transition: color 0.3s ease;
+}
+
+#upgrades-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack upgrades vertically */
+    align-items: center;
+    /* Center upgrades horizontally */
+    gap: 12px;
+    /* Space between upgrades */
+}
+
+/* Individual Upgrade Item */
+.upgrade-item {
+    width: 60px;
+    height: 60px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+    cursor: pointer;
+    position: relative;
+    /* Needed for text overlay */
+    overflow: hidden;
+    /* Clip the gradient */
+    background-color: #f0f0f0;
+    /* Fallback bg */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease, border-color 0.3s ease, background-color 0.3s ease;
+    /* Added more transitions */
+    padding: 4px;
+    /* Padding around image */
+    box-sizing: border-box;
+    /* Include padding in size */
+}
+
+.upgrade-item:hover:not(.bought) {
+    transform: scale(1.08);
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+}
+
+.upgrade-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Use contain to see whole icon, adjust padding/size if needed */
+    border-radius: 3px;
+    /* Slightly round image corners */
+    transition: filter 0.3s ease;
+    /* Add transition for potential filters */
+}
+
+/* Gradient Overlay for Text - Shown by default */
+.upgrade-item::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 45%;
+    /* Adjust height of gradient */
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85), transparent);
+    pointer-events: none;
+    /* Allow clicks to pass through */
+    z-index: 1;
+    /* Above image, below text */
+    border-bottom-left-radius: 3px;
+    /* Match item rounding */
+    border-bottom-right-radius: 3px;
+    transition: opacity 0.3s ease;
+    /* Allow fading */
+}
+
+/* Text inside Upgrade Item - Shown by default */
+.upgrade-text {
+    position: absolute;
+    bottom: 2px;
+    /* Position text near the bottom */
+    left: 0;
+    right: 0;
+    color: white;
+    font-size: 0.7em;
+    /* Smaller font for limited space */
+    font-weight: bold;
+    text-align: center;
+    padding: 0 2px;
+    /* Prevent text touching edges */
+    text-shadow: 1px 1px 2px black;
+    z-index: 2;
+    /* Ensure text is above gradient */
+    pointer-events: none;
+    /* Allow clicks to pass through */
+    line-height: 1.1;
+    /* Prevent text wrapping issues */
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    transition: opacity 0.3s ease;
+    /* Allow fading */
+}
+
+.upgrade-spacing {
+    margin-bottom: 20px;
+}
+
+/* --- Style for Bought Upgrades (NEW) --- */
+.upgrade-item.bought {
+    opacity: 0.6;
+    /* Keep some opacity to indicate interaction state */
+    cursor: default;
+    pointer-events: none;
+    /* Disable clicks */
+    border-color: #888;
+    /* Slightly darker border */
+}
+
+.upgrade-item.bought:hover {
+    transform: none;
+    /* No hover effect if bought */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    /* Revert shadow */
+}
+
+/* Hide the gradient overlay on bought items */
+.upgrade-item.bought::after {
+    opacity: 0;
+    /* Fade out the gradient */
+}
+
+/* Hide the text on bought items */
+.upgrade-item.bought .upgrade-text {
+    opacity: 0;
+    /* Fade out the text */
+}
+
+/* Optional: Slightly desaturate image */
+.upgrade-item.bought img {
+    filter: grayscale(40%);
+}
+
+/* --- Dark Mode Adjustments --- */
+body.dark-mode #upgrades-section {
+    background-color: #444;
+    border-color: #555;
+}
+
+body.dark-mode #upgrades-section h2 {
+    color: #ccc;
+}
+
+body.dark-mode .upgrade-item {
+    border-color: #777;
+    background-color: #555;
+    /* Darker fallback bg */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    /* Adjust shadow for dark */
+}
+
+body.dark-mode .upgrade-item:hover:not(.bought) {
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    /* Adjust hover shadow */
+}
+
+/* Bought upgrades in Dark Mode */
+body.dark-mode .upgrade-item.bought {
+    opacity: 0.5;
+    /* Adjust opacity */
+    border-color: #666;
+    /* Darker border */
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    /* Revert shadow */
+}
+
+body.dark-mode .upgrade-item.bought img {
+    filter: grayscale(50%);
+    /* Maybe slightly more grayscale */
+}
+
+/* Ensure dark mode gradient uses darker black if needed (though it's hidden when bought) */
+body.dark-mode .upgrade-item::after {
+    background: linear-gradient(to top, rgba(10, 10, 10, 0.85), transparent);
+}
+
+/* Dark mode text shadow */
+body.dark-mode .upgrade-text {
+    text-shadow: 1px 1px 2px #000;
+}
+
+/* --- City Navigation --- */
+#city-navigation {
+    display: flex;
+    /* Use flexbox for alignment */
+    align-items: center;
+    /* Vertically align items */
+    justify-content: center;
+    /* Center items horizontally */
+}
+
+#city-navigation button {
+    padding: 5px 10px;
+    margin: 0 5px;
+    cursor: pointer;
+}
+
+/* Specific style for the Build City button */
+#build-city-button {
+    font-weight: bold;
+    font-size: 1.2em;
+    padding: 3px 12px;
+    /* Adjust padding for '+' */
+}
+
+
+/* Optional: Style current city display */
+#current-city-display {
+    font-weight: bold;
+    margin: 0 10px;
+}
+
+/* --- Player Action Logging Placeholder --- */
+/* No visual styles needed for this */
+
+/* --- End Game Screen --- */
+#end-game-screen {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#end-game-screen h2 {
+    color: #8e44ad;
+    /* Purple to match investors */
+    margin-bottom: 15px;
+}
+
+#end-game-screen p {
+    font-size: 1.1em;
+    line-height: 1.5;
+    color: #333;
+}
+
+/* Dark Mode End Game Screen */
+body.dark-mode #end-game-screen {
+    background-color: #3a3a3a;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+body.dark-mode #end-game-screen h2 {
+    color: #c39bd3;
+    /* Lighter purple */
+}
+
+body.dark-mode #end-game-screen p {
+    color: #e0e0e0;
+}
+
+/* Ensure Restart button is clearly visible when other controls are hidden */
+#controls.game-ended {
+    justify-content: center;
+    /* Center the single restart button */
+}
+
+#controls.game-ended button:not(#restart-button) {
+    display: none;
+    /* Hide all buttons except restart */
+}
