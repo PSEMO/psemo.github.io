@@ -1,0 +1,248 @@
+/* General Body and Layout */
+body {
+    font-family: sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Statistics Display Area */
+#stats {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    text-align: center;
+    min-width: 250px;
+}
+
+#stats p {
+    margin: 5px 0;
+    font-size: 1.1em;
+}
+
+/* Main Game Area Container */
+#game-area {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    /* Use the final definition */
+    gap: 10px;
+    /* Use the final definition */
+    padding: 15px;
+    /* Use the final definition */
+    background-color: #e0e0e0;
+    border-radius: 8px;
+    width: 75.5%;
+    /* Use the final definition */
+    max-width: 1920px;
+    /* Use the final definition */
+    max-height: 570px;
+    /* Use the final definition */
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+/* Individual Building Styling */
+.building {
+    width: 130px;
+    /* Use the final definition */
+    height: 130px;
+    /* Use the final definition */
+    border: 2px solid #555;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Use the final definition */
+    align-items: center;
+    padding: 5px;
+    /* Use the final definition */
+    box-sizing: border-box;
+    font-size: 0.85em;
+    /* Use the final definition */
+    color: white;
+    text-shadow: 1px 1px 2px black;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    text-align: center;
+    /* Use the final definition */
+}
+
+.building:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Building Color Types */
+.green {
+    background-color: #2ecc71;
+    border-color: #27ae60;
+}
+
+.blue {
+    background-color: #3498db;
+    border-color: #2980b9;
+}
+
+.yellow {
+    background-color: #f1c40f;
+    border-color: #f39c12;
+}
+
+.purple {
+    background-color: #9b59b6;
+    border-color: #8e44ad;
+}
+
+/* Building Status Indicators */
+.owned-indicator {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 0.8em;
+}
+
+.working-indicator {
+    border: 3px dashed #ffffff;
+    box-shadow: 0 0 10px #ffcc00;
+}
+
+.building-level {
+    font-size: 0.8em;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 2px 4px;
+    border-radius: 3px;
+    line-height: 1;
+    align-self: flex-start;
+    margin-bottom: 5px;
+}
+
+/* Modal Base Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 25px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 450px;
+    border-radius: 8px;
+    position: relative;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.close-button {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Content Typography */
+.modal-content h2 {
+    margin-top: 0;
+    color: #333;
+}
+
+.modal-content p {
+    margin: 10px 0;
+    color: #555;
+}
+
+/* Modal Action Buttons (Buy, Work) */
+#modal-actions button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+#modal-actions button:hover {
+    background-color: #45a049;
+}
+
+#modal-actions button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Specific Styling for "Stop Working" Button */
+#modal-work-button.stop-working {
+    background-color: #f44336;
+}
+
+#modal-work-button.stop-working:hover {
+    background-color: #d32f2f;
+}
+
+/* Modal Upgrade Section Button */
+#modal-upgrade-section button {
+    background-color: #ff9800;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 1em;
+    transition: background-color 0.2s ease;
+}
+
+#modal-upgrade-section button:hover {
+    background-color: #f57c00;
+}
+
+#modal-upgrade-section button:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+}
+
+/* Other Modal Elements */
+.owned-message {
+    margin-top: 15px;
+    font-weight: bold;
+    color: #27ae60;
+    display: none;
+}
+
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #eee;
+    margin: 15px 0;
+}
