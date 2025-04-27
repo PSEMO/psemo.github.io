@@ -1,109 +1,151 @@
-<!-- Thanks to: https://github.com/johnggli/linktree -->
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Semih Yılmaz</title>
-  <!-- Favicon -->
-  <link rel="icon" href="https://avatars.githubusercontent.com/u/85266757?v=4" type="image/x-icon" />
-  <!-- Font Awesome icons -->
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
-  <!-- Core theme CSS -->
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Semih Yılmaz - Links</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="https://avatars.githubusercontent.com/u/85266757?v=4" type="image/png" />
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Space+Mono:wght@400;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Core theme CSS -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <div id="first100percent">
-    <!-- Parallax Pixel Background Animation -->
-    <section class="animated-background">
-      <div id="stars1"></div>
-      <div id="stars2"></div>
-      <div id="stars3"></div>
-    </section>
-    <!-- End of Parallax Pixel Background Animation -->
+    <!-- Animated Background Overlay -->
+    <div class="background-overlay"></div>
 
-    <a id="profilePicture" href="#popup">
-      <img src="https://avatars.githubusercontent.com/u/85266757?v=4" alt="Profile Picture">
-    </a>
+    <!-- Main Content Container -->
+    <div class="container">
 
-    <div class="overlay" id="popup">
-      <div class="popup">
-        <div class="popup-photo">
-          <a href="https://avatars.githubusercontent.com/u/85266757?v=4" target="_blank">
-            <img src="https://avatars.githubusercontent.com/u/85266757?v=4" alt="Profile Picture">
-          </a>
+        <header class="profile-header">
+            <button id="profilePicButton" class="profile-picture-button" aria-label="View Profile Picture">
+                <img src="https://avatars.githubusercontent.com/u/85266757?v=4" alt="Semih Yılmaz Profile Picture"
+                    loading="lazy">
+            </button>
+            <h1 class="profile-name">Semih "PSEMO" Yılmaz</h1>
+            <p class="profile-tagline">Computer Engineer</p>
+        </header>
+
+        <main class="links-container">
+
+            <!-- Professional Links Section -->
+            <section class="link-section professional-section">
+                <h2><i class="fas fa-briefcase fa-fw"></i> Professional</h2>
+                <nav aria-labelledby="professional-heading">
+                    <a class="link-item" href="./resume_gamedev.pdf" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-alt fa-fw"></i> Game Dev Resume
+                    </a>
+                    <a class="link-item" href="./resume_fullstack.pdf" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-file-code fa-fw"></i> Full Stack Resume
+                    </a>
+                    <a class="link-item"
+                        href="https://www.linkedin.com/in/semih-y%C4%B1lmaz-377545201/details/projects/" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="fab fa-linkedin fa-fw"></i> Organized Projects (LinkedIn)
+                    </a>
+                    <a class="link-item" href="https://www.youtube.com/@semihylmaz3949/playlists" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="fab fa-youtube fa-fw"></i> Project Videos (YouTube)
+                    </a>
+                    <a class="link-item" href="http://play.google.com/store/apps/developer?id=Semih+Y%C4%B1lmaz"
+                        target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-google-play fa-fw"></i> Android Apps & Games
+                    </a>
+                    <a class="link-item" href="https://psemo.itch.io/" target="_blank" rel="noopener noreferrer">
+                        <i class="fas fa-gamepad fa-fw"></i> Game Jam Games (itch.io)
+                    </a>
+                    <a class="link-item" href="https://github.com/PSEMO" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-github fa-fw"></i> GitHub Profile
+                    </a>
+                </nav>
+            </section>
+
+            <!-- Personal Links Section -->
+            <section class="link-section personal-section">
+                <h2><i class="fas fa-user fa-fw"></i> Personal</h2>
+                <nav aria-labelledby="personal-heading">
+                    <a class="link-item" href="https://www.linkedin.com/in/semih-y%C4%B1lmaz-377545201/" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="fab fa-linkedin fa-fw"></i> LinkedIn Profile
+                    </a>
+                    <a class="link-item" href="https://discord.gg/VyhyFkv86N" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-discord fa-fw"></i> My Discord Server
+                    </a>
+                    <a class="link-item" href="https://steamcommunity.com/id/PSEMO/" target="_blank"
+                        rel="noopener noreferrer">
+                        <i class="fab fa-steam fa-fw"></i> Steam Profile
+                    </a>
+                </nav>
+            </section>
+
+            <!-- Other Projects Section -->
+            <section class="link-section other-projects-section">
+                <h2><i class="fas fa-terminal fa-fw"></i> Other Projects</h2>
+                <nav aria-labelledby="other-projects-heading">
+                    <a class="link-item" href="https://psemo.itch.io/hack" target="_blank" rel="noopener noreferrer">
+                        <i class="fa fa-code fa-fw"></i> Hack(); Game
+                    </a>
+                    <a class="link-item" href="./Hack(2)%3B/index.html" target="_blank" rel="noopener noreferrer">
+                        <i class="fa fa-code fa-fw"></i> Hack(2); Game
+                    </a>
+                    <a class="link-item" href="./sorter.html" target="_blank" rel="noopener noreferrer">
+                        <i class="fa fa-sort-alpha-down fa-fw"></i> Sorter Tool
+                    </a>
+                </nav>
+            </section>
+
+        </main>
+
+        <footer class="page-footer">
+            <!-- Animated Hashtag -->
+            <div class="animated-hashtag">#OpenSource</div>
+        </footer>
+
+    </div> <!-- / .container -->
+
+    <!-- Image Popup Modal -->
+    <div id="imagePopup" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-heading"
+        aria-hidden="true">
+        <div class="popup-content">
+            <h2 id="popup-heading" class="visually-hidden">Profile Picture Large View</h2> {/* Added for screen readers
+            */}
+            <button id="closePopup" class="popup-close" aria-label="Close popup">×</button>
+            <img src="https://avatars.githubusercontent.com/u/85266757?v=4"
+                alt="Semih Yılmaz Profile Picture - Large View">
         </div>
-        <a class="popup-close" onclick="history.back()">&times;</a>
-      </div>
     </div>
 
-    <div id="texts">
-      Semih "PSEMO" Yılmaz
-    </div>
+    <!-- Visually Hidden Class (for accessibility) -->
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
 
-    <div id="links">
-      <a class="link" href="./resume.pdf" target="_blank">
-        <i class="far fa-file-alt">&nbsp;</i>Game Development focused Resume
-      </a>
-      <a class="link" href="./Resume.pdf" target="_blank">
-        <i class="far fa-file-alt">&nbsp;</i>Full Stack focused Resume
-      </a>
-      <a class="link" href="https://www.linkedin.com/in/semih-y%C4%B1lmaz-377545201/details/projects/" target="_blank">
-        <i class="fab fa-linkedin">&nbsp;</i>Organized projects (You need to be logged in)
-      </a>
-      <a class="link" href="https://www.youtube.com/@semihylmaz3949/playlists" target="_blank">
-        <i class="fab fa-youtube">&nbsp;</i>Short introduction videos for most of my projects
-      </a>
-      <a class="link" href="http://play.google.com/store/apps/developer?id=Semih+Y%C4%B1lmaz" target="_blank">
-        <i class="fab fa-google-play">&nbsp;</i>Android Apps and games made by me
-      </a>
-      <a class="link" href="https://psemo.itch.io/" target="_blank">
-        <i class="fas fa-gamepad">&nbsp;</i>Games that I made for GameJam competitions
-      </a>
-      <a class="link" href="https://github.com/PSEMO" target="_blank">
-        <i class="fab fa-github">&nbsp;</i>Github
-      </a>
-
-      <br>
-      <div id="texts">
-        Personal
-      </div>
-      <br>
-
-      <a class="link" href="https://www.linkedin.com/in/semih-y%C4%B1lmaz-377545201/" target="_blank">
-        <i class="fab fa-linkedin">&nbsp;</i>Linkedin
-      </a>
-      <a class="link" href="https://discord.gg/VyhyFkv86N" target="_blank">
-        <i class="fab fa-discord">&nbsp;</i>My Discord server
-      </a>
-      <a class="link" href="https://steamcommunity.com/id/PSEMO/" target="_blank">
-        <i class="fab fa-steam">&nbsp;</i>Steam
-      </a>
-
-      <div id="hashtag">❤❤❤❤❤</div>
-    </div>
-  </div>
-
-  <div id="links">
-    <br>
-    <div id="texts">
-      Other
-    </div>
-    <br>
-
-    <a class="link" href="https://psemo.itch.io/hack" target="_blank">
-      <i class="fa fa-terminal">&nbsp;</i>Hack();
-    </a>
-    <a class="link" href="./Hack(2)%3B/index.html" target="_blank">
-      <i class="fa fa-terminal">&nbsp;</i>Hack(2);
-    </a>
-    <a class="link" href="./sorter.html" target="_blank">
-      <i class="fa fa-terminal">&nbsp;</i>Sorter
-    </a>
-  </div>
-
-  <br><br><br>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
 </body>
 
 </html>
