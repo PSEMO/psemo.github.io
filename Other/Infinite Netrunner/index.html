@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infinite Netrunner v2.1</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Infinite Netrunner v2.1</h1>
+        </header>
+
+        <div class="game-stats">
+            <div>Layer: <span id="currentLayer">0</span></div>
+            <div>Owned Nodes: <span id="ownedNodes">0</span></div>
+            <div>Income: <span id="incomeRate">0</span> ICE/sec</div>
+            <div>ICE: <span id="currentICE">0</span></div>
+        </div>
+
+        <div class="sonar-display" id="sonarDisplay">
+            <!-- Sonar rings will be dynamically added by JS -->
+            <!-- Node blips will be dynamically added by JS -->
+        </div>
+
+        <div class="controls">
+            <button id="scanButton">Scan for New Node</button>
+        </div>
+
+        <div class="upgrades-panel-toggle">
+            <button id="toggleUpgradesButton">Show Upgrades (<span id="iceForUpgradesDisplay">0</span> ICE)</button>
+        </div>
+
+        <div class="challenge-area" id="challengeArea" style="display: none;">
+            <h2>Active Hack: <span id="nodeIdDisplay"></span></h2>
+            <p id="challengeDescription"></p>
+            <p><strong>Variables available as `v`:</strong> <code id="challengeVariables"></code></p>
+            <p class="penalty-warning"><strong>Warning:</strong> Cheating (Submitting the answer directly) will result
+                in an ICE penalty.</p>
+            <textarea id="userCode"
+                placeholder="Enter your JavaScript solution here... e.g., print(v[0] + v[1]);"></textarea>
+            <button id="runHackButton">Run Hack</button>
+            <button id="abortHackButton">Abort Hack</button>
+            <!-- Output is now shown in the hackResultArea modal -->
+        </div>
+
+    </div>
+
+    <!-- Upgrades Panel (Modal) -->
+    <div class="upgrades-panel" id="upgradesPanel" style="display: none;">
+        <div class="upgrades-panel-content">
+            <h2>Available Upgrades</h2>
+            <div id="upgradesList">
+                <!-- Upgrades will be populated here by JS -->
+            </div>
+            <button id="closeUpgradesButton" class="close-panel-button">Close</button>
+        </div>
+    </div>
+
+    <!-- Hack Result Area (Modal-like) -->
+    <div class="hack-result-area" id="hackResultArea" style="display: none;">
+        <div class="hack-result-content"> <!-- This div will get type class -->
+            <h2 id="hackResultTitle"></h2>
+            <p id="hackResultMessage"></p>
+            <button id="closeHackResultButton">Acknowledge</button>
+        </div>
+    </div>
+
+    <script src="script.js" defer></script>
+</body>
+
+</html>

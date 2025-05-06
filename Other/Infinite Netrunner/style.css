@@ -1,0 +1,702 @@
+:root {
+    /* Variables primarily from 2nd file */
+    --bg-color: #1a1a1a;
+    --text-color: #00ffcc;
+    /* Main text, cyan-ish green */
+    --sonar-ring-color: rgba(0, 255, 204, 0.3);
+    --sonar-blip-color: #00ffcc;
+    /* Default blip color (unhacked) */
+    --node-owned-color: #00ccff;
+    /* Owned node, blue-ish */
+    --node-active-color: #ff9900;
+    /* Active hack, orange */
+    --border-color: #009973;
+    --button-bg: #00664d;
+    --button-hover-bg: #008060;
+    --input-bg: #2c2c2c;
+    /* For panels, textareas, etc. */
+    --error-color: #ff3333;
+    --success-color: #33ff33;
+    --system-message-bg: #222;
+
+    /* Added/adapted based on 1st file for distinct colors not covered */
+    --classic-green: #0f0;
+    /* The iconic bright green from 1st file */
+    --container-main-bg: #121212;
+    /* Specific dark bg for main container from 1st file */
+    --unhacked-blip-original-f1: #ff0;
+    /* Original yellow for unhacked blips from File 1 (if you wish to revert) */
+    --active-hack-original-f1: #f00;
+    /* Original red for active hack from File 1 (if you wish to revert) */
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    /* Body usually has 0 padding, content is padded */
+    display: flex;
+    flex-direction: column;
+    /* Align items vertically (from 2nd file) */
+    align-items: center;
+    /* Center content horizontally (from 2nd file) */
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+.container {
+    background-color: var(--container-main-bg);
+    /* #121212 from 1st file */
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    /* Was --classic-green in F1 */
+    box-shadow: 0 0 15px var(--classic-green);
+    /* Was --classic-green in F1 */
+    width: 90%;
+    max-width: 1000px;
+    /* Larger from 2nd file */
+    text-align: center;
+    margin-top: 20px;
+    /* From 2nd file */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+header {
+    /* From 2nd file */
+    width: 100%;
+    text-align: center;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 10px;
+}
+
+header h1 {
+    color: var(--text-color);
+    /* Was --classic-green in F1 */
+    text-shadow: 0 0 10px var(--text-color);
+    /* Stronger shadow from F2 */
+    margin: 0;
+    /* From 2nd file */
+    font-size: 2.5em;
+    /* From 2nd file */
+}
+
+.game-stats {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    background-color: var(--bg-color);
+    /* #1a1a1a, was explicit in F1 */
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px dashed var(--border-color);
+    /* Was --classic-green in F1 */
+    font-size: 1.1em;
+    /* From 2nd file */
+}
+
+.game-stats div {
+    margin: 0 10px;
+}
+
+.sonar-display {
+    width: 300px;
+    height: 300px;
+    border: 2px solid var(--border-color);
+    /* Was --classic-green in F1 */
+    border-radius: 50%;
+    margin: 20px auto;
+    position: relative;
+    overflow: hidden;
+    background-color: rgba(0, 50, 40, 0.2);
+    /* More thematic bg from F2 */
+    box-shadow: inset 0 0 20px var(--sonar-ring-color);
+    /* Stronger inset shadow from F2 */
+}
+
+.sonar-ring {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid var(--sonar-ring-color);
+    /* Thicker border from F2 */
+    opacity: 0;
+    /* Initial state from F2 */
+    animation: sonar-pulse 3s infinite ease-out;
+    /* Renamed keyframe, F2 logic */
+}
+
+/* Staggered animation from 2nd file */
+.sonar-ring:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.sonar-ring:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.sonar-ring:nth-child(3) {
+    animation-delay: 2s;
+}
+
+@keyframes sonar-pulse {
+
+    /* Was sonarPulse, using F2's definition */
+    0% {
+        transform: scale(0.1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 0;
+    }
+}
+
+.node-blip {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    /* Default blip color from F2 vars. F1 was yellow (#ff0) */
+    background-color: var(--sonar-blip-color);
+    border-radius: 50%;
+    box-shadow: 0 0 7px var(--sonar-blip-color);
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    opacity: 0;
+    /* Start invisible for F2 animation */
+    animation: node-fade-pulse 3.5s infinite ease-in-out;
+    /* F2's more complex pulse */
+}
+
+@keyframes node-fade-pulse {
+
+    /* From 2nd file */
+    0%,
+    100% {
+        opacity: 0.1;
+        transform: scale(0.8);
+    }
+
+    10% {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+
+    25% {
+        opacity: 1;
+        transform: scale(1.05);
+    }
+
+    60% {
+        opacity: 0.5;
+        transform: scale(0.9);
+    }
+}
+
+.node-blip:hover {
+    box-shadow: 0 0 12px var(--sonar-blip-color);
+    /* transform: scale(1.2); -- Can conflict with animation, rely on shadow for hover */
+}
+
+.node-blip.owned,
+.node-blip.active-hack {
+    animation: none;
+    /* Stop base pulsing */
+    opacity: 1;
+    /* Ensure fully visible */
+}
+
+.node-blip.owned {
+    /* Owned color from F2 vars. F1 was green (#0f0) */
+    background-color: var(--node-owned-color);
+    box-shadow: 0 0 8px var(--node-owned-color);
+    cursor: default;
+    transform: scale(1.1);
+    /* Make owned nodes slightly bigger (F2) */
+}
+
+.node-blip.active-hack {
+    /* Active hack color from F2 vars. F1 was red (#f00) */
+    background-color: var(--node-active-color);
+    box-shadow: 0 0 10px var(--node-active-color);
+    animation: pulse-active-node 1s infinite;
+    /* Distinct pulse for active hack (F2) */
+}
+
+@keyframes pulse-active-node {
+
+    /* From 2nd file */
+    0% {
+        transform: scale(1.6);
+    }
+
+    50% {
+        transform: scale(2.0);
+    }
+
+    100% {
+        transform: scale(1.6);
+    }
+}
+
+/* @keyframes blipPulse from F1 is superseded by node-fade-pulse and pulse-active-node */
+
+.controls,
+.upgrades-panel-toggle {
+    text-align: center;
+    /* From 2nd file */
+    margin: 20px 0;
+    /* From 1st file */
+}
+
+button {
+    /* Button styling primarily from F2 vars, F1 had #0f0 bg, #111 text */
+    background-color: var(--button-bg);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    /* F1 had border: none */
+    padding: 10px 15px;
+    border-radius: 5px;
+    /* From F1 */
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    /* From F1 */
+    font-size: 1em;
+    /* From F2 */
+    margin: 5px;
+    /* General margin from F1 */
+    transition: background-color 0.3s, box-shadow 0.2s;
+}
+
+button:hover {
+    background-color: var(--button-hover-bg);
+    /* F1 had #3f3 */
+    box-shadow: 0 0 8px var(--button-hover-bg);
+    /* Shadow inspired by F1, using F2's color */
+}
+
+button:disabled {
+    background-color: #333;
+    /* F2 value, F1 was #555 */
+    color: #888;
+    cursor: not-allowed;
+    border-color: #444;
+    /* F2 adds border color */
+    box-shadow: none;
+    /* From F1 */
+}
+
+.challenge-area {
+    background-color: var(--input-bg);
+    /* F1 was #1a1a1a (same as --bg-color now) */
+    padding: 20px;
+    border-radius: 8px;
+    /* From F1 */
+    /* F1 had specific cyan border (#0ff). Using var(--text-color) which is cyan-green */
+    border: 1px solid var(--text-color);
+    margin-top: 20px;
+    box-shadow: 0 0 15px var(--text-color);
+    /* Was #0ff in F1, using F2's intensity */
+}
+
+.challenge-area h2 {
+    color: var(--text-color);
+    /* Was #0ff in F1 */
+    margin-top: 0;
+}
+
+/* For specific description/variable blocks from File 2 */
+#challengeDescription,
+#challengeVariables {
+    margin-bottom: 15px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+/* General code styling within challenge area (F1 selector, F2 vars) */
+.challenge-area code,
+#challengeVariables code {
+    /* Merged and adapted */
+    background-color: var(--bg-color);
+    /* F1 was #080808 */
+    padding: 2px 5px;
+    border-radius: 3px;
+    border: 1px solid var(--border-color);
+    /* F1 was #333 */
+    display: inline-block;
+    white-space: pre-wrap;
+    /* From F1 */
+    word-break: break-all;
+    /* From F1 */
+    max-width: 100%;
+    /* From F2 (for #challengeVariables code) */
+    overflow-x: auto;
+    /* From F2 (for #challengeVariables code) */
+}
+
+/* Textarea styling (based on F2's textarea#userCode, generalized) */
+.challenge-area textarea,
+textarea#userCode {
+    width: calc(100% - 22px);
+    /* F2's calc for better box model handling */
+    height: 150px;
+    /* F2's height, F1 was 100px */
+    background-color: #0d0d0d;
+    /* Very dark, from F2 */
+    color: var(--classic-green);
+    /* Distinct green text from F1 */
+    border: 1px solid var(--border-color);
+    padding: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1em;
+    /* From F2 */
+    border-radius: 4px;
+    /* From F1 */
+    resize: vertical;
+    /* From F2 */
+}
+
+.penalty-warning {
+    /* More detailed styling from F2 */
+    color: var(--node-active-color);
+    /* Orange, F1 was reddish #f55 */
+    font-size: 0.9em;
+    border: 1px dashed var(--node-active-color);
+    padding: 8px;
+    margin-bottom: 15px;
+    background-color: rgba(255, 153, 0, 0.1);
+    /* Faint orange background from F2 */
+}
+
+/* Upgrades Panel Modal */
+.upgrades-panel {
+    display: none;
+    /* Hidden by default (F1) */
+    /* JS should toggle to display: flex; when visible */
+    position: fixed;
+    z-index: 1000;
+    /* Higher z-index from F2 */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Common backdrop */
+    justify-content: center;
+    /* For when display:flex */
+    align-items: center;
+    /* For when display:flex */
+    padding: 20px;
+    /* From F2, for small screen modal padding */
+    box-sizing: border-box;
+    /* From F2 */
+    /* overflow: auto; -- F1 had this here, F2 puts it on #upgradesList */
+}
+
+.upgrades-panel-content {
+    background-color: var(--input-bg);
+    /* F1 was #1a1a1a */
+    padding: 25px;
+    /* F2 value, F1 was 20px */
+    border: 2px solid var(--border-color);
+    /* F1 was --classic-green */
+    border-radius: 8px;
+    /* F2 value, F1 was 10px */
+    box-shadow: 0 0 30px var(--sonar-ring-color);
+    /* F2 shadow, F1 was --classic-green */
+    width: 90%;
+    max-width: 700px;
+    /* F2 larger size, F1 was 600px */
+    max-height: 85vh;
+    /* F2 constraint */
+    display: flex;
+    /* F2, for internal layout */
+    flex-direction: column;
+    /* F2 */
+    position: relative;
+    /* F1, for close button */
+}
+
+.upgrades-panel-content h2 {
+    color: var(--text-color);
+    /* F1 was --classic-green */
+    text-align: center;
+    margin-top: 0;
+    border-bottom: 1px solid var(--border-color);
+    /* F2 addition */
+    padding-bottom: 10px;
+    /* F2 addition */
+    margin-bottom: 20px;
+    /* F2 addition */
+}
+
+#upgradesList {
+    /* From File 2, for scrollable content */
+    overflow-y: auto;
+    flex-grow: 1;
+    margin-bottom: 20px;
+}
+
+.upgrade-item {
+    background-color: var(--bg-color);
+    /* F1 was #222 */
+    border: 1px solid var(--border-color);
+    /* F1 was a lighter green */
+    padding: 12px;
+    /* F2 value, F1 was 15px */
+    margin-bottom: 12px;
+    /* F2 value, F1 was 10px */
+    border-radius: 4px;
+    /* F2 value, F1 was 5px */
+    transition: border-left-color 0.3s, background-color 0.3s;
+    /* F2 transition + bg */
+}
+
+.upgrade-item:hover {
+    /* From File 2 */
+    border-left: 5px solid var(--text-color);
+}
+
+.upgrade-item h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    /* F2 detail */
+    color: var(--text-color);
+    /* F1 was default, F2 specifies var */
+    font-size: 1.1em;
+    /* F2 detail */
+}
+
+.upgrade-item p {
+    /* From File 2 */
+    margin-bottom: 8px;
+    font-size: 0.9em;
+    line-height: 1.4;
+}
+
+.upgrade-item .cost {
+    font-weight: bold;
+    color: var(--node-active-color);
+    /* Orange, F1 was yellow #ff0 */
+}
+
+.upgrade-item button {
+    /* From File 2, for buttons inside items */
+    margin-top: 10px;
+    width: 100%;
+    padding: 8px;
+    font-size: 0.95em;
+}
+
+.upgrade-item.unavailable {
+    opacity: 0.5;
+    border-left: 5px solid var(--error-color);
+    /* F2 visual cue */
+    /* F1 just changed main border-color to #555 */
+}
+
+.upgrade-item.unavailable button {
+    /* From File 2 */
+    display: none;
+}
+
+.upgrade-item.purchased {
+    border-left: 5px solid var(--node-owned-color);
+    /* F2 visual cue */
+    background-color: #152515;
+    /* F1's distinct purchased background */
+    opacity: 0.7;
+    /* Adjusted from F2's 0.6 due to darker F1 bg */
+    /* F1 also had border-color: #00ff00 (very bright green) */
+}
+
+.upgrade-item.purchased button {
+    /* From File 2 */
+    display: none;
+}
+
+.close-panel-button {
+    /* For upgrades panel "X" button, primarily from F1 */
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    background-color: var(--error-color);
+    /* F1 was #f00 */
+    color: white;
+    /* F2's .close-panel-button seems for a main bottom button, not an X */
+    /* Keep F1's button properties for this specific button: */
+    border: none;
+    padding: 8px 12px;
+    /* Slightly smaller than default button */
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.close-panel-button:hover {
+    background-color: #c00;
+    /* Darker red, can be a var --error-hover-color */
+}
+
+/* Hack Result Area Modal (Mainly from File 1, vars adapted) */
+.hack-result-area {
+    display: none;
+    /* Initially hidden, JS to toggle to flex */
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.75);
+    /* Darker overlay from F1 */
+    z-index: 1000;
+    /* Consistent with upgrades panel */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    /* F1 padding */
+}
+
+.hack-result-content {
+    background-color: var(--system-message-bg);
+    /* F1 was #1a1a1a, this is #222 */
+    color: var(--classic-green);
+    /* Default to classic green from F1 */
+    padding: 30px;
+    /* F1 padding */
+    border: 2px solid var(--classic-green);
+    /* F1 default */
+    border-radius: 8px;
+    /* F1 */
+    box-shadow: 0 0 20px var(--classic-green);
+    /* F1 default */
+    min-width: 300px;
+    /* F1 */
+    max-width: 90%;
+    /* F1 */
+    width: auto;
+    /* F1 */
+}
+
+.hack-result-content h2 {
+    margin-top: 0;
+    color: var(--classic-green);
+    /* Default to F1's classic green */
+}
+
+.hack-result-content p {
+    margin-bottom: 20px;
+    white-space: pre-wrap;
+    line-height: 1.6;
+}
+
+/* Acknowledge button within hack result */
+.hack-result-content button {
+    background-color: var(--classic-green);
+    color: #111;
+    /* Dark text on light green button (F1 style) */
+    padding: 10px 20px;
+    /* Larger padding from F1 for this button */
+    /* Other button properties inherited or explicitly set if different from main button */
+    border: none;
+    /* Ensure no border from main button style if F1 intended none */
+}
+
+.hack-result-content button:hover {
+    background-color: #3f3;
+    /* Lighter green from F1 */
+}
+
+/* Type-specific styling for hack-result-content, using F2 vars */
+.hack-result-content.success {
+    border-color: var(--success-color);
+    box-shadow: 0 0 20px var(--success-color);
+    color: var(--success-color);
+}
+
+.hack-result-content.success h2 {
+    color: var(--success-color);
+}
+
+.hack-result-content.success button {
+    background-color: var(--success-color);
+    color: #111;
+}
+
+/* Keep dark text */
+.hack-result-content.success button:hover {
+    background-color: #6f6;
+}
+
+
+.hack-result-content.error {
+    color: var(--error-color);
+    border-color: var(--error-color);
+    box-shadow: 0 0 20px var(--error-color);
+}
+
+.hack-result-content.error h2 {
+    color: var(--error-color);
+}
+
+.hack-result-content.error button {
+    background-color: var(--error-color);
+    color: white;
+}
+
+.hack-result-content.error button:hover {
+    background-color: #c00;
+}
+
+
+.hack-result-content.info {
+    color: var(--text-color);
+    /* Cyan text from F2 (F1 was #0ff) */
+    border-color: var(--text-color);
+    box-shadow: 0 0 20px var(--text-color);
+}
+
+.hack-result-content.info h2 {
+    color: var(--text-color);
+}
+
+.hack-result-content.info button {
+    background-color: var(--text-color);
+    color: #111;
+}
+
+/* Dark text */
+.hack-result-content.info button:hover {
+    background-color: #3ff;
+}
+
+/* Lighter cyan */
+
+/* Output Area for general messages (from 2nd file) */
+#outputArea {
+    margin-top: 15px;
+    padding: 10px;
+    border: 1px dashed var(--border-color);
+    min-height: 20px;
+    background-color: var(--system-message-bg);
+    white-space: pre-wrap;
+    color: var(--text-color);
+    /* Default text color */
+}
+
+#outputArea.error {
+    color: var(--error-color);
+    border-color: var(--error-color);
+}
+
+#outputArea.success {
+    color: var(--success-color);
+    border-color: var(--success-color);
+}
