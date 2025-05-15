@@ -32,6 +32,8 @@ body {
     overflow: hidden;
     border-radius: 20px;
     /* Rounded corners */
+    visibility: hidden
+        /* invisible until images are loaded */
 }
 
 .slide {
