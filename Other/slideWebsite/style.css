@@ -1,0 +1,309 @@
+body {
+    font-family: 'Comic Sans MS', 'Chalkboard SE', 'Marker Felt', cursive, sans-serif;
+    /* Cuter font */
+    margin: 0;
+    padding: 20px;
+    background-color: #2c2c3e;
+    /* Dark deep purple */
+    color: #f8c8dc;
+    /* Light pink for text */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll from falling hearts */
+    box-sizing: border-box;
+}
+
+.slideshow-container {
+    position: relative;
+    max-width: 700px;
+    width: 90%;
+    /* Responsive width */
+    margin: 20px auto;
+    border: 2px solid #ff7eb9;
+    /* Bright pink border */
+    box-shadow: 0 0 25px rgba(255, 126, 185, 0.6);
+    /* Pink glow */
+    background-color: #3c3c4e;
+    /* Slightly lighter dark purple */
+    overflow: hidden;
+    border-radius: 20px;
+    /* Rounded corners */
+}
+
+.slide {
+    display: none;
+    text-align: center;
+}
+
+.slide img {
+    width: 100%;
+    max-height: 550px;
+    object-fit: contain;
+    vertical-align: middle;
+    border-radius: 15px;
+    /* Rounded corners for images inside */
+    animation: none;
+    /* Reset by JS for sparkle effect */
+}
+
+.slide.active {
+    display: block;
+}
+
+/* Navigation buttons */
+.prev,
+.next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45px;
+    /* Increased size */
+    height: 45px;
+    /* Increased size */
+    padding: 0;
+    color: #f8c8dc;
+    /* Light pink */
+    font-weight: bold;
+    font-size: 24px;
+    transition: 0.3s ease, transform 0.2s ease;
+    user-select: none;
+    background-color: rgba(255, 126, 185, 0.35);
+    /* Translucent bright pink */
+    border-radius: 50%;
+    /* Make them circular */
+    line-height: 45px;
+    /* Vertically center icon */
+    text-align: center;
+    z-index: 10;
+}
+
+.prev {
+    left: 10px;
+}
+
+.next {
+    right: 10px;
+}
+
+.prev:hover,
+.next:hover {
+    background-color: rgba(255, 126, 185, 0.7);
+    color: #fff;
+    transform: translateY(-50%) scale(1.15);
+    /* Slight zoom on hover */
+}
+
+/* Dots/indicators */
+.dots-container {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #3c3c4e;
+    border-top: 1px solid #ff7eb9;
+    /* Pink separator */
+}
+
+.dot {
+    cursor: pointer;
+    height: 14px;
+    width: 14px;
+    margin: 0 6px;
+    background-color: #f8c8dc;
+    /* Light pink */
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    animation: pulseDot 2.5s infinite ease-in-out;
+}
+
+.dot:nth-child(2n) {
+    animation-delay: 0.3s;
+}
+
+.dot:nth-child(3n) {
+    animation-delay: 0.6s;
+}
+
+
+.dot.active,
+.dot:hover {
+    background-color: #ff7eb9;
+    /* Bright pink */
+    transform: scale(1.3);
+    animation-play-state: paused;
+    /* Pause pulse on hover/active */
+}
+
+/* Fading animation for slides */
+.fade {
+    animation-name: cuteFadeIn;
+    animation-duration: 1s;
+}
+
+@keyframes cuteFadeIn {
+    from {
+        opacity: .3;
+        transform: scale(0.92) rotate(-3deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1) rotate(0deg);
+    }
+}
+
+/* Love Message Styling */
+.love-message {
+    text-align: center;
+    margin-bottom: 25px;
+    padding: 20px;
+    background-color: rgba(255, 126, 185, 0.15);
+    border-radius: 15px;
+    border: 1.5px dashed #ff7eb9;
+    max-width: 600px;
+    width: 85%;
+}
+
+.love-message h1 {
+    margin: 0 0 10px 0;
+    font-size: 2.2em;
+    color: #ffabe1;
+    /* Lighter, brighter pink */
+    text-shadow: 0 0 8px #ff7eb9;
+}
+
+.love-message p {
+    margin: 0;
+    font-size: 1.15em;
+    color: #f0d8e4;
+    /* Softer pink */
+}
+
+.heart-icon {
+    display: inline-block;
+    animation: heartbeat 1.5s infinite;
+}
+
+/* Footer Note Styling */
+.footer-note {
+    text-align: center;
+    margin-top: 30px;
+    padding: 10px;
+    font-size: 1em;
+    color: #e6e6fa;
+    /* Lavender */
+}
+
+.heart-beat-emoji {
+    display: inline-block;
+    animation: heartbeat 1.3s infinite ease-in-out 0.2s;
+    /* Added delay */
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.3);
+    }
+}
+
+@keyframes pulseDot {
+
+    /* For dots */
+    0%,
+    100% {
+        transform: scale(1);
+        opacity: 0.7;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 1;
+    }
+}
+
+/* Falling Hearts Background */
+.falling-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    top: -50px;
+    font-size: 20px;
+    color: #ff7eb9;
+    user-select: none;
+    animation-name: fall, sideSway;
+    animation-timing-function: linear, ease-in-out;
+    animation-iteration-count: infinite, infinite;
+    opacity: 0;
+}
+
+.heart.type2 {
+    color: #f8c8dc;
+}
+
+/* Lighter pink hearts */
+.heart.type3 {
+    color: #ffabe1;
+}
+
+/* Another shade */
+
+
+@keyframes fall {
+    to {
+        top: 105vh;
+        transform: rotate(720deg);
+    }
+}
+
+@keyframes sideSway {
+
+    0%,
+    100% {
+        margin-left: 0px;
+    }
+
+    25% {
+        margin-left: -15px;
+    }
+
+    75% {
+        margin-left: 15px;
+    }
+}
+
+/* Sparkle effect for image change */
+@keyframes imageSparkle {
+    0% {
+        filter: brightness(1) drop-shadow(0 0 0px #ffcff1);
+        transform: scale(1);
+    }
+
+    50% {
+        filter: brightness(1.3) drop-shadow(0 0 15px #ffcff1);
+        transform: scale(1.02);
+    }
+
+    100% {
+        filter: brightness(1) drop-shadow(0 0 0px #ffcff1);
+        transform: scale(1);
+    }
+}
