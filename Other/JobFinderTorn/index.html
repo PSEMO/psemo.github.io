@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Finder Torn</title>
+    <link href="google.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <h1>Job Finder <span class="highlight">TORN</span></h1>
+            <p class="subtitle">Enter your stats to find your next career!</p>
+        </header>
+
+        <section class="input-section">
+            <form id="jobForm">
+                <div class="input-group">
+                    <label for="man">MAN (Manual Labor)</label>
+                    <input type="number" id="man" name="man" min="0" placeholder="e.g., 5000" required>
+                </div>
+                <div class="input-group">
+                    <label for="end">END (Endurance)</label>
+                    <input type="number" id="end" name="end" min="0" placeholder="e.g., 10000" required>
+                </div>
+                <div class="input-group">
+                    <label for="int">INT (Intelligence)</label>
+                    <input type="number" id="int" name="int" min="0" placeholder="e.g., 20000" required>
+                </div>
+                <button type="submit" class="cta-button">Find Jobs</button>
+            </form>
+        </section>
+
+        <section class="results-section">
+            <h2 id="resultsTitle" style="display:none;">Available Opportunities:</h2>
+            <div id="jobResults" class="job-results-grid">
+                <!-- Job cards will be injected here by JavaScript -->
+            </div>
+            <p id="noResultsMessage" class="no-results" style="display:none;">No jobs found matching your stats. Try
+                different values!</p>
+        </section>
+    </div>
+
+    <footer>
+        <p>PSEMO [3537405] - <a href="psemo.github.io">psemo.github.io</a></p>
+    </footer>
+
+    <script src="jobs-data.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
