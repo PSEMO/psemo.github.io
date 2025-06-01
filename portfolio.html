@@ -26,7 +26,7 @@
     <!-- Additional Styles for Portfolio Page -->
     <style>
         .back-link-section h2 {
-            border-bottom: none; /* No border for the back link header */
+            border-bottom: none;
             margin-bottom: 20px;
         }
         .back-link-section h2 a {
@@ -67,10 +67,48 @@
             color: var(--accentColor);
         }
 
+        .filter-controls-wrapper {
+            margin-bottom: 25px;
+            display: flex;
+            flex-wrap: wrap; /* Allow wrapping on smaller screens */
+            gap: 20px; /* Space between filter groups */
+        }
+
+        .filter-control-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .filter-control-group label {
+            font-weight: bold;
+            color: var(--textColorHover);
+            font-family: var(--fontSecondary);
+            white-space: nowrap; /* Prevent label from wrapping */
+        }
+        .filter-control-group select {
+            padding: 8px 12px;
+            border-radius: var(--borderRadius);
+            border: 1px solid var(--borderColor);
+            background-color: var(--linkBg);
+            color: var(--textColor);
+            font-family: var(--fontPrimary);
+            min-width: 180px; /* Give it some base width */
+            cursor: pointer;
+        }
+        .filter-control-group select:hover {
+            border-color: var(--accentColor);
+        }
+        .filter-control-group select:focus {
+            outline: 2px solid var(--accentColor);
+            outline-offset: 2px;
+        }
+
+
         .project-list-container {
             display: flex;
             flex-direction: column;
-            gap: 25px; /* Space between project cards */
+            gap: 25px; 
         }
 
         .project-card {
@@ -80,14 +118,14 @@
             padding: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             transition: all var(--transitionSpeed) ease, opacity 0.4s ease-out, transform 0.4s ease-out;
-            opacity: 0; /* For fade-in animation */
-            transform: translateY(10px); /* For fade-in animation */
+            opacity: 0; 
+            transform: translateY(10px); 
         }
 
         .project-card:hover {
             background-color: var(--linkBgHover);
             border-color: var(--accentColorHover);
-            transform: translateY(-3px) scale(1.01); /* Keep existing Y transform for consistency */
+            transform: translateY(-3px) scale(1.01); 
             box-shadow: 0 5px 15px var(--shadowColor);
         }
 
@@ -95,24 +133,42 @@
             font-family: var(--fontSecondary);
             color: var(--textColorHover);
             font-size: 1.3rem;
-            margin-bottom: 8px;
+            margin-bottom: 5px; 
         }
 
         .project-card .project-date {
             font-size: 0.9rem;
             color: var(--textColor);
             opacity: 0.8;
-            margin-bottom: 15px;
-            display: block; /* Ensure it takes its own line */
+            margin-bottom: 8px; 
+            display: block; 
         }
+
+        .project-card .project-categories {
+            margin-bottom: 12px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .project-card .project-category-tag {
+            background-color: var(--accentColor);
+            color: #fff; 
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
 
         .project-card .project-description {
             margin-bottom: 15px;
             line-height: 1.7;
-            white-space: pre-line; /* Respect newlines in the description */
+            white-space: pre-line; 
         }
         
-        .project-card .project-description p { /* If description is wrapped in <p> */
+        .project-card .project-description p { 
             margin-bottom: 0.5em;
         }
         .project-card .project-description p:last-child {
@@ -140,7 +196,7 @@
         }
 
         .project-card .project-skills-list li {
-            background-color: rgba(88, 166, 255, 0.2); /* Slightly more opaque */
+            background-color: rgba(88, 166, 255, 0.2); 
             color: var(--accentColorHover);
             padding: 4px 8px;
             border-radius: 4px;
@@ -155,38 +211,37 @@
 
         .project-card .media-item {
             display: flex;
-            align-items: center; /* Align text vertically */
-            gap: 12px; /* Re-added gap for icon */
+            align-items: center; 
+            gap: 12px; 
             padding: 10px;
             border: 1px solid var(--borderColor);
             border-radius: var(--borderRadius);
-            background-color: rgba(var(--bgColorEndRGB, 22, 27, 34), 0.5); /* Darker subtle background */
+            background-color: rgba(var(--bgColorEndRGB, 22, 27, 34), 0.5); 
             text-decoration: none;
             color: var(--textColor);
             transition: background-color var(--transitionSpeed) ease, border-color var(--transitionSpeed) ease;
         }
-        /* Define --bgColorEndRGB in :root if not already defined, for robust rgba usage */
         :root {
-             --bgColorEndRGB: 22, 27, 34; /* Assuming --bgColorEnd is #161b22 */
+             --bgColorEndRGB: 22, 27, 34; 
         }
 
 
         .project-card .media-item:hover {
-            background-color: var(--linkBg); /* Use linkBg for hover */
+            background-color: var(--linkBg); 
             border-color: var(--accentColor);
         }
 
-        .project-card .media-item i { /* Style for the new icons */
+        .project-card .media-item i { 
             color: var(--accentColor);
             font-size: 1.2em;
             flex-shrink: 0;
-            min-width: 1.2em; /* Ensure consistent icon width */
+            min-width: 1.2em; 
             text-align: center;
         }
 
         .project-card .media-item-info {
             flex-grow: 1;
-            min-width: 0; /* Allow text to wrap properly */
+            min-width: 0; 
         }
 
         .project-card .media-item-info .media-title {
@@ -195,9 +250,9 @@
             margin-bottom: 4px;
             color: var(--textColorHover);
             font-size: 0.95rem;
-            word-break: break-word; /* Ensure long titles wrap */
+            word-break: break-word; 
         }
-        .project-card .media-item-info .media-description { /* For descriptions under media titles */
+        .project-card .media-item-info .media-description { 
             font-size: 0.85rem;
             color: var(--textColor);
             opacity: 0.9;
@@ -226,7 +281,6 @@
     <div class="container">
 
         <header class="profile-header">
-            <!-- Re-using the profile header from your main page -->
             <button id="profilePicButton" class="profile-picture-button" aria-label="View Profile Picture">
                 <img src="https://avatars.githubusercontent.com/u/85266757?v=4" alt="Semih Yılmaz Profile Picture"
                     loading="lazy">
@@ -236,7 +290,6 @@
         </header>
 
         <main class="links-container">
-            <!-- Back to Home Link -->
             <section class="link-section back-link-section">
                 <h2>
                     <a href="index.html" class="back-to-home-link">
@@ -245,24 +298,41 @@
                 </h2>
             </section>
 
-            <!-- Portfolio Display Section -->
             <section class="portfolio-display-section">
                 <h2><i class="fas fa-project-diagram fa-fw"></i> My Projects</h2>
+                
+                <div class="filter-controls-wrapper">
+                    <div class="filter-control-group">
+                        <label for="skill-filter">Filter by Skill:</label>
+                        <select id="skill-filter">
+                            <option value="">All Skills</option>
+                            <!-- Options will be populated by JS -->
+                        </select>
+                    </div>
+                    <div class="filter-control-group">
+                        <label for="type-filter">Filter by Type:</label>
+                        <select id="type-filter">
+                            <option value="">All Types</option>
+                            <option value="Games">Games</option>
+                            <option value="Websites">Websites</option>
+                            <option value="Apps">Apps</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+                </div>
+
                 <div id="project-list-container" class="project-list-container">
-                    <!-- Projects will be dynamically inserted here by JavaScript -->
                     <p>Loading projects...</p>
                 </div>
             </section>
         </main>
 
         <footer class="page-footer">
-            <!-- Re-using the footer from your main page -->
             <div class="animated-hashtag">#OpenSource</div>
         </footer>
 
     </div> <!-- / .container -->
     
-    <!-- Image Popup Modal (copied from index.html, can be removed if not used on this page) -->
     <div id="imagePopup" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-heading"
         aria-hidden="true">
         <div class="popup-content">
@@ -273,8 +343,6 @@
         </div>
     </div>
 
-
-    <!-- JavaScript for Portfolio -->
     <script>
         const projectsData = [
             {
@@ -282,19 +350,10 @@
                 date: "Mar 2025 - May 2025",
                 description: "Designed/coded/self-hosted a secure website on a Linux server. It had a moden interface and many auto-created pages using ejs.",
                 skills: ["HTML", "CSS", "Bootstrap (Framework)", "JavaScript", "Node.js", "Express.js", "Embedded JavaScript (EJS)", "MongoDB", "Nginx", "Linux", "Ubuntu", "Network Security", "Server Administration", "Network Administration"],
+                categories: ["Websites"],
                 media: [
-                    {
-                        // title:
-                        url: "https://github.com/PSEMO/FactionsAndBusinesses",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQFdS0At2CPqRg/articleshare-shrink_160/0/1746716644818?e=1749254400&v=beta&t=hRx0NK2q9XUgFXvaq7XuyRP7ZRYVTweVi7Z4sIFaFMk",
-                        description: null
-                    },
-                    {
-                        //title: "Video for Designed/developed/self-hosted Website",
-                        url: "https://www.youtube.com/watch?v=-RiSxwd19iM",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQHNyEUOwMvGWw/articleshare-shrink_160/0/1746556687209?e=1749254400&v=beta&t=ja0PqNQJBnTrLHEYcwTmTv7SmIHuxqSqgMNQBxcbe8k",
-                        description: null
-                    }
+                    { url: "https://github.com/PSEMO/FactionsAndBusinesses" },
+                    { url: "https://www.youtube.com/watch?v=-RiSxwd19iM" }
                 ]
             },
             {
@@ -302,19 +361,10 @@
                 date: "Apr 2025 - May 2025",
                 description: "Designed and coded an executable game with web technologies that consists of a single file. Has 2-4 hours of content, sounds, animations and more.",
                 skills: ["HTML", "CSS", "JavaScript", "NW.js", "Node.js", "Electron"],
+                categories: ["Games", "Apps", "Websites"],
                 media: [
-                    {
-                        //title: "Grind Mindset on Steam"
-                        url: "https://store.steampowered.com/app/3723800/Grind_Mindset/",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQFHlRXoYe-TCQ/articleshare-shrink_160/0/1747458705928?e=1749254400&v=beta&t=nS7PIDRXB0IT5qo2jPhKNC9rIVP7CDIKLvb9_ow3lB0",
-                        description: null
-                    },
-                    {
-                        //title: "Video for Grind Mindset",
-                        url: "https://www.youtube.com/watch?v=MJFYJCW6wMM",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQFS9Sx4w847xw/articleshare-shrink_160/0/1746556947013?e=1749254400&v=beta&t=T2okq05aLThNhmxstTQtIAhbVn_qi4tuqW82LH31VTU",
-                        description: null
-                    }
+                    { url: "https://store.steampowered.com/app/3723800/Grind_Mindset/" },
+                    { url: "https://www.youtube.com/watch?v=MJFYJCW6wMM" }
                 ]
             },
             {
@@ -322,19 +372,10 @@
                 date: "Mar 2025 - Mar 2025",
                 description: "A game made with Unity in 72 hours. It was made for a competition.",
                 skills: ["Unity", "C#"],
+                categories: ["Games"],
                 media: [
-                    {
-                        // title: "Downward Vacation"
-                        url: "https://psemo.itch.io/downward-vacation",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQEKcs3PJP1VFw/articleshare-shrink_480/0/1742346883198?e=1749254400&v=beta&t=t7ylzitKF534uLfJ1ADQIzTfMtevZae7-REbTgT-IQM",
-                        description: null
-                    },
-                    {
-                        //title: "Video for Downward Vacation",
-                        url: "https://www.youtube.com/watch?v=S4Bq6zmdbxE",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQF8jxG3dvwAGQ/articleshare-shrink_160/0/1742346932809?e=1749254400&v=beta&t=pykJKIEfWG_sgnXreM8Dw7i-3qb9Fn2AZ4DCKctpOVU",
-                        description: null
-                    }
+                    { url: "https://psemo.itch.io/downward-vacation" },
+                    { url: "https://www.youtube.com/watch?v=S4Bq6zmdbxE" }
                 ]
             },
             {
@@ -342,13 +383,9 @@
                 date: "Nov 2024 - Jan 2025",
                 description: "Designed, coded and self-hosted a secure website on Linux infrastructure (Ubuntu Server edition) without a desktop environment. Sustained uptime despite heavy bot traffic and successfully managed its security while keeping the site publicly accessible.",
                 skills: ["HTML", "CSS", "JavaScript", "DDNS", "Apache", "Linux", "Ubuntu", "Network Security", "Server Administration", "Network Administration"],
+                categories: ["Websites"],
                 media: [
-                    {
-                        //title: "Video for Website self-hosting (PUBLIC)",
-                        url: "https://www.youtube.com/watch?v=vldSshKI1jE",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQGotuVnkXwZsw/articleshare-shrink_160/0/1738077515999?e=1749254400&v=beta&t=0MDBMGP0hHMezOYqS3N0GGb9d0lbteI9Br-8qH935kw",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=vldSshKI1jE" }
                 ]
             },
             {
@@ -356,19 +393,10 @@
                 date: "Jul 2024 - Jul 2024",
                 description: "A game like \"Duck Hunt\"",
                 skills: ["Unity", "C#"],
+                categories: ["Games"],
                 media: [
-                    {
-                        // title: "Cast of the Click (the game)"
-                        url: "https://taronic449.itch.io/cast-of-the-click",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D5627AQFhEdX2gD2yGw/articleshare-shrink_800/0/1722176685026?e=1749254400&v=beta&t=S3fOmhj1eV2UKep6mGXtysWSHj9Jmvrk30cI7Fv8QSI",
-                        description: null
-                    },
-                    {
-                        //title: "Video for Cast of The Click",
-                        url: "https://www.youtube.com/watch?v=pmlxnOdohJ8",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQGjr_3Bnse_Pg/articleshare-shrink_160/0/1723376812755?e=1749254400&v=beta&t=WkGk_WzkVurRJ-eRJiaOTh1OBrsFLqBNQYb4Y6JxmVc",
-                        description: null
-                    }
+                    { url: "https://taronic449.itch.io/cast-of-the-click" },
+                    { url: "https://www.youtube.com/watch?v=pmlxnOdohJ8" }
                 ]
             },
             {
@@ -376,19 +404,10 @@
                 date: "Jul 2024 - Regularly updated",
                 description: "A static website hosted by Github",
                 skills: ["HTML", "CSS", "JavaScript"],
+                categories: ["Websites"],
                 media: [
-                    {
-                        title: "My Linktree Page",
-                        url: "https://psemo.github.io/",
-                        image: null, 
-                        description: null
-                    },
-                    {
-                        // title: "PSEMO/psemo.github.io",
-                        url: "https://github.com/PSEMO/psemo.github.io",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQEbjVpbtx0iTg/articleshare-shrink_160/0/1748337912164?e=1749254400&v=beta&t=xZI_7SKoro_vz4WEVJ16jvwOiVeR28GYI4NdRbye3hE",
-                        description: null
-                    }
+                    { title: "psemo.github.io", url: "https://psemo.github.io/" },
+                    { url: "https://github.com/PSEMO/psemo.github.io" }
                 ]
             },
             {
@@ -396,13 +415,9 @@
                 date: "Jul 2024 - Jul 2024",
                 description: "This is an guide on how to debloat your Redmi 12 phone using Linux",
                 skills: ["Android", "Debian", "Linux"],
+                categories: ["Other"],
                 media: [
-                     {
-                        // title: "PSEMO/Redmi12-MIUI-Debloat",
-                        url: "https://github.com/PSEMO/Redmi12-MIUI-Debloat",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4E27AQG26ynIZcxAgQ/articleshare-shrink_160/0/1741214603409?e=1749254400&v=beta&t=AuqHLVy37ObzfXqvt-YcmpA9AwSBMYrH4Wder3G9VfY",
-                        description: null
-                    }
+                     { url: "https://github.com/PSEMO/Redmi12-MIUI-Debloat" }
                 ]
             },
             {
@@ -410,19 +425,10 @@
                 date: "Jun 2024 - Jun 2024",
                 description: "An easy to follow guide and bash codes for having a fully functional and game ready Debian with Xfce4 desktop environment. It features some windows-like shortcuts, creates a great panel and downloads some apps that are common to be daily driven. Also final OS has around 500MB of ram usage.",
                 skills: ["Debian", "Linux"],
+                categories: ["Other"],
                 media: [
-                    {
-                        // title: "PSEMO/Debian-and-xfce-setup",
-                        url: "https://github.com/PSEMO/Debian-and-xfce-setup",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D5627AQGLaOneY80dpQ/articleshare-shrink_160/0/1726410188097?e=1749254400&v=beta&t=30aUlymrlaz4BgYsodBDjPVvigifuX86BLDKk39BTEI",
-                        description: null
-                    },
-                    {
-                        //title: "Video for Debian and xfce setup",
-                        url: "https://www.youtube.com/watch?v=PHvwRlX_-sA",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D5627AQH97fIjygl9og/articleshare-shrink_160/0/1717497269267?e=1749254400&v=beta&t=9ydyKzIoEzPhv0FGJOn8k8Fanvf0jOvtHfG48qcI5As",
-                        description: null
-                    }
+                    { url: "https://github.com/PSEMO/Debian-and-xfce-setup" },
+                    { url: "https://www.youtube.com/watch?v=PHvwRlX_-sA" }
                 ]
             },
             {
@@ -430,19 +436,10 @@
                 date: "May 2024 - May 2024",
                 description: "This is an AI based crime solving game made using llama-2-chat uncensored Q4_0 edition, PyGame, OpenAI. Has different character outlooks, different personalities, scene transformations, procedural snow, custom animation system, input system, dynamic text drawing, acceleration and friction, dynamic animation speed.",
                 skills: ["Python", "Pygame", "AI", "LLM"],
+                categories: ["Games"],
                 media: [
-                    {
-                        // title: "PSEMO/Lm-studio-pygame-game",
-                        url: "https://github.com/PSEMO/Lm-studio-pygame-game",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4E27AQHrkQRCHC1CJA/articleshare-shrink_160/0/1744055441793?e=1749254400&v=beta&t=XUa4LvUlsQ7bqY3zpM_UJ4htbEUBXmwiFJ0jGp7uWVw",
-                        description: null
-                    },
-                    {
-                        //title: "Video for Who is the killer? (a LLM + AI game)",
-                        url: "https://www.youtube.com/watch?v=QmITHFdItQA",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQG3dbOhQqTwXw/articleshare-shrink_160/0/1716053295372?e=1749254400&v=beta&t=_xuiGjaVHFOiNI4CYI4ZiBVJU1XGBLUhjQjFVFcvZDM",
-                        description: null
-                    }
+                    { url: "https://github.com/PSEMO/Lm-studio-pygame-game" },
+                    { url: "https://www.youtube.com/watch?v=QmITHFdItQA" }
                 ]
             },
             {
@@ -450,13 +447,9 @@
                 date: "Mar 2024 - Mar 2024",
                 description: "We developed this game within 72 hours for mini-jam (one of the biggest game-jam there is). This game came at 23th place out of 200 joined. In the game, you have the power to fly, shoot, put out fires or see them engulf and ruin buildings/objects.",
                 skills: ["Unity", "C#", "Aseprite"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for Quickly On Duty",
-                        url: "https://www.youtube.com/watch?v=zfsBJ2p2Bp0",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQGFxIOfzZk-jQ/articleshare-shrink_160/0/1713384218770?e=1749254400&v=beta&t=2d2fnujsmbSSUu8cEfVYC0CcfzD5k_aS0q6yX6Oy8Xc",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=zfsBJ2p2Bp0" }
                 ]
             },
             {
@@ -464,13 +457,9 @@
                 date: "Jan 2024 - Jan 2024",
                 description: "There is a black ball in the middle that is able to successfully escape many incoming random balls even though it is bigger and slower. You can reverse engineer it's algorithm by trying to understand why blue dots appear and some red balls become pink from time to time.",
                 skills: ["Python", "Pygame", "Digital Audio Workstations"],
+                categories: ["Games", "Apps"],
                 media: [
-                    {
-                        //title: "Video for Dodge Machine",
-                        url: "https://www.youtube.com/watch?v=qEWcDDcPD74",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQFSAvqw3wH0SQ/articleshare-shrink_160/0/1713387661482?e=1749254400&v=beta&t=e0GmtyjVk98-i7maX0UeK5cRugS9p6iU_hc_OcYcLno",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=qEWcDDcPD74" }
                 ]
             },
             {
@@ -478,13 +467,9 @@
                 date: "Oct 2023 - Jan 2024",
                 description: "This is a Bus Booking Management System and has; SQL database, Login/logout, Detailed Register, Error messages, Tour selection/recomendation, Date selection, Admin/Driver/User login, Destination selection, Tour info, Seat selection, Complete payment system, Info messages, Discounts, Add/Remove tour, Customer inquiry, Discount edit, Seat visualiation/limitation, Driver login, Earnings quota, profiles, credit card info receiving panel, modern ui elements (gradient and half transparent panels, rounded buttons) etc.",
                 skills: ["WinForms", "SQL", "C#"],
+                categories: ["Apps"],
                 media: [
-                    {
-                        //title: "Video for Freedom Tourism",
-                        url: "https://www.youtube.com/watch?v=zBVXzsThIQg",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4E27AQFSrMpLvPPzLw/articleshare-shrink_160/0/1739627897595?e=1749254400&v=beta&t=QjSUuVd7s43_1sQNEiZnfhL2PGy2BlCGhNhc8JRG19M",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=zBVXzsThIQg" }
                 ]
             },
             {
@@ -492,13 +477,9 @@
                 date: "Dec 2023 - Dec 2023",
                 description: "We developed this game within 72 hours for mini-jam (one of the biggest game-jam there is). This game came at 4th place out of 274 joined. We were a team of four; a game designer, an artist, a composer and me (as both a developer and a game designer). The game is about keeping multiple monsters away and hacking into networks using nothing but only a terminal. There are 120 possible commands.",
                 skills: ["Unity", "C#", "Aseprite"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for Hack();",
-                        url: "https://www.youtube.com/watch?v=o8Ti1S8Q7hU",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQHI91CJZGfCeg/articleshare-shrink_160/0/1713383648903?e=1749254400&v=beta&t=NVocxA9H54YUBue2jETtIES6vtMrYN1tlYpJ4kdEaS4",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=o8Ti1S8Q7hU" }
                 ]
             },
             {
@@ -506,13 +487,9 @@
                 date: "Dec 2023 - Dec 2023",
                 description: "I developed this game within 48 hours by myself using an open source engine called Pygame. This game came at 119th place out of 536 joined. It has a story and a unique mechanic.\nNote: To evaluate this game, you should also take into account the engine I have used and the modifications I have applied to them.",
                 skills: ["Python", "Pygame", "GIMP", "Aseprite"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for It's Cold!",
-                        url: "https://www.youtube.com/watch?v=z9flygyCxZU",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4E27AQFIIFzbwQsnEw/articleshare-shrink_160/0/1739292923386?e=1749254400&v=beta&t=Vm-zxYnmVVv76gjDJdIe9ABTkSaYke3X7lvKPvKEQ4s",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=z9flygyCxZU" }
                 ]
             },
             {
@@ -520,13 +497,9 @@
                 date: "Oct 2023 - Oct 2023",
                 description: "This is a semi-dynamic auto clicker app for the game Cookie Clicker. Has an easy to use and understand GUI with many options.",
                 skills: ["Python", "PySimpleGUI", "PyAutoGUI"],
+                categories: ["Apps"],
                 media: [
-                    {
-                        //title: "Video for Auto Cookie Clicker",
-                        url: "https://www.youtube.com/watch?v=V4p1iUGkqIA",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQEzzuZ1Mwy9PA/articleshare-shrink_160/0/1713387231244?e=1749254400&v=beta&t=6SK9TGLKu8i5_9kDC2noap38fifqgD3AcdeSq-hufBQ",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=V4p1iUGkqIA" }
                 ]
             },
             {
@@ -534,13 +507,9 @@
                 date: "Sep 2023 - Sep 2023",
                 description: "Runs until every ball fall into the same tube. Which is directly opposite to what Galton board is there to show, hence the name.",
                 skills: ["C#", ".NET Framework"],
+                categories: ["Apps"],
                 media: [
-                    {
-                        //title: "Video for Galton Board breaker",
-                        url: "https://www.youtube.com/watch?v=_C2PS2NgVT0",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQGPThJzlVjS4Q/articleshare-shrink_160/0/1713441087996?e=1749254400&v=beta&t=VKt_yVGMhKd_cBJXH61V_4UqciyTrfYvq0Y1GGN0UiU",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=_C2PS2NgVT0" }
                 ]
             },
             {
@@ -548,13 +517,9 @@
                 date: "Sep 2023 - Sep 2023",
                 description: "a webpage that aims to teach HTML",
                 skills: ["HTML", "CSS"],
+                categories: ["Websites"],
                 media: [
-                    {
-                        // title: "PSEMO/HTML-Learning-Site",
-                        url: "https://github.com/PSEMO/HTML-Learning-Site",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D5627AQFj5KQCWB8TNQ/articleshare-shrink_160/0/1736690556146?e=1749254400&v=beta&t=-m01GcVoIkKrVYA5AYmkRhdI5sGH_krXbapAY3D320E",
-                        description: null
-                    }
+                    { url: "https://github.com/PSEMO/HTML-Learning-Site" }
                 ]
             },
             {
@@ -562,13 +527,9 @@
                 date: "Aug 2023 - Aug 2023",
                 description: "I created a web game for 20 number game and an auto player for it in .NET then I determined its win rate using these.",
                 skills: ["HTML", "CSS", "JavaScript", ".NET Framework", "C#"],
+                categories: ["Games", "Websites", "Apps"],
                 media: [
-                    {
-                        //title: "Video for 20 Number game & auto player & winrate",
-                        url: "https://www.youtube.com/watch?v=3WjCm1GrHKw",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQE9NPij9Br5XQ/articleshare-shrink_160/0/1713441213294?e=1749254400&v=beta&t=OrKdr0Tioh7_fxCg7vyrtT_pvOZsWzFRIf1mvUpcfo8",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=3WjCm1GrHKw" }
                 ]
             },
             {
@@ -576,13 +537,9 @@
                 date: "Jul 2023 - Jul 2023",
                 description: "I developed this game within a week. This game came at First place in popularity out of 64 joined. It is a classic platformer game with many puzzles.",
                 skills: ["Unity", "C#", "GIMP", "Aseprite"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for Sheep Dreams",
-                        url: "https://www.youtube.com/watch?v=joLZKo8727g",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQGZScx9Q_z94g/articleshare-shrink_160/0/1713383915620?e=1749254400&v=beta&t=L4Co1zjteXUvoYV3lT_9qKW6hjp48JRdtnmFjGY8uBA",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=joLZKo8727g" }
                 ]
             },
             {
@@ -590,127 +547,74 @@
                 date: "Jun 2023 - Jun 2023",
                 description: "I made the same simple game using different methods.",
                 skills: ["Unity", "HTML/CSS/JS", "Love2D", "Corona SDK", "MonoGame", "Minecraft"],
+                categories: ["Games", "Websites"],
                 media: [
-                    {
-                        //title: "Video for Chrome's Dino game",
-                        url: "https://www.youtube.com/watch?v=DCdu47MpSFA",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQFV4It7gyQEkA/articleshare-shrink_160/0/1713442196985?e=1749254400&v=beta&t=AFS4qCg5ZG0SYrR1CSmc9aLIT3mKSv00YRyzzgJMbio",
-                        description: null
-                    },
-                    {
-                        // title: "PSEMO/Dino-Game-with-Unity",
-                        url: "https://github.com/PSEMO/Dino-Game-with-Unity",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQGed0fQywKIug/articleshare-shrink_160/0/1726410188099?e=1749254400&v=beta&t=T58W5P6sLww2eGy4g-a760vZxm-waljyq3HHC2ahNZY",
-                        description: null
-                    },
-                    {
-                        // title: "PSEMO/Dino-Game-with-MonoGame",
-                        url: "https://github.com/PSEMO/Dino-Game-with-MonoGame",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQGCnay1PAt8Sw/articleshare-shrink_160/0/1729024907730?e=1749254400&v=beta&t=2MZMJ2DZqgjYDPfwk4fRptVWdLjzeYi3he2IgdVqx1w",
-                        description: null
-                    },
-                    {
-                        // title: "PSEMO/Dino-Game-with-Love2d",
-                        url: "https://github.com/PSEMO/Dino-Game-With-Love2d",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQGCnay1PAt8Sw/articleshare-shrink_160/0/1729024907730?e=1749254400&v=beta&t=2MZMJ2DZqgjYDPfwk4fRptVWdLjzeYi3he2IgdVqx1w",
-                        description: null
-                    },
-                    {
-                        // title: "PSEMO/Dino-Game-with-Solar2d",
-                        url: "https://github.com/PSEMO/Dino-Game-with-Solar2d",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQGCnay1PAt8Sw/articleshare-shrink_160/0/1729024907730?e=1749254400&v=beta&t=2MZMJ2DZqgjYDPfwk4fRptVWdLjzeYi3he2IgdVqx1w",
-                        description: null
-                    },
-                    {
-                        // title: "PSEMO/Dino-Game-with-html",
-                        url: "https://github.com/PSEMO/Dino-Game-with-html",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQGCnay1PAt8Sw/articleshare-shrink_160/0/1729024907730?e=1749254400&v=beta&t=2MZMJ2DZqgjYDPfwk4fRptVWdLjzeYi3he2IgdVqx1w",
-                        description: null
-                    } 
+                    { url: "https://www.youtube.com/watch?v=DCdu47MpSFA" },
+                    { url: "https://github.com/PSEMO/Dino-Game-with-Unity" },
+                    { url: "https://github.com/PSEMO/Dino-Game-with-MonoGame" },
+                    { url: "https://github.com/PSEMO/Dino-Game-With-Love2d" },
+                    { url: "https://github.com/PSEMO/Dino-Game-with-Solar2d" },
+                    { url: "https://github.com/PSEMO/Dino-Game-with-html" } 
                 ]
             },
             {
                 title: "Panzerkampfwagen!",
                 date: "Feb 2023 - Mar 2023",
                 description: "I developed this game within a month by myself with an open source engine called Love2D. This game came at 3rd place out of 21 joined. This game has; Functions that are a must-have for most games; Custom particle system, multiple staged enemy patterns, different enemy types, z position simulator for artillery shells, UI, overheating, health gaining, dash mechanics and more.\nNote: To evaluate this game, you should also take into account the engine I have used and the modifications I have applied to them.",
-                skills: ["Lua", "Hardon Collider", "Box2D", "Aseprite", "Love2D"],
+                skills: ["Love2D", "Lua", "Hardon Collider", "Box2D", "Aseprite"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for Panzerkampfwagen!",
-                        url: "https://www.youtube.com/watch?v=HzlbWZ5cWjY",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQH-avJVmzBSXw/articleshare-shrink_160/0/1713384508484?e=1749261600&v=beta&t=jHDDFuM8o0MVr2P023XvMehajfIiyOzcGFmMFj_nUc4",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=HzlbWZ5cWjY" }
                 ]
             },
             {
                 title: "Space drone",
                 date: "Feb 2023 - Feb 2023",
                 description: "I developed this game within 6 days. This game came at 2nd place on overall enjoyment out of 69 joined. It has; unique attack mechanics, action-rpg elements, multiple skills, procedural generation, JRPG styled health bars and damage indicators",
-                skills: ["Digital Audio Workstations", "Unity", "Aseprite", "C#"],
+                skills: ["Unity", "C#", "Aseprite", "Digital Audio Workstations"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for Space drone",
-                        url: "https://www.youtube.com/watch?v=qwLz6tIEdb4",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQGTNf7liAlBzg/articleshare-shrink_160/0/1713384069569?e=1749261600&v=beta&t=AHbmb8NQTgm98Bdfjd9y5p6D2O8bmWv7hZXZ6wDhNjA",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=qwLz6tIEdb4" }
                 ]
             },
             {
                 title: "Conquer!",
                 date: "Nov 2022 - Nov 2022",
                 description: "I developed this game within a week by myself using an open source engine called Solar2D which is a predecessor to Corona SDK. This game came at 2nd place out of 13 joined. It is a game like Diep.io; we have enemies, points, a tank turret (after some points) and upgrades.\nNote: To evaluate this game, you should also take into account the engine I have used and the modifications I have applied to them.",
-                skills: ["Box2D", "Corona SDK"],
+                skills: ["Solar2D", "Box2D", "Corona SDK"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for Conquer!",
-                        url: "https://www.youtube.com/watch?v=ap326i2iJqU",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQEKQyP7jCinGg/articleshare-shrink_160/0/1713384991501?e=1749261600&v=beta&t=Ft8hN-dBhqJTrN0oCYWiatZKEsH8QXlGaPJb2SijMb8",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=ap326i2iJqU" }
                 ]
             },
             {
                 title: "A Shooting Star",
                 date: "Oct 2022 - Oct 2022",
                 description: "I developed this game within 72 hours by myself. This game came at 54th place out of 379 joined. Also I implemented an online leaderboard system using Loot Locker SDK. It also virtually supports all resolutions",
-                skills: ["GIMP", "Unity", "Aseprite", "C#", "LootLocker"],
+                skills: ["Unity", "C#", "Aseprite", "GIMP", "LootLocker"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for A Shooting Star",
-                        url: "https://www.youtube.com/watch?v=JGIhzp6Npxc",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQEeyNYyzBu2wA/articleshare-shrink_160/0/1713384663825?e=1749261600&v=beta&t=TRED1Gms37j-4b2vnq9VEGSdEccELd1iNhuuv63wsHs",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=JGIhzp6Npxc" }
                 ]
             },
             {
                 title: "Endless Hook & Swing",
                 date: "Sep 2022 - Oct 2022",
                 description: "A Play Store game. It is one of the most polished game I have developed and published. Supports every resolution. You should try the pause button :)",
-                skills: ["GIMP", "Unity", "C#"],
+                skills: ["Unity", "C#", "GIMP"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for Endless Hook & Swing",
-                        url: "https://www.youtube.com/watch?v=yaxwmY7t49c",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQH6iNDbIvrt-w/articleshare-shrink_160/0/1713383378041?e=1749261600&v=beta&t=7kHhkqThjStYbKJdS8cj4IStWcruEzfXxND_crr-es8",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=yaxwmY7t49c" }
                 ]
             },
             {
                 title: "Shotgun: Ghost Warrior",
                 date: "Oct 2022 - Oct 2022",
                 description: "I developed this game within 72 hours for mini-jam (one of the biggest independent game-jam there is) with a team made of three (one graphic designer) people. I was the lead developer. This game came at 72nd place out of 726 joined. It is a basic endless shooter game with few skills",
-                skills: ["Project Management", "Unity", "C#"],
+                skills: ["Unity", "C#"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for Shotgun: Ghost Warrior",
-                        url: "https://www.youtube.com/watch?v=1GWeUrOW3ZA",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQHJH4Rf6JFxAA/articleshare-shrink_160/0/1713384555921?e=1749261600&v=beta&t=ToSHEU_IZAN2HKjFS2swGMBk7CO-ZrroQEWRuWJaFMI",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=1GWeUrOW3ZA" }
                 ]
             },
             {
@@ -718,27 +622,19 @@
                 date: "Oct 2021 - Oct 2021",
                 description: "A console app which translates user input into bigger text that are made with ASCII characters.",
                 skills: [".NET Framework", "C#"],
+                categories: ["Apps"],
                 media: [
-                    {
-                        // title: "PSEMO/Make-bigger-text-in-text-format",Aseprite
-                        url: "https://github.com/PSEMO/Make-bigger-text-in-text-format",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQHjhuFX5WN2bg/articleshare-shrink_160/0/1729024907795?e=1749261600&v=beta&t=cLZJcj4gZI0YK3NdntPIieuFtIunJDbrWiWsdCqknh4",
-                        description: null
-                    }
+                    { url: "https://github.com/PSEMO/Make-bigger-text-in-text-format" }
                 ]
             },
             {
                 title: "Emoji Translator:Discord Emoji",
                 date: "May 2021 - May 2021",
                 description: "A Play Store application. A basic mobile application that transforms standard text input into bigger texts using emojis, in Discord’s indicator format.",
-                skills: ["GIMP", "Java", "Android Studio"],
+                skills: ["Android Studio", "Java", "GIMP"],
+                categories: ["Apps"],
                 media: [
-                    {
-                        //title: "Video for Emoji Translator:Discord Emoji",
-                        url: "https://www.youtube.com/watch?v=PJSrqYUDoIU",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQFJZ1mQvnS4ZQ/articleshare-shrink_160/0/1713383337725?e=1749261600&v=beta&t=Pkt0MZCLbKjUyH7_INgXiHrFY7PZYcdr4kB7Y6gX9Dg",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=PJSrqYUDoIU" }
                 ]
             },
             {
@@ -746,63 +642,69 @@
                 date: "Dec 2020 - Apr 2021",
                 description: "A Play Store game. This game has features such as; Endless procedurel generation, \"admob ads\", \"in-app purchases\", \"continue by watching ad\" mechanic; multiple skins, enemy types, levels etc.",
                 skills: ["GIMP", "Unity", "Google Ads", "C#"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for Infinite Platformer",
-                        url: "https://www.youtube.com/watch?v=xI5ZJ9uaNoU",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQHx9h2LQbwpbg/articleshare-shrink_160/0/1713383428853?e=1749261600&v=beta&t=5vkrXusFTULGqEBkb8KWtX-T-dhRiIJgwoB0RuTVNQA",
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=xI5ZJ9uaNoU" }
                 ]
             },
             {
                 title: "Magical Swords: First",
                 date: "Jun 2020 - Nov 2020",
                 description: "A Play Store game. My first game ^^",
-                skills: ["GIMP", "Unity", "C#"],
+                skills: ["Unity", "C#", "GIMP"],
+                categories: ["Games"],
                 media: [
-                    {
-                        //title: "Video for Magical Swords: First",
-                        url: "https://www.youtube.com/watch?v=JJ-X7QkkUt8",
-                        image: "https://media.licdn.com/dms/image/sync/v2/D4D27AQHTBwk7z_maTQ/articleshare-shrink_160/0/1713383473632?e=1749261600&v=beta&t=tQ_Dl47Nc29ogUfmHrDPVQcxr291X_W4zgeVpoxX4Y4",
-                        description: null
-                    }
-                ]
-            },
-            {
-                title: "My Google Play, Itchio, Github, Youtube, Steam and Discord",
-                date: "", 
-                description: "", 
-                skills: [], 
-                media: [
-                    {
-                        title: "My Socials & Portfolios Page",
-                        url: "https://psemo.github.io", 
-                        image: null,
-                        description: null
-                    }
+                    { url: "https://www.youtube.com/watch?v=JJ-X7QkkUt8" }
                 ]
             }
         ];
 
-        document.addEventListener('DOMContentLoaded', () => {
+        console.log("Number of projects:", projectsData.length);
+        // console.log("Projects Data:", projectsData);
+
+
+        projectsData.forEach(project => {
+            if (!project.categories) {
+                console.warn(`Project "${project.title}" is missing categories! Defaulting to ["Other"].`);
+                project.categories = ["Other"];
+            }
+            if (project.media) {
+                project.media.forEach(item => {
+                    if (item.description === undefined) item.description = null;
+                    if (!item.title) {
+                        if (item.url.includes('github.com/')) item.title = `Source Code on GitHub`;
+                        else if (item.url.includes('itch.io/')) item.title = `Project on Itch.io`;
+                        else if (item.url.includes('store.steampowered.com/app/')) item.title = `Game on Steam`;
+                        else if (item.url.includes('youtube.com/watch') || item.url.includes('youtu.be/')) item.title = `Video Showcase`;
+                        else if (item.url.includes('play.google.com/store/apps/')) item.title = `App on Google Play`;
+                        else item.title = `Related Link`; // Default title if none of the above match
+                    }
+                });
+            }
+        });
+
+
+        let originalProjectsData = []; 
+        const skillFilterDropdown = document.getElementById('skill-filter');
+        const typeFilterDropdown = document.getElementById('type-filter'); 
+
+
+        function renderProjects(projectsToDisplay) {
             const projectListContainer = document.getElementById('project-list-container');
-            
-            if (!projectListContainer) {
-                console.error("Project list container not found!");
+            projectListContainer.innerHTML = ''; 
+
+            if (!projectsToDisplay || projectsToDisplay.length === 0) {
+                projectListContainer.innerHTML = '<p>No projects match the current filters.</p>';
                 return;
             }
 
-            if (projectsData.length === 0) {
-                projectListContainer.innerHTML = '<p>No projects to display yet.</p>';
-                return;
-            }
-
-            projectListContainer.innerHTML = ''; // Clear "Loading projects..." message
-
-            projectsData.forEach((project, index) => {
+            projectsToDisplay.forEach((project, index) => {
                 const projectCard = document.createElement('article');
                 projectCard.classList.add('project-card');
+                if (project.categories && project.categories.length > 0) {
+                    projectCard.setAttribute('data-categories', project.categories.join(' ')); 
+                }
+
 
                 let skillsHTML = '';
                 if (project.skills && project.skills.length > 0) {
@@ -820,30 +722,23 @@
                         <h4 class="project-media-title">Related Media</h4>
                         <div class="project-media-list">
                             ${project.media.map(item => {
-                                let mediaLinkTitle = item.title;
-                                let mediaIconClass = 'fas fa-external-link-alt fa-fw'; // Default generic icon
+                                let mediaLinkTitle = item.title; // Already pre-filled
+                                let mediaIconClass = 'fas fa-link fa-fw'; 
 
                                 if (item.url.includes('github.com')) {
-                                    mediaLinkTitle = `Source code`;
                                     mediaIconClass = 'fab fa-github fa-fw';
                                 } else if (item.url.includes('itch.io')) {
-                                    mediaLinkTitle = `Game itself`;
                                     mediaIconClass = 'fas fa-gamepad fa-fw';
-                                } else if (item.url.includes('youtube.com')) {
-                                    mediaLinkTitle = item.title || `Short showcase video`;
+                                } else if (item.url.includes('youtube.com') || item.url.includes('youtu.be')) {
                                     mediaIconClass = 'fab fa-youtube fa-fw';
                                 } else if (item.url.includes('store.steampowered.com')) {
-                                    mediaLinkTitle = item.title || `Game itself`;
                                     mediaIconClass = 'fab fa-steam fa-fw';
                                 } else if (item.url.includes('play.google.com')) {
-                                    mediaLinkTitle = item.title || `App itself`;
                                     mediaIconClass = 'fab fa-google-play fa-fw';
-                                } else if (!mediaLinkTitle) { // Fallback if no specific title and not recognized URL type
-                                    mediaLinkTitle = item.url;
                                 }
-
+                                
                                 return `
-                                    <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="media-item">
+                                    <a href="${item.url}" target="_blank" rel="noopener noreferrer" class="media-item" aria-label="Link to ${mediaLinkTitle}">
                                         <i class="${mediaIconClass}"></i>
                                         <div class="media-item-info">
                                             <span class="media-title">${mediaLinkTitle}</span>
@@ -861,32 +756,82 @@
                     .map(paragraph => `<p>${paragraph.replace(/\n/g, '<br>')}</p>`) 
                     .join('');
 
+                let categoriesHTML = '';
+                if (project.categories && project.categories.length > 0) {
+                    const categoryOrder = ["Games", "Websites", "Apps", "Other"];
+                    const sortedCategories = [...project.categories].sort((a, b) => {
+                        return categoryOrder.indexOf(a) - categoryOrder.indexOf(b);
+                    });
+                    categoriesHTML = `
+                        <div class="project-categories">
+                            ${sortedCategories.map(category => `<span class="project-category-tag">${category}</span>`).join('')}
+                        </div>
+                    `;
+                }
 
                 projectCard.innerHTML = `
                     <h3>${project.title}</h3>
                     <span class="project-date">${project.date}</span>
-                    <div class="project-description">${formattedDescription}</div>
+                    ${categoriesHTML}
+                    <div class="project-description">${formattedDescription.length > 0 ? formattedDescription : '<p><em>No description provided.</em></p>'}</div>
                     ${skillsHTML}
                     ${mediaHTML}
                 `;
                 projectListContainer.appendChild(projectCard);
             });
 
-            // Staggered Project Card Animation on Load
             const cards = document.querySelectorAll('.project-card');
             if (cards.length > 0) {
                 cards.forEach((card, index) => {
                     const delay = index * 75 + 100; 
                     card.style.transitionDelay = `${delay}ms`;
-                    
                     requestAnimationFrame(() => {
                         card.style.opacity = '1';
                         card.style.transform = 'translateY(0)';
                     });
                 });
             }
+        }
+
+        function applyFilters() {
+            const selectedSkill = skillFilterDropdown.value;
+            const selectedType = typeFilterDropdown.value;
+
+            let filteredProjects = [...originalProjectsData];
+
+            if (selectedSkill) {
+                filteredProjects = filteredProjects.filter(p => p.skills && p.skills.includes(selectedSkill));
+            }
+
+            if (selectedType) {
+                filteredProjects = filteredProjects.filter(p => p.categories && p.categories.includes(selectedType));
+            }
+            renderProjects(filteredProjects);
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            originalProjectsData = [...projectsData]; 
+
+            const allSkills = new Set();
+            originalProjectsData.forEach(p => {
+                if (p.skills && p.skills.length > 0) {
+                    p.skills.forEach(s => allSkills.add(s));
+                }
+            });
             
-            // Profile Picture Popup Logic
+            Array.from(allSkills).sort((a, b) => a.toLowerCase().localeCompare(b.toLowerCase())).forEach(skill => {
+                const option = document.createElement('option');
+                option.value = skill;
+                option.textContent = skill;
+                skillFilterDropdown.appendChild(option);
+            });
+
+            skillFilterDropdown.addEventListener('change', applyFilters);
+            typeFilterDropdown.addEventListener('change', applyFilters); 
+
+            renderProjects(originalProjectsData);
+            
             const profilePicButtonPortfolio = document.getElementById('profilePicButton');
             const imagePopupPortfolio = document.getElementById('imagePopup');
             const closePopupButtonPortfolio = document.getElementById('closePopup');
@@ -907,17 +852,11 @@
                 }
             };
 
-            if (profilePicButtonPortfolio) {
-                profilePicButtonPortfolio.addEventListener('click', openPopupPortfolio);
-            }
-            if (closePopupButtonPortfolio) {
-                closePopupButtonPortfolio.addEventListener('click', closePopupPortfolio);
-            }
+            if (profilePicButtonPortfolio) profilePicButtonPortfolio.addEventListener('click', openPopupPortfolio);
+            if (closePopupButtonPortfolio) closePopupButtonPortfolio.addEventListener('click', closePopupPortfolio);
             if (imagePopupPortfolio) {
                 imagePopupPortfolio.addEventListener('click', (event) => {
-                    if (event.target === imagePopupPortfolio) {
-                        closePopupPortfolio();
-                    }
+                    if (event.target === imagePopupPortfolio) closePopupPortfolio();
                 });
             }
             document.addEventListener('keydown', (event) => {
@@ -925,7 +864,6 @@
                     closePopupPortfolio();
                 }
             });
-
         });
     </script>
 </body>
