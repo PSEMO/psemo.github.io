@@ -1,0 +1,208 @@
+:root {
+    --bg-color: #1e1e1e;
+    --surface-color: #2c2c2c;
+    --surface-alt-color: #333333;
+    --text-color: #e0e0e0;
+    --text-muted-color: #b0b0b0;
+    --primary-accent-color: #5cb85c;
+    --primary-accent-hover-color: #4a9d4a;
+    --border-color: #444444;
+    --profit-color: #66bb6a;
+    --loss-color: #ef5350;
+    --neutral-color: var(--text-color);
+    --link-color: #79c0ff;
+    --link-hover-color: #58a6ff;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+    line-height: 1.6;
+    margin: 0;
+    padding-bottom: 60px; /* Space for footer */
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    font-size: 16px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: 20px auto;
+    background: var(--surface-color);
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 1px solid var(--border-color);
+}
+
+header h1 {
+    color: #ffffff;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    padding-bottom: 0.5em;
+    border-bottom: 2px solid var(--primary-accent-color);
+    font-size: 2em;
+}
+
+h2 {
+    color: #ffffff;
+    margin-top: 1.8em;
+    margin-bottom: 1em;
+    padding-bottom: 0.4em;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 1.5em;
+}
+h2:first-child {
+    margin-top: 0;
+}
+
+h3 {
+    color: #ffffff;
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 0.8em;
+}
+
+.input-section textarea {
+    width: calc(100% - 22px);
+    padding: 12px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+    font-size: 0.9em;
+    background-color: #252525;
+    color: var(--text-color);
+    min-height: 150px;
+    resize: vertical;
+}
+
+.input-section button {
+    display: block;
+    width: 100%;
+    padding: 12px 18px;
+    background-color: var(--primary-accent-color);
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.input-section button:hover {
+    background-color: var(--primary-accent-hover-color);
+}
+
+.results-section .summaries {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.summary-card {
+    background-color: var(--surface-alt-color);
+    padding: 20px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+}
+
+.summary-grid p {
+    margin: 0 0 8px 0;
+    padding: 8px;
+    background-color: var(--surface-color);
+    border-radius: 3px;
+    color: var(--text-color);
+    font-size: 0.95em;
+    display: flex;
+    justify-content: space-between;
+}
+.summary-grid p:last-child {
+    margin-bottom: 0;
+}
+
+.summary-grid span {
+    font-weight: 600;
+}
+
+.table-wrapper {
+    overflow-x: auto; /* For responsiveness on small screens */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    font-size: 0.9em;
+}
+
+table th, table td {
+    border: 1px solid var(--border-color);
+    padding: 10px 12px;
+    text-align: left;
+    vertical-align: middle;
+}
+
+table th {
+    background-color: var(--primary-accent-color);
+    color: #ffffff;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: var(--surface-alt-color);
+}
+table tbody tr:nth-child(odd) {
+    background-color: var(--surface-color);
+}
+
+table tbody tr:hover {
+    background-color: #3a3a3a;
+}
+
+.no-results-message {
+    text-align: center;
+    padding: 25px;
+    background-color: #4a2a2a;
+    border: 1px solid #6a3a3a;
+    color: #ffc0c0;
+    border-radius: 5px;
+    margin-top: 25px;
+}
+
+.profit { color: var(--profit-color); }
+.loss { color: var(--loss-color); }
+.neutral { color: var(--neutral-color); }
+
+
+footer {
+    background-color: #000000;
+    color: #ffffff;
+    text-align: center;
+    padding: 15px 0;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    font-size: 0.85em;
+    border-top: 1px solid var(--border-color);
+}
+
+footer p {
+    margin: 0;
+    color: #ffffff; /* Ensure main text is white */
+}
+
+footer a {
+    color: var(--link-color);
+    text-decoration: none;
+    font-weight: 500;
+}
+
+footer a:hover, footer a:focus {
+    color: var(--link-hover-color);
+    text-decoration: underline;
+}

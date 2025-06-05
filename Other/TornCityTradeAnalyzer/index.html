@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Torn City Trade Analyzer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Torn City Trade Analyzer</h1>
+        </header>
+
+        <main>
+            <section class="input-section">
+                <h2>Paste Your Logs Here:</h2>
+                <textarea id="logInput" rows="15" placeholder="Paste your Torn City log data here..."></textarea>
+                <button id="processLogsBtn">Process Logs</button>
+            </section>
+
+            <section id="resultsSection" class="results-section" style="display: none;">
+                <div class="summaries">
+                    <article class="summary-card">
+                        <h3>Overall Summary (Lifetime)</h3>
+                        <div class="summary-grid" id="lifetimeSummary">
+                            <p>Total Trades: <span id="lt_totalTrades">0</span></p>
+                            <p>Total Spent: <span id="lt_totalSpent">$0</span></p>
+                            <p>Total Revenue: <span id="lt_totalRevenue">$0</span></p>
+                            <p>Total Fees: <span id="lt_totalFees">$0</span></p>
+                            <p>Net Profit: <span id="lt_netProfit" class="neutral">$0</span></p>
+                        </div>
+                    </article>
+
+                    <article class="summary-card">
+                        <h3>Last 7 Days</h3>
+                        <div class="summary-grid" id="7daysSummary">
+                            <p>Total Trades: <span id="d7_totalTrades">0</span></p>
+                            <p>Total Spent: <span id="d7_totalSpent">$0</span></p>
+                            <p>Total Revenue: <span id="d7_totalRevenue">$0</span></p>
+                            <p>Total Fees: <span id="d7_totalFees">$0</span></p>
+                            <p>Net Profit: <span id="d7_netProfit" class="neutral">$0</span></p>
+                        </div>
+                    </article>
+
+                    <article class="summary-card">
+                        <h3>Last 30 Days</h3>
+                        <div class="summary-grid" id="30daysSummary">
+                            <p>Total Trades: <span id="d30_totalTrades">0</span></p>
+                            <p>Total Spent: <span id="d30_totalSpent">$0</span></p>
+                            <p>Total Revenue: <span id="d30_totalRevenue">$0</span></p>
+                            <p>Total Fees: <span id="d30_totalFees">$0</span></p>
+                            <p>Net Profit: <span id="d30_netProfit" class="neutral">$0</span></p>
+                        </div>
+                    </article>
+                </div>
+
+                <article class="product-analysis">
+                    <h2>Per-Product Analysis (Lifetime)</h2>
+                    <div class="table-wrapper">
+                        <table id="productTable">
+                            <thead>
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Qty Bought</th>
+                                    <th>Avg. Buy Price</th>
+                                    <th>Total Spent</th>
+                                    <th>Qty Sold</th>
+                                    <th>Avg. Sell Price</th>
+                                    <th>Total Revenue (Net)</th>
+                                    <th>Net Profit</th>
+                                </tr>
+                            </thead>
+                            <tbody id="productTableBody">
+                                <!-- Data will be populated by JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </article>
+            </section>
+
+            <section id="noResultsMessage" class="no-results-message" style="display: none;">
+                <p>No trade data found in the provided logs, or an error occurred during processing.</p>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>PSEMO [3537405] | <a href="https://psemo.github.io/" target="_blank" rel="noopener noreferrer">psemo.github.io</a> | semihyilmaz032@gmail.com</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
