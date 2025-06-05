@@ -5,61 +5,58 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsSection = document.getElementById('resultsSection');
     const noResultsMessage = document.getElementById('noResultsMessage');
 
-    // Regex for parsing transaction logs - defined once for efficiency
+    // Regex for parsing transaction logs
     const REGEX_PATTERNS = {
-        bazaarSell: /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You sold (?:(\d+)x\s*)?some\s*([^:]+?)(?:\s*:\s*([^ ]+))?\s*on your bazaar to .*? at \$([\d,]+) each for a total of \$([\d,]+)/,
-        bazaarSellSimple: /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You sold some\s*([^:]+?)\s*on your bazaar to .*? at \$([\d,]+) each for a total of \$([\d,]+)/,
-        marketBuyWithDate: /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You bought (?:(\d+)x\s*)?(?:some\s*)?(.+?)\s*on the item market from .*? at \$([\d,]+) each for a total of \$([\d,]+)/,
-        marketBuyNoDate: /You bought (?:(\d+)x\s*)?(?:some\s*)?(.+?)\s*on the item market from .*? at \$([\d,]+) each for a total of \$([\d,]+)/,
+        // Sell logs
+        bazaarSell:         /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You sold (?:(\d+)x\s*)?some\s*([^:]+?)(?:\s*:\s*([^ ]+))?\s*on your bazaar to .*? at \$([\d,]+) each for a total of \$([\d,]+)/,
+        marketSellWithDate: /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You sold (?:(\d+)x\s*)?(?:a |an |some )?(.+?)\s+on the item market to .*? at \$([\d,]+) each for a total of \$([\d,]+) after \$([\d,]+) in fees/,
+        marketSellNoDate:   /You sold (?:(\d+)x\s*)?(?:a |an |some )?(.+?)\s+on the item market to .*? at \$([\d,]+) each for a total of \$([\d,]+) after \$([\d,]+) in fees/,
+
+        // Buy logs - Updated to better handle "a", "an", "some"
+        marketBuyWithDate:  /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You bought (?:(\d+)x\s*)?(?:a |an |some )?(.+?)\s*on the item market from .*? at \$([\d,]+) each for a total of \$([\d,]+)/,
+        marketBuyNoDate:    /You bought (?:(\d+)x\s*)?(?:a |an |some )?(.+?)\s*on the item market from .*? at \$([\d,]+) each for a total of \$([\d,]+)/,
         npcShopBuyWithDate: /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You bought (?:(\d+)x\s*)?(?:a |an |some )?(.+?)\s*at \$([\d,]+) each for a total of \$([\d,]+) from .*?/,
-        npcShopBuyNoDate: /You bought (?:(\d+)x\s*)?(?:a |an |some )?(.+?)\s*at \$([\d,]+) each for a total of \$([\d,]+) from .*?/,
-        marketSellWithDate: /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You sold (?:(\d+)x\s*)?(?:a |an |some )(.+?)\s*on the item market to .*? at \$([\d,]+) each for a total of \$([\d,]+) after \$([\d,]+) in fees/,
-        marketSellNoDate: /You sold (?:(\d+)x\s*)?(?:a |an |some )(.+?)\s*on the item market to .*? at \$([\d,]+) each for a total of \$([\d,]+) after \$([\d,]+) in fees/,
+        npcShopBuyNoDate:   /You bought (?:(\d+)x\s*)?(?:a |an |some )?(.+?)\s*at \$([\d,]+) each for a total of \$([\d,]+) from .*?/,
+
+        // Utility
         dateAndTime: /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})/,
-        daysAgo: /\d+ (DAYS?|HOURS?|MINUTES?) AGO/i
+        daysAgo: /\d+ (DAYS?|HOURS?|MINUTES?) AGO/i // Case insensitive for units
     };
 
-    /**
-     * Attaches event listener to the process button.
-     */
     function initialize() {
         processLogsBtn.addEventListener('click', handleProcessLogs);
     }
 
-    /**
-     * Handles the click event for the "Process Logs" button.
-     * Orchestrates parsing, calculation, and display of results.
-     */
     function handleProcessLogs() {
         const logs = logInput.value;
         if (!logs.trim()) {
             alert("Please paste some logs.");
             return;
         }
+
+        resultsSection.style.display = 'none';
+        noResultsMessage.style.display = 'none';
+
         try {
             const transactions = parseLogs(logs);
+
             if (transactions.length === 0) {
-                resultsSection.style.display = 'none';
+                noResultsMessage.textContent = "No trade data (buy/sell) found in the provided logs.";
                 noResultsMessage.style.display = 'block';
                 return;
             }
-            transactions.sort((a, b) => a.datetime - b.datetime);
+
+            transactions.sort((a, b) => a.datetime - b.datetime); // Sort by date ascending
             displayResults(transactions);
             resultsSection.style.display = 'block';
-            noResultsMessage.style.display = 'none';
+
         } catch (error) {
             console.error("Error processing logs:", error);
-            resultsSection.style.display = 'none';
+            noResultsMessage.textContent = "An error occurred during processing: " + error.message;
             noResultsMessage.style.display = 'block';
-            alert("An error occurred while processing the logs. Check the console for details.");
         }
     }
 
-    /**
-     * Parses the raw log text into a structured array of transaction objects.
-     * Iterates through lines, attempts to match various transaction patterns,
-     * and handles date association for multi-line log entries.
-     */
     function parseLogs(logText) {
         const lines = logText.split('\n');
         const transactions = [];
@@ -68,47 +65,39 @@ document.addEventListener('DOMContentLoaded', () => {
         for (const rawLine of lines) {
             const line = rawLine.trim();
 
-            if (!line || REGEX_PATTERNS.daysAgo.test(line)) {
-                if (REGEX_PATTERNS.daysAgo.test(line)) lastDateTime = null; // Reset date context
+            if (!line) continue; // Skip empty lines
+
+            // Discard "X days/hours/minutes ago" lines and reset lastDateTime if it was a date marker
+            if (REGEX_PATTERNS.daysAgo.test(line)) {
+                lastDateTime = null; // This line itself is not a transaction and resets date context
                 continue;
             }
 
             let match;
             let timeStr, dateStr, quantityStr, itemName, itemNameVariant, pricePerItemStr, totalStr, feesStr;
             let quantity = 1;
-            let currentLineDateTime = null;
+            let currentLineDateTime = null; // Date/time found on the current line itself
 
             const dateTimeMatch = line.match(REGEX_PATTERNS.dateAndTime);
             if (dateTimeMatch) {
                 currentLineDateTime = { time: dateTimeMatch[1], date: dateTimeMatch[2] };
             }
 
-            // Attempt to match sell patterns with inline date
+            // --- SELL TRANSACTIONS ---
+            // Attempt to match logs that HAVE their own timestamp first
             if (currentLineDateTime) {
-                match = line.match(REGEX_PATTERNS.bazaarSell) || line.match(REGEX_PATTERNS.bazaarSellSimple);
+                match = line.match(REGEX_PATTERNS.bazaarSell);
                 if (match) {
-                    if (match.length === 8 && match[4]) { // bazaarSell (with variant)
-                        [_, timeStr, dateStr, quantityStr, itemName, itemNameVariant, pricePerItemStr, totalStr] = match;
-                    } else { // bazaarSellSimple or bazaarSell without variant
-                        [_, timeStr, dateStr, itemName, pricePerItemStr, totalStr] = match;
-                         if(match.length === 7){ // bazaarSell with quantity but no variant
-                            quantityStr = match[3];
-                            itemName = match[4];
-                            pricePerItemStr = match[5];
-                            totalStr = match[6];
-                        } else { // bazaarSellSimple
-                            quantityStr = "1"; itemNameVariant = null;
-                        }
-                    }
+                    [_, timeStr, dateStr, quantityStr, itemName, itemNameVariant, pricePerItemStr, totalStr] = match;
                     const itemFullName = itemNameVariant ? `${itemName.trim()} : ${itemNameVariant.trim()}` : itemName.trim();
-                    quantity = quantityStr ? parseInt(quantityStr) : 1;
+                    quantity = quantityStr ? parseInt(quantityStr) : 1; // "some" implies 1 if no Nx prefix
                     transactions.push({
                         type: 'sell', datetime: parseDateTime(dateStr, timeStr), itemName: itemFullName,
                         quantity, pricePerItem: parseFloat(pricePerItemStr.replace(/,/g, '')),
-                        totalAmount: parseFloat(totalStr.replace(/,/g, '')), fees: 0,
+                        totalAmount: parseFloat(totalStr.replace(/,/g, '')), fees: 0, // Bazaar sales in this format don't show fees directly, net is total
                         netAmount: parseFloat(totalStr.replace(/,/g, ''))
                     });
-                    lastDateTime = null; continue;
+                    lastDateTime = null; continue; // Transaction found and processed
                 }
 
                 match = line.match(REGEX_PATTERNS.marketSellWithDate);
@@ -118,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     transactions.push({
                         type: 'sell', datetime: parseDateTime(dateStr, timeStr), itemName: itemName.trim(),
                         quantity, pricePerItem: parseFloat(pricePerItemStr.replace(/,/g, '')),
-                        totalAmount: parseFloat(totalStr.replace(/,/g, '')),
+                        totalAmount: parseFloat(totalStr.replace(/,/g, '')), // This is net amount for player
                         fees: parseFloat(feesStr.replace(/,/g, '')),
                         netAmount: parseFloat(totalStr.replace(/,/g, ''))
                     });
@@ -126,8 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
 
-            // Attempt to match buy patterns with inline date
+            // --- BUY TRANSACTIONS ---
+            // Attempt to match logs that HAVE their own timestamp first
             if (currentLineDateTime) {
+                // Combine market and NPC shop buys as their structure is similar here
                 match = line.match(REGEX_PATTERNS.marketBuyWithDate) || line.match(REGEX_PATTERNS.npcShopBuyWithDate);
                 if (match) {
                     [_, timeStr, dateStr, quantityStr, itemName, pricePerItemStr, totalStr] = match;
@@ -136,18 +127,19 @@ document.addEventListener('DOMContentLoaded', () => {
                         type: 'buy', datetime: parseDateTime(dateStr, timeStr), itemName: itemName.trim(),
                         quantity, pricePerItem: parseFloat(pricePerItemStr.replace(/,/g, '')),
                         totalAmount: parseFloat(totalStr.replace(/,/g, '')), fees: 0,
-                        netAmount: -parseFloat(totalStr.replace(/,/g, ''))
+                        netAmount: -parseFloat(totalStr.replace(/,/g, '')) // Cost, so negative for profit calculation
                     });
                     lastDateTime = null; continue;
                 }
             }
 
-            // If date was on a previous line, store it for next line's potential transaction
+            // If the current line had a timestamp but wasn't a transaction, it becomes the lastDateTime
+            // for subsequent lines that might not have their own timestamp.
             if (currentLineDateTime) {
                 lastDateTime = currentLineDateTime;
             }
 
-            // Attempt to match patterns that use a previously captured date
+            // --- TRANSACTIONS WITHOUT EMBEDDED DATE (using lastDateTime) ---
             if (lastDateTime) {
                 match = line.match(REGEX_PATTERNS.marketSellNoDate);
                 if (match) {
@@ -160,7 +152,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         fees: parseFloat(feesStr.replace(/,/g, '')),
                         netAmount: parseFloat(totalStr.replace(/,/g, ''))
                     });
-                    lastDateTime = null; continue;
+                    lastDateTime = null; continue; // Used lastDateTime, so clear it
                 }
 
                 match = line.match(REGEX_PATTERNS.marketBuyNoDate) || line.match(REGEX_PATTERNS.npcShopBuyNoDate);
@@ -173,51 +165,45 @@ document.addEventListener('DOMContentLoaded', () => {
                         totalAmount: parseFloat(totalStr.replace(/,/g, '')), fees: 0,
                         netAmount: -parseFloat(totalStr.replace(/,/g, ''))
                     });
-                    lastDateTime = null; continue;
+                    lastDateTime = null; continue; // Used lastDateTime, so clear it
                 }
             }
         }
         return transactions;
     }
 
-    /**
-     * Converts DD/MM/YY date string and HH:MM:SS time string into a JavaScript Date object.
-     */
     function parseDateTime(dateStr, timeStr) {
         const [day, month, yearSuffix] = dateStr.split('/');
         const [hours, minutes, seconds] = timeStr.split(':');
-        const year = parseInt(yearSuffix, 10) + 2000;
+        const year = parseInt(yearSuffix, 10) + 2000; // Assuming 21st century
+        // Month is 0-indexed in JavaScript Date
         return new Date(year, parseInt(month, 10) - 1, parseInt(day, 10),
                         parseInt(hours, 10), parseInt(minutes, 10), parseInt(seconds, 10));
     }
 
-    /**
-     * Formats a numeric amount into a USD currency string.
-     */
     function formatCurrency(amount) {
+        if (isNaN(amount)) return '$0.00'; // Handle potential NaN issues gracefully
         return amount.toLocaleString('en-US', { style: 'currency', currency: 'USD' });
     }
 
-    /**
-     * Calculates and displays all summary statistics and the product table.
-     */
     function displayResults(transactions) {
         updateSummaryDOM('lt', calculateStatsForPeriod(transactions));
 
-        const sevenDaysAgo = new Date();
-        sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
-        updateSummaryDOM('d7', calculateStatsForPeriod(transactions.filter(t => t.datetime >= sevenDaysAgo)));
+        const now = new Date();
+        // Ensure "today" is set to the beginning of the day for consistent comparison
+        const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
-        const thirtyDaysAgo = new Date();
-        thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
-        updateSummaryDOM('d30', calculateStatsForPeriod(transactions.filter(t => t.datetime >= thirtyDaysAgo)));
+        const sevenDaysAgoStart = new Date(todayStart);
+        sevenDaysAgoStart.setDate(todayStart.getDate() - 7); // Will correctly handle month/year rollovers
+        updateSummaryDOM('d7', calculateStatsForPeriod(transactions.filter(t => t.datetime >= sevenDaysAgoStart)));
+
+        const thirtyDaysAgoStart = new Date(todayStart);
+        thirtyDaysAgoStart.setDate(todayStart.getDate() - 30); // Will correctly handle month/year rollovers
+        updateSummaryDOM('d30', calculateStatsForPeriod(transactions.filter(t => t.datetime >= thirtyDaysAgoStart)));
 
         populateProductTable(transactions);
     }
 
-    /**
-     * Calculates aggregate statistics (spent, revenue, fees, profit) for a given set of transactions.
-     */
     function calculateStatsForPeriod(periodTransactions) {
         let totalSpent = 0, totalRevenue = 0, totalFees = 0;
         let buyTrades = 0, sellTrades = 0;
@@ -227,79 +213,103 @@ document.addEventListener('DOMContentLoaded', () => {
                 totalSpent += t.totalAmount;
                 buyTrades++;
             } else if (t.type === 'sell') {
-                totalRevenue += t.netAmount;
+                totalRevenue += t.netAmount; // netAmount is already after fees for sells
                 totalFees += t.fees;
                 sellTrades++;
             }
         }
         return {
             totalTrades: buyTrades + sellTrades,
-            totalSpent, totalRevenue, totalFees,
+            totalSpent,
+            totalRevenue,
+            totalFees,
             netProfit: totalRevenue - totalSpent
         };
     }
 
-    /**
-     * Updates the summary section in the DOM with calculated statistics.
-     */
     function updateSummaryDOM(prefix, stats) {
         document.getElementById(`${prefix}_totalTrades`).textContent = stats.totalTrades;
         document.getElementById(`${prefix}_totalSpent`).textContent = formatCurrency(stats.totalSpent);
         document.getElementById(`${prefix}_totalRevenue`).textContent = formatCurrency(stats.totalRevenue);
         document.getElementById(`${prefix}_totalFees`).textContent = formatCurrency(stats.totalFees);
+
         const profitElem = document.getElementById(`${prefix}_netProfit`);
         profitElem.textContent = formatCurrency(stats.netProfit);
-        profitElem.className = stats.netProfit >= 0 ? 'profit' : (stats.netProfit < 0 ? 'loss' : 'neutral');
+
+        // Use Bootstrap's text color utility classes
+        profitElem.classList.remove('text-success', 'text-danger', 'text-body', 'neutral'); // Clear existing
+        if (stats.netProfit > 0) {
+            profitElem.classList.add('text-success');
+        } else if (stats.netProfit < 0) {
+            profitElem.classList.add('text-danger');
+        } else {
+            profitElem.classList.add('text-body'); // Or 'text-muted' or your 'neutral' class if preferred
+        }
     }
 
-    /**
-     * Populates the per-product analysis table in the DOM.
-     */
     function populateProductTable(allTransactions) {
-        const productData = {};
+        const productData = {}; // Accumulate data per product
 
         for (const t of allTransactions) {
             if (!productData[t.itemName]) {
                 productData[t.itemName] = {
                     name: t.itemName,
-                    qtyBought: 0, totalSpent: 0,
-                    qtySold: 0, totalRevenueNet: 0,
+                    qtyBought: 0, totalSpentOnBuys: 0, // Renamed for clarity
+                    qtySold: 0, totalRevenueFromSellsNet: 0, // Renamed for clarity
                 };
             }
-            const item = productData[t.itemName];
+            const itemEntry = productData[t.itemName];
             if (t.type === 'buy') {
-                item.qtyBought += t.quantity;
-                item.totalSpent += t.totalAmount;
+                itemEntry.qtyBought += t.quantity;
+                itemEntry.totalSpentOnBuys += t.totalAmount;
             } else if (t.type === 'sell') {
-                item.qtySold += t.quantity;
-                item.totalRevenueNet += t.netAmount;
+                itemEntry.qtySold += t.quantity;
+                itemEntry.totalRevenueFromSellsNet += t.netAmount; // netAmount is already after fees
             }
         }
 
         const tableBody = document.getElementById('productTableBody');
-        tableBody.innerHTML = ''; // Clear previous data
+        tableBody.innerHTML = ''; // Clear previous results
+        const fragment = document.createDocumentFragment(); // For performance
 
-        const fragment = document.createDocumentFragment();
         Object.values(productData)
-            .sort((a, b) => a.name.localeCompare(b.name))
+            .sort((a, b) => a.name.localeCompare(b.name)) // Sort by item name
             .forEach(item => {
-                const avgBuyPrice = item.qtyBought > 0 ? item.totalSpent / item.qtyBought : 0;
-                const avgSellPrice = item.qtySold > 0 ? item.totalRevenueNet / item.qtySold : 0;
-                const netProfit = item.totalRevenueNet - item.totalSpent;
+                const avgBuyPrice = item.qtyBought > 0 ? item.totalSpentOnBuys / item.qtyBought : 0;
+                const avgSellPriceNet = item.qtySold > 0 ? item.totalRevenueFromSellsNet / item.qtySold : 0;
+                // Net profit for this item considers all buys and all sells of this item
+                const netProfit = item.totalRevenueFromSellsNet - item.totalSpentOnBuys;
 
-                const row = tableBody.insertRow();
-                row.insertCell().textContent = item.name;
-                row.insertCell().textContent = item.qtyBought;
-                row.insertCell().textContent = formatCurrency(avgBuyPrice);
-                row.insertCell().textContent = formatCurrency(item.totalSpent);
-                row.insertCell().textContent = item.qtySold;
-                row.insertCell().textContent = formatCurrency(avgSellPrice);
-                row.insertCell().textContent = formatCurrency(item.totalRevenueNet);
-                const profitCell = row.insertCell();
-                profitCell.textContent = formatCurrency(netProfit);
-                profitCell.className = netProfit > 0 ? 'profit' : (netProfit < 0 ? 'loss' : 'neutral');
+                const row = document.createElement('tr');
+
+                const createCell = (content, isCurrency = false, profitStatus = null) => {
+                    const cell = document.createElement('td');
+                    cell.textContent = isCurrency ? formatCurrency(content) : content;
+                    if (profitStatus) {
+                        cell.classList.remove('text-success', 'text-danger', 'text-body');
+                        if (profitStatus === 'profit') cell.classList.add('text-success');
+                        else if (profitStatus === 'loss') cell.classList.add('text-danger');
+                        else cell.classList.add('text-body'); // Neutral
+                    }
+                    return cell;
+                };
+
+                row.appendChild(createCell(item.name));
+                row.appendChild(createCell(item.qtyBought));
+                row.appendChild(createCell(avgBuyPrice, true));
+                row.appendChild(createCell(item.totalSpentOnBuys, true));
+                row.appendChild(createCell(item.qtySold));
+                row.appendChild(createCell(avgSellPriceNet, true));
+                row.appendChild(createCell(item.totalRevenueFromSellsNet, true));
+
+                let profitClass = null;
+                if (netProfit > 0) profitClass = 'profit';
+                else if (netProfit < 0) profitClass = 'loss';
+                row.appendChild(createCell(netProfit, true, profitClass));
+
                 fragment.appendChild(row);
             });
+
         tableBody.appendChild(fragment);
     }
 

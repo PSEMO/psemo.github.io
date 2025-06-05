@@ -1,94 +1,109 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Torn City Trade Analyzer</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Torn City Trade Analyzer</h1>
+    <div class="container my-4">
+        <header class="text-center mb-5">
+            <h1 class="display-4">Torn City Trade Analyzer</h1>
         </header>
 
         <main>
-            <section class="input-section">
-                <h2>Paste Your Logs Here:</h2>
-                <textarea id="logInput" rows="15" placeholder="Paste your Torn City log data here..."></textarea>
-                <button id="processLogsBtn">Process Logs</button>
+            <section class="input-section mb-5">
+                <h2 class="h3 mb-3">Paste Your Logs Here:</h2>
+                <textarea id="logInput" class="form-control mb-3" rows="10" placeholder="Paste your Torn City log data here..."></textarea> 
+                <button id="processLogsBtn" class="btn btn-success w-100">Process Logs</button> 
             </section>
 
             <section id="resultsSection" class="results-section" style="display: none;">
-                <div class="summaries">
-                    <article class="summary-card">
-                        <h3>Overall Summary (Lifetime)</h3>
-                        <div class="summary-grid" id="lifetimeSummary">
-                            <p>Total Trades: <span id="lt_totalTrades">0</span></p>
-                            <p>Total Spent: <span id="lt_totalSpent">$0</span></p>
-                            <p>Total Revenue: <span id="lt_totalRevenue">$0</span></p>
-                            <p>Total Fees: <span id="lt_totalFees">$0</span></p>
-                            <p>Net Profit: <span id="lt_netProfit" class="neutral">$0</span></p>
-                        </div>
-                    </article>
-
-                    <article class="summary-card">
-                        <h3>Last 7 Days</h3>
-                        <div class="summary-grid" id="7daysSummary">
-                            <p>Total Trades: <span id="d7_totalTrades">0</span></p>
-                            <p>Total Spent: <span id="d7_totalSpent">$0</span></p>
-                            <p>Total Revenue: <span id="d7_totalRevenue">$0</span></p>
-                            <p>Total Fees: <span id="d7_totalFees">$0</span></p>
-                            <p>Net Profit: <span id="d7_netProfit" class="neutral">$0</span></p>
-                        </div>
-                    </article>
-
-                    <article class="summary-card">
-                        <h3>Last 30 Days</h3>
-                        <div class="summary-grid" id="30daysSummary">
-                            <p>Total Trades: <span id="d30_totalTrades">0</span></p>
-                            <p>Total Spent: <span id="d30_totalSpent">$0</span></p>
-                            <p>Total Revenue: <span id="d30_totalRevenue">$0</span></p>
-                            <p>Total Fees: <span id="d30_totalFees">$0</span></p>
-                            <p>Net Profit: <span id="d30_netProfit" class="neutral">$0</span></p>
-                        </div>
-                    </article>
+                <div class="row g-4 mb-5">
+                    <div class="col-lg-4 col-md-6">
+                        <article class="summary-card card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title h5">Overall Summary (Lifetime)</h3>
+                                <div class="summary-grid" id="lifetimeSummary">
+                                    <p class="d-flex justify-content-between"><span>Total Trades:</span> <span id="lt_totalTrades">0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Total Spent:</span> <span id="lt_totalSpent">$0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Total Revenue:</span> <span id="lt_totalRevenue">$0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Total Fees:</span> <span id="lt_totalFees">$0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Net Profit:</span> <span id="lt_netProfit" class="neutral fw-bold">$0</span></p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-lg-4 col-md-6">
+                        <article class="summary-card card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title h5">Last 7 Days</h3>
+                                <div class="summary-grid" id="7daysSummary">
+                                    <p class="d-flex justify-content-between"><span>Total Trades:</span> <span id="d7_totalTrades">0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Total Spent:</span> <span id="d7_totalSpent">$0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Total Revenue:</span> <span id="d7_totalRevenue">$0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Total Fees:</span> <span id="d7_totalFees">$0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Net Profit:</span> <span id="d7_netProfit" class="neutral fw-bold">$0</span></p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                    <div class="col-lg-4 col-md-12">
+                        <article class="summary-card card h-100">
+                            <div class="card-body">
+                                <h3 class="card-title h5">Last 30 Days</h3>
+                                <div class="summary-grid" id="30daysSummary">
+                                    <p class="d-flex justify-content-between"><span>Total Trades:</span> <span id="d30_totalTrades">0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Total Spent:</span> <span id="d30_totalSpent">$0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Total Revenue:</span> <span id="d30_totalRevenue">$0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Total Fees:</span> <span id="d30_totalFees">$0</span></p>
+                                    <p class="d-flex justify-content-between"><span>Net Profit:</span> <span id="d30_netProfit" class="neutral fw-bold">$0</span></p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
                 </div>
 
-                <article class="product-analysis">
-                    <h2>Per-Product Analysis (Lifetime)</h2>
-                    <div class="table-wrapper">
-                        <table id="productTable">
-                            <thead>
-                                <tr>
-                                    <th>Item Name</th>
-                                    <th>Qty Bought</th>
-                                    <th>Avg. Buy Price</th>
-                                    <th>Total Spent</th>
-                                    <th>Qty Sold</th>
-                                    <th>Avg. Sell Price</th>
-                                    <th>Total Revenue (Net)</th>
-                                    <th>Net Profit</th>
-                                </tr>
-                            </thead>
-                            <tbody id="productTableBody">
-                                <!-- Data will be populated by JS -->
-                            </tbody>
-                        </table>
+                <article class="product-analysis card"> 
+                    <div class="card-body">
+                        <h2 class="card-title h4 mb-3">Per-Product Analysis (Lifetime)</h2>
+                        <div class="table-responsive"> 
+                            <table id="productTable" class="table table-striped table-hover table-sm"> 
+                                <thead>
+                                    <tr>
+                                        <th>Item Name</th>
+                                        <th>Qty Bought</th>
+                                        <th>Avg. Buy Price</th>
+                                        <th>Total Spent</th>
+                                        <th>Qty Sold</th>
+                                        <th>Avg. Sell Price</th>
+                                        <th>Total Revenue (Net)</th>
+                                        <th>Net Profit</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="productTableBody">
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </article>
             </section>
 
-            <section id="noResultsMessage" class="no-results-message" style="display: none;">
-                <p>No trade data found in the provided logs, or an error occurred during processing.</p>
+            <section id="noResultsMessage" class="alert alert-warning mt-4" role="alert" style="display: none;">
+                No trade data found in the provided logs, or an error occurred during processing.
             </section>
         </main>
     </div>
 
-    <footer>
-        <p>PSEMO [3537405] | <a href="https://psemo.github.io/" target="_blank" rel="noopener noreferrer">psemo.github.io</a> | semihyilmaz032@gmail.com</p>
+    <footer class="bg-black text-white text-center py-3 fixed-bottom">
+        <p class="mb-0">PSEMO [3537405] | <a href="https://psemo.github.io/" target="_blank" rel="noopener noreferrer" class="link-light">psemo.github.io</a> | semihyilmaz032@gmail.com</p>
+        <p class="mb-0 small mt-4">This tool is provided free of charge and is open source (<a href="https://opensource.org/licenses/MIT" target="_blank" rel="noopener noreferrer" class="link-light">MIT License</a>). It is a non-profit project.</p>
+        <p class="mb-0 small">All processing occurs locally in your browser; no data is sent to or collected by the project owner.</p>
     </footer>
 
+    <script src="bootstrap.bundle.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
