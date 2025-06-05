@@ -1,0 +1,67 @@
+/* style.css - Customizations on top of Bootstrap Dark Theme */
+
+body {
+    padding-bottom: 70px; /* Ensure footer doesn't overlap content */
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+}
+
+/* Enhance Bootstrap's dark theme slightly if needed */
+.container {
+    max-width: 1200px; /* Or your preferred max-width */
+}
+
+header h1 {
+    color: var(--bs-primary); /* Use Bootstrap's primary color for accent */
+    border-bottom-color: var(--bs-primary);
+}
+
+.input-section textarea {
+    min-height: 150px; /* Ensure textarea has a decent minimum height */
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
+}
+
+/* Summary Card Adjustments */
+.summary-card .card-body {
+    display: flex;
+    flex-direction: column;
+}
+.summary-card .summary-grid {
+    font-size: 0.9rem;
+}
+.summary-card .summary-grid p {
+    margin-bottom: 0.5rem;
+    padding: 0.3rem 0; /* Less padding if using Bootstrap's card body padding */
+    border-bottom: 1px solid var(--bs-border-color-translucent);
+}
+.summary-card .summary-grid p:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}
+
+
+/* Product Table Text Alignment & Profit/Loss Colors */
+#productTable th,
+#productTable td {
+    vertical-align: middle;
+}
+
+/* Profit/Loss color classes - Bootstrap text color utilities are good */
+.profit {
+    color: var(--bs-success) !important; /* Use Bootstrap success color */
+}
+.loss {
+    color: var(--bs-danger) !important;  /* Use Bootstrap danger color */
+}
+.neutral {
+    color: var(--bs-body-color) !important; /* Default body color */
+}
+
+/* Footer link color if Bootstrap's default isn't quite right */
+footer a.link-light:hover {
+    color: var(--bs-primary-text-emphasis) !important; /* A slightly brighter link hover */
+}
+
+/* Ensure fixed footer doesn't hide content */
+body {
+    margin-bottom: 60px; /* Adjust based on your footer's height */
+}
