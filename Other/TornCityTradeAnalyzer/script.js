@@ -5,27 +5,141 @@ document.addEventListener('DOMContentLoaded', () => {
     const resultsSection = document.getElementById('resultsSection');
     const noResultsMessage = document.getElementById('noResultsMessage');
 
-    // Regex for parsing transaction logs
+    // --- Regex Building Blocks ---
+    // Using String.raw to avoid excessive backslash escaping.
+    // CG = Capturing Group
+    const R_PARTS = {
+        // ---- Foundational Elements ----
+        TIME: String.raw`(\d{2}:\d{2}:\d{2})`,                 // CG: HH:MM:SS
+        DATE: String.raw`(\d{2}\/\d{2}\/\d{2})`,                 // CG: DD/MM/YY
+
+        // ---- Combined Elements ----
+        // Full timestamp pattern. CG1: Time, CG2: Date
+        TIMESTAMP_FULL: String.raw`(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})`,
+
+        // ---- Quantity Specifiers (these define capture groups for quantity if present) ----
+        // Optional "Nx " (e.g., "2x "). CG1: N (the number).
+        OPTIONAL_NX_PREFIX: String.raw`(?:(\d+)x\s*)?`,
+        // "Nx " OR "some ". CG1: N (if "Nx" is present). Includes trailing space.
+        BAZAAR_QUANTITY_PREFIX: String.raw`(?:(?:(\d+)x\s*)|(?:some\s*))`,
+        // Optional "Nx ", then optional "a/an/some ". CG1: N (if "Nx" is present). Includes trailing space from "some " or "Nx ".
+        GENERAL_QUANTITY_PREFIX: String.raw`(?:(\d+)x\s*)?(?:a |an |some )?`,
+
+        // ---- Item Name Patterns (these define capture groups for item name/variant) ----
+        // Captures item name (e.g., "Kevlar Vest", "Morphine"). Non-greedy. CG1: ItemName.
+        ITEM_NAME_SIMPLE: String.raw`(.+?)`,
+        // Captures base item name and optionally a variant (e.g., "Spray Paint" : "Red").
+        // CG1: Base Name, Optional CG2: Variant
+        ITEM_NAME_WITH_VARIANT: String.raw`([^:]+?)(?:\s*:\s*([^ ]+))?`,
+
+        // ---- Transaction Details (define capture groups for monetary values) ----
+        // "at $price each for a total of $total". CG1: PriceEach, CG2: Total
+        PRICE_AND_TOTAL: String.raw`at \$([\d,]+) each for a total of \$([\d,]+)`,
+        // "after $fees in fees". CG1: Fees
+        FEES_SUFFIX: String.raw`after \$([\d,]+) in fees`,
+
+        // ---- Keywords with required trailing space (non-capturing structure) ----
+        KEYWORD_YOU_SOLD_SP: String.raw`You sold\s+`,
+        KEYWORD_YOU_BOUGHT_SP: String.raw`You bought\s+`,
+
+        // ---- Contextual Phrases (non-capturing structure) ----
+        CONTEXT_ON_BAZAAR_TO: String.raw`on your bazaar to .*?`,
+        CONTEXT_ON_MARKET_TO: String.raw`on the item market to .*?`,
+        CONTEXT_ON_MARKET_FROM: String.raw`on the item market from .*?`,
+        CONTEXT_FROM_NPC_SHOP: String.raw`from .*?`, // e.g., "from Bits 'n' Bobs"
+
+        // ---- Spacers (non-capturing structure) ----
+        SP_OPT: String.raw`\s*`, // 0 or more whitespace characters
+        SP_REQ: String.raw`\s+`  // 1 or more whitespace characters
+    };
+
+    // Regex for parsing transaction logs, built from R_PARTS
+    // The order of concatenation and capture groups is critical for the parseLogs function.
     const REGEX_PATTERNS = {
         // Sell logs
-        // Updated bazaarSell to handle "Nx Item" OR "some Item" and variants
-        bazaarSell:         /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You sold (?:(?:(\d+)x\s*)|(?:some\s*))([^:]+?)(?:\s*:\s*([^ ]+))?\s*on your bazaar to .*? at \$([\d,]+) each for a total of \$([\d,]+)/,
-        marketSellWithDate: /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You sold (?:(\d+)x\s*)?(?:a |an |some )?(.+?)\s+on the item market to .*? at \$([\d,]+) each for a total of \$([\d,]+) after \$([\d,]+) in fees/, // Current: item name is (.+?), does not explicitly parse " : Variant"
-        marketSellNoDate:   /You sold (?:(\d+)x\s*)?(?:a |an |some )?(.+?)\s+on the item market to .*? at \$([\d,]+) each for a total of \$([\d,]+) after \$([\d,]+) in fees/, // Current: item name is (.+?), does not explicitly parse " : Variant"
+        bazaarSell: new RegExp(
+            R_PARTS.TIMESTAMP_FULL +            // CG1: Time, CG2: Date
+            R_PARTS.SP_OPT +
+            R_PARTS.KEYWORD_YOU_SOLD_SP +       // "You sold "
+            R_PARTS.BAZAAR_QUANTITY_PREFIX +    // CG3: Quantity (from Nx)
+            R_PARTS.ITEM_NAME_WITH_VARIANT +    // CG4: ItemNameBase, CG5: ItemNameVariant
+            R_PARTS.SP_OPT +
+            R_PARTS.CONTEXT_ON_BAZAAR_TO +
+            R_PARTS.SP_OPT +
+            R_PARTS.PRICE_AND_TOTAL             // CG6: PriceEach, CG7: Total
+        ),
+        marketSellWithDate: new RegExp(
+            R_PARTS.TIMESTAMP_FULL +            // CG1: Time, CG2: Date
+            R_PARTS.SP_OPT +
+            R_PARTS.KEYWORD_YOU_SOLD_SP +       // "You sold "
+            R_PARTS.GENERAL_QUANTITY_PREFIX +   // CG3: Quantity (from Nx)
+            R_PARTS.ITEM_NAME_SIMPLE +          // CG4: ItemName (full)
+            R_PARTS.SP_REQ +                    // Required space before "on the item market"
+            R_PARTS.CONTEXT_ON_MARKET_TO +
+            R_PARTS.SP_OPT +
+            R_PARTS.PRICE_AND_TOTAL +           // CG5: PriceEach, CG6: Total
+            R_PARTS.SP_OPT +
+            R_PARTS.FEES_SUFFIX                 // CG7: Fees
+        ),
+        marketSellNoDate: new RegExp(
+            R_PARTS.KEYWORD_YOU_SOLD_SP +       // "You sold "
+            R_PARTS.GENERAL_QUANTITY_PREFIX +   // CG1: Quantity (from Nx)
+            R_PARTS.ITEM_NAME_SIMPLE +          // CG2: ItemName (full)
+            R_PARTS.SP_REQ +                    // Required space before "on the item market"
+            R_PARTS.CONTEXT_ON_MARKET_TO +
+            R_PARTS.SP_OPT +
+            R_PARTS.PRICE_AND_TOTAL +           // CG3: PriceEach, CG4: Total
+            R_PARTS.SP_OPT +
+            R_PARTS.FEES_SUFFIX                 // CG5: Fees
+        ),
 
         // Buy logs
-        // Updated marketBuyWithDate to handle "Item Name : Variant"
-        marketBuyWithDate:  /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You bought (?:(\d+)x\s*)?(?:a |an |some )?([^:]+?)(?:\s*:\s*([^ ]+))?\s*on the item market from .*? at \$([\d,]+) each for a total of \$([\d,]+)/,
-        // Updated marketBuyNoDate to handle "Item Name : Variant"
-        marketBuyNoDate:    /You bought (?:(\d+)x\s*)?(?:a |an |some )?([^:]+?)(?:\s*:\s*([^ ]+))?\s*on the item market from .*? at \$([\d,]+) each for a total of \$([\d,]+)/,
-        
-        npcShopBuyWithDate: /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})\s*You bought (?:(\d+)x\s*)?(?:a |an |some )?(.+?)\s*at \$([\d,]+) each for a total of \$([\d,]+) from .*?/, // Current: item name is (.+?), does not explicitly parse " : Variant"
-        npcShopBuyNoDate:   /You bought (?:(\d+)x\s*)?(?:a |an |some )?(.+?)\s*at \$([\d,]+) each for a total of \$([\d,]+) from .*?/, // Current: item name is (.+?), does not explicitly parse " : Variant"
+        marketBuyWithDate: new RegExp(
+            R_PARTS.TIMESTAMP_FULL +            // CG1: Time, CG2: Date
+            R_PARTS.SP_OPT +
+            R_PARTS.KEYWORD_YOU_BOUGHT_SP +     // "You bought "
+            R_PARTS.GENERAL_QUANTITY_PREFIX +   // CG3: Quantity (from Nx)
+            R_PARTS.ITEM_NAME_WITH_VARIANT +    // CG4: ItemNameBase, CG5: ItemNameVariant
+            R_PARTS.SP_OPT +
+            R_PARTS.CONTEXT_ON_MARKET_FROM +
+            R_PARTS.SP_OPT +
+            R_PARTS.PRICE_AND_TOTAL             // CG6: PriceEach, CG7: Total
+        ),
+        marketBuyNoDate: new RegExp(
+            R_PARTS.KEYWORD_YOU_BOUGHT_SP +     // "You bought "
+            R_PARTS.GENERAL_QUANTITY_PREFIX +   // CG1: Quantity (from Nx)
+            R_PARTS.ITEM_NAME_WITH_VARIANT +    // CG2: ItemNameBase, CG3: ItemNameVariant
+            R_PARTS.SP_OPT +
+            R_PARTS.CONTEXT_ON_MARKET_FROM +
+            R_PARTS.SP_OPT +
+            R_PARTS.PRICE_AND_TOTAL             // CG4: PriceEach, CG5: Total
+        ),
+        npcShopBuyWithDate: new RegExp(
+            R_PARTS.TIMESTAMP_FULL +            // CG1: Time, CG2: Date
+            R_PARTS.SP_OPT +
+            R_PARTS.KEYWORD_YOU_BOUGHT_SP +     // "You bought "
+            R_PARTS.GENERAL_QUANTITY_PREFIX +   // CG3: Quantity (from Nx)
+            R_PARTS.ITEM_NAME_SIMPLE +          // CG4: ItemName (full)
+            R_PARTS.SP_OPT +                    // Optional space before "at $"
+            R_PARTS.PRICE_AND_TOTAL +           // CG5: PriceEach, CG6: Total
+            R_PARTS.SP_OPT +
+            R_PARTS.CONTEXT_FROM_NPC_SHOP
+        ),
+        npcShopBuyNoDate: new RegExp(
+            R_PARTS.KEYWORD_YOU_BOUGHT_SP +     // "You bought "
+            R_PARTS.GENERAL_QUANTITY_PREFIX +   // CG1: Quantity (from Nx)
+            R_PARTS.ITEM_NAME_SIMPLE +          // CG2: ItemName (full)
+            R_PARTS.SP_OPT +                    // Optional space before "at $"
+            R_PARTS.PRICE_AND_TOTAL +           // CG3: PriceEach, CG4: Total
+            R_PARTS.SP_OPT +
+            R_PARTS.CONTEXT_FROM_NPC_SHOP
+        ),
 
         // Utility
-        dateAndTime: /(\d{2}:\d{2}:\d{2})\s*-\s*(\d{2}\/\d{2}\/\d{2})/,
+        dateAndTime: new RegExp(R_PARTS.TIMESTAMP_FULL), // CG1: Time, CG2: Date
         daysAgo: /\d+ (DAYS?|HOURS?|MINUTES?) AGO/i
     };
+
 
     function initialize() {
         processLogsBtn.addEventListener('click', handleProcessLogs);
@@ -54,7 +168,7 @@ document.addEventListener('DOMContentLoaded', () => {
             displayResults(transactions);
             resultsSection.style.display = 'block';
 
-        } catch (error) {
+        } catch (error)            {
             console.error("Error processing logs:", error);
             noResultsMessage.textContent = "An error occurred during processing: " + error.message;
             noResultsMessage.style.display = 'block';
@@ -77,9 +191,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             let match;
-            // Variables to hold parsed data
             let timeStr, dateStr, quantityStr, itemName, itemNameVariant, pricePerItemStr, totalStr, feesStr;
-            let quantity = 1; // Default quantity
+            let quantity = 1;
             let currentLineDateTime = null;
 
             const dateTimeMatch = line.match(REGEX_PATTERNS.dateAndTime);
@@ -91,10 +204,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentLineDateTime) {
                 match = line.match(REGEX_PATTERNS.bazaarSell);
                 if (match) {
-                    // Groups: 1:time, 2:date, 3:quantity(Nx), 4:itemNameBase, 5:itemVariant, 6:pricePer, 7:total
+                    // CGs from bazaarSell: 1:time, 2:date, 3:quantity(Nx), 4:itemNameBase, 5:itemVariant, 6:pricePer, 7:total
                     [_, timeStr, dateStr, quantityStr, itemName, itemNameVariant, pricePerItemStr, totalStr] = match;
                     const itemFullName = itemNameVariant ? `${itemName.trim()} : ${itemNameVariant.trim()}` : itemName.trim();
-                    quantity = quantityStr ? parseInt(quantityStr) : 1; // If quantityStr is undefined (from "some"), defaults to 1
+                    quantity = quantityStr ? parseInt(quantityStr) : 1;
                     transactions.push({
                         type: 'sell', datetime: parseDateTime(dateStr, timeStr), itemName: itemFullName,
                         quantity, pricePerItem: parseFloat(pricePerItemStr.replace(/,/g, '')),
@@ -106,11 +219,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 match = line.match(REGEX_PATTERNS.marketSellWithDate);
                 if (match) {
-                    // Groups: 1:time, 2:date, 3:quantity(Nx), 4:itemName(full), 5:pricePer, 6:total, 7:fees
+                    // CGs from marketSellWithDate: 1:time, 2:date, 3:quantity(Nx), 4:itemName(full), 5:pricePer, 6:total, 7:fees
                     [_, timeStr, dateStr, quantityStr, itemName, pricePerItemStr, totalStr, feesStr] = match;
                     quantity = quantityStr ? parseInt(quantityStr) : 1;
-                    // This regex currently assumes itemName is (.+?) and doesn't explicitly parse " : Variant".
-                    // If market sells can have variants, this regex and parsing would need an update similar to marketBuys.
                     transactions.push({
                         type: 'sell', datetime: parseDateTime(dateStr, timeStr), itemName: itemName.trim(),
                         quantity, pricePerItem: parseFloat(pricePerItemStr.replace(/,/g, '')),
@@ -126,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentLineDateTime) {
                 match = line.match(REGEX_PATTERNS.marketBuyWithDate);
                 if (match) {
-                    // Groups: 1:time, 2:date, 3:quantity(Nx), 4:itemNameBase, 5:itemVariant, 6:pricePer, 7:total
+                    // CGs from marketBuyWithDate: 1:time, 2:date, 3:quantity(Nx), 4:itemNameBase, 5:itemVariant, 6:pricePer, 7:total
                     [_, timeStr, dateStr, quantityStr, itemName, itemNameVariant, pricePerItemStr, totalStr] = match;
                     const itemFullName = itemNameVariant ? `${itemName.trim()} : ${itemNameVariant.trim()}` : itemName.trim();
                     quantity = quantityStr ? parseInt(quantityStr) : 1;
@@ -141,10 +252,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 match = line.match(REGEX_PATTERNS.npcShopBuyWithDate);
                 if (match) {
-                    // Groups: 1:time, 2:date, 3:quantity(Nx), 4:itemName(full), 5:pricePer, 6:total
+                    // CGs from npcShopBuyWithDate: 1:time, 2:date, 3:quantity(Nx), 4:itemName(full), 5:pricePer, 6:total
                     [_, timeStr, dateStr, quantityStr, itemName, pricePerItemStr, totalStr] = match;
                     quantity = quantityStr ? parseInt(quantityStr) : 1;
-                    // This regex currently assumes itemName is (.+?) and doesn't explicitly parse " : Variant".
                     transactions.push({
                         type: 'buy', datetime: parseDateTime(dateStr, timeStr), itemName: itemName.trim(),
                         quantity, pricePerItem: parseFloat(pricePerItemStr.replace(/,/g, '')),
@@ -163,7 +273,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (lastDateTime) {
                 match = line.match(REGEX_PATTERNS.marketSellNoDate);
                 if (match) {
-                    // Groups: 1:quantity(Nx), 2:itemName(full), 3:pricePer, 4:total, 5:fees
+                    // CGs from marketSellNoDate: 1:quantity(Nx), 2:itemName(full), 3:pricePer, 4:total, 5:fees
                     [_, quantityStr, itemName, pricePerItemStr, totalStr, feesStr] = match;
                     quantity = quantityStr ? parseInt(quantityStr) : 1;
                     transactions.push({
@@ -178,7 +288,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 match = line.match(REGEX_PATTERNS.marketBuyNoDate);
                 if (match) {
-                    // Groups: 1:quantity(Nx), 2:itemNameBase, 3:itemVariant, 4:pricePer, 5:total
+                    // CGs from marketBuyNoDate: 1:quantity(Nx), 2:itemNameBase, 3:itemVariant, 4:pricePer, 5:total
                     [_, quantityStr, itemName, itemNameVariant, pricePerItemStr, totalStr] = match;
                     const itemFullName = itemNameVariant ? `${itemName.trim()} : ${itemNameVariant.trim()}` : itemName.trim();
                     quantity = quantityStr ? parseInt(quantityStr) : 1;
@@ -193,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 match = line.match(REGEX_PATTERNS.npcShopBuyNoDate);
                 if (match) {
-                     // Groups: 1:quantity(Nx), 2:itemName(full), 3:pricePer, 4:total
+                    // CGs from npcShopBuyNoDate: 1:quantity(Nx), 2:itemName(full), 3:pricePer, 4:total
                     [_, quantityStr, itemName, pricePerItemStr, totalStr] = match;
                     quantity = quantityStr ? parseInt(quantityStr) : 1;
                     transactions.push({
