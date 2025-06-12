@@ -1,129 +1,4 @@
-/* --- Imports & Variables --- */
-@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Space+Mono:wght@400;700&display=swap');
-
-:root {
-    --bgColorStart: #0d1117;
-    /* Dark GitHub background */
-    --bgColorEnd: #161b22;
-    /* Slightly lighter dark */
-    --bgContainer: rgba(22, 27, 34, 0.8);
-    /* Semi-transparent container background */
-    --accentColor: #58a6ff;
-    /* GitHub blue */
-    --accentColorHover: #79c0ff;
-    /* Lighter blue for hover */
-    --textColor: #c9d1d9;
-    /* Light grey text */
-    --textColorHover: #ffffff;
-    /* White text on hover */
-    --borderColor: #30363d;
-    /* Subtle border color */
-    --borderColorHover: #8b949e;
-    /* Slightly lighter border */
-    --linkBg: rgba(88, 166, 255, 0.1);
-    /* Subtle link background */
-    --linkBgHover: rgba(88, 166, 255, 0.2);
-    /* Link hover background */
-    --shadowColor: rgba(0, 0, 0, 0.3);
-
-    --fontPrimary: 'Karla', sans-serif;
-    --fontSecondary: 'Space Mono', monospace;
-
-    --containerWidth: 680px;
-    --borderRadius: 6px;
-    /* Slightly smaller radius */
-    --transitionSpeed: 0.25s;
-    /* Slightly faster transitions */
-    --loadDelay: 0.1s;
-    /* Base delay for load animations */
-}
-
-/* --- Reset & Base Styles --- */
-*,
-*::before,
-*::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-}
-
-html {
-    scroll-behavior: smooth;
-    font-size: 100%;
-    /* Base font size */
-}
-
-body {
-    font-family: var(--fontPrimary);
-    color: var(--textColor);
-    background-color: var(--bgColorStart);
-    /* Fallback */
-    line-height: 1.6;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    /* Needed for background overlay */
-    overflow-x: hidden;
-    /* Prevent horizontal scroll */
-    opacity: 0;
-    /* Start hidden for fade-in */
-    animation: fadeInBody 0.5s ease-out var(--loadDelay) forwards;
-}
-
-/* --- Animated Background --- */
-.background-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: -1;
-    background: linear-gradient(135deg,
-            var(--bgColorStart),
-            var(--bgColorEnd),
-            var(--bgColorStart),
-            #11151c
-            /* Slightly different shade */
-        );
-    background-size: 300% 300%;
-    /* Adjust size for smoother animation */
-    animation: gradientBG 35s ease infinite;
-    /* Slower animation */
-}
-
-/* --- Layout Container --- */
-.container {
-    width: 100%;
-    max-width: var(--containerWidth);
-    margin: 0 auto;
-    padding: 30px 20px;
-    /* More vertical padding */
-    position: relative;
-    z-index: 1;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    /* Optional: Add a subtle background to the container itself */
-    /* background-color: var(--bgContainer);
-    border-radius: var(--borderRadius);
-    box-shadow: 0 8px 32px 0 var(--shadowColor);
-    backdrop-filter: blur( 4px );
-    -webkit-backdrop-filter: blur( 4px );
-    border: 1px solid var(--borderColor);
-    margin-top: 2vh;
-    margin-bottom: 2vh; */
-}
-
-/* --- Header --- */
-.profile-header {
-    text-align: center;
-    margin-bottom: 45px;
-    /* Increased spacing */
-    margin-top: 20px;
-}
-
+/* --- Header Profile Picture Button --- */
 .profile-picture-button {
     background: none;
     border: none;
@@ -132,18 +7,14 @@ body {
     border-radius: 50%;
     display: inline-block;
     margin-bottom: 25px;
-    /* Increased spacing */
     position: relative;
-    /* For potential pseudo-element effects */
     transition: transform var(--transitionSpeed) ease;
     -webkit-tap-highlight-color: transparent;
-    /* Remove tap highlight */
 }
 
 .profile-picture-button img {
     display: block;
     width: 110px;
-    /* Slightly larger */
     height: 110px;
     border-radius: 50%;
     object-fit: cover;
@@ -158,110 +29,66 @@ body {
 
 .profile-picture-button:focus {
     outline: 2px solid var(--accentColor);
-    /* Custom focus outline */
     outline-offset: 4px;
-}
-
-.profile-picture-button:focus:not(:focus-visible) {
-    outline: none;
-    /* Remove outline if focused via mouse */
 }
 
 .profile-picture-button:active {
     transform: scale(0.98);
-    /* Slight shrink on click */
 }
 
-
-.profile-name {
-    color: var(--textColorHover);
-    font-family: var(--fontSecondary);
-    font-size: clamp(1.6rem, 4vw, 2rem);
-    /* Responsive font size */
-    margin-bottom: 8px;
-    font-weight: 700;
-}
-
-.profile-tagline {
-    font-size: clamp(0.9rem, 2.5vw, 1rem);
-    /* Responsive font size */
-    color: var(--textColor);
-    font-style: normal;
-    /* Removing italics for cleaner look */
-    opacity: 0.8;
-}
-
-/* --- Links --- */
+/* --- Links Section --- */
 .links-container {
     width: 100%;
 }
 
 .link-section {
     margin-bottom: 40px;
-    /* Increased spacing */
 }
 
 .link-section h2 {
     font-family: var(--fontSecondary);
     color: var(--textColorHover);
-    font-size: clamp(1.1rem, 3vw, 1.25rem);
-    /* Responsive */
+    font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 18px;
-    /* Increased spacing */
     padding-bottom: 8px;
     border-bottom: 1px solid var(--borderColor);
-    text-align: left;
     display: flex;
     align-items: center;
     gap: 10px;
-    /* Space between icon and text */
 }
 
 .link-section h2 i {
     color: var(--accentColor);
-    font-size: 1em;
-    /* Match heading size */
-    margin-top: -2px;
-    /* Fine-tune alignment */
 }
 
 .link-section nav {
     display: flex;
     flex-direction: column;
     gap: 15px;
-    /* Space between links */
 }
 
 .link-item {
     display: flex;
     align-items: center;
     gap: 12px;
-    /* Space between icon and text */
     background-color: var(--linkBg);
     color: var(--textColor);
     border: 1px solid var(--borderColor);
     border-radius: var(--borderRadius);
     font-size: 1rem;
-    font-weight: 400;
     padding: 14px 18px;
-    /* Slightly larger padding */
     text-decoration: none;
-    text-align: left;
     transition: all var(--transitionSpeed) ease;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
-    -webkit-tap-highlight-color: transparent;
-    /* Add initial state for JS animation */
-    opacity: 0;
-    transform: translateY(10px);
+    opacity: 0; /* Initial state for JS animation */
+    transform: translateY(10px); /* Initial state for JS animation */
 }
 
 .link-item i.fa-fw {
-    /* Ensure fixed-width icons align well */
     width: 1.25em;
     text-align: center;
     color: var(--accentColor);
-    /* Icon color */
     transition: transform var(--transitionSpeed) ease;
 }
 
@@ -271,82 +98,37 @@ body {
     color: var(--textColorHover);
     border-color: var(--accentColorHover);
     transform: translateY(-3px) scale(1.01);
-    /* Enhanced lift effect */
     box-shadow: 0 5px 15px var(--shadowColor);
     outline: none;
-    /* Remove default focus outline, rely on border/bg */
 }
 
 .link-item:hover i,
 .link-item:focus i {
     transform: scale(1.1);
-    /* Slightly enlarge icon on hover */
 }
 
-.link-item:active {
-    transform: translateY(0) scale(1);
-    /* Reset transform on click */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
-}
-
-/* --- Footer --- */
-.page-footer {
-    text-align: center;
-    margin-top: 50px;
-    /* Space above footer */
-    padding-top: 25px;
-    border-top: 1px solid var(--borderColor);
-    width: 100%;
-    max-width: var(--containerWidth);
-    font-size: 0.9rem;
-    color: var(--textColor);
-    opacity: 0.8;
-    /* Slightly faded footer */
-}
-
+/* --- Footer Hashtag --- */
 .animated-hashtag {
     font-family: var(--fontSecondary);
     font-size: 1.2rem;
     font-weight: bold;
-    margin-bottom: 18px;
     background: linear-gradient(90deg, var(--accentColor), var(--textColorHover), var(--accentColorHover), var(--accentColor));
     background-size: 250% auto;
     color: transparent;
-    /* Make text transparent */
-    background-clip: text;
     -webkit-background-clip: text;
+    background-clip: text;
     animation: textShine 4s linear infinite;
 }
 
-.page-footer p {
-    margin-bottom: 8px;
-}
-
-.page-footer a {
-    color: var(--accentColor);
-    text-decoration: none;
-    transition: color var(--transitionSpeed) ease;
-}
-
-.page-footer a:hover,
-.page-footer a:focus {
-    color: var(--accentColorHover);
-    text-decoration: underline;
-    outline: none;
-}
-
-.attribution {
-    font-size: 0.8rem;
-    opacity: 0.6;
-    margin-top: 15px;
+@keyframes textShine {
+    to { background-position: -250% center; }
 }
 
 /* --- Popup Modal --- */
 .popup-overlay {
     position: fixed;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.7);
-    /* Slightly darker overlay */
+    background-color: rgba(0, 0, 0, 0.75);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -363,7 +145,6 @@ body {
     opacity: 1;
     visibility: visible;
     transition-delay: 0s;
-    /* Ensure visibility transition happens immediately */
 }
 
 .popup-content {
@@ -373,10 +154,8 @@ body {
     border-radius: var(--borderRadius);
     max-width: 90vw;
     max-height: 90vh;
-    overflow: hidden;
     transform: scale(0.95);
     opacity: 0;
-    /* Start hidden for transition */
     transition: transform var(--transitionSpeed) ease, opacity var(--transitionSpeed) ease;
     box-shadow: 0 10px 30px var(--shadowColor);
 }
@@ -389,13 +168,8 @@ body {
 .popup-content img {
     display: block;
     max-width: 100%;
-    /* Calculate max height considering padding/close button */
     max-height: calc(90vh - 40px);
-    width: auto;
-    height: auto;
     object-fit: contain;
-    border-radius: calc(var(--borderRadius) - 1px);
-    /* Match container rounding */
 }
 
 .popup-close {
@@ -410,115 +184,15 @@ body {
     height: 32px;
     font-size: 1.6rem;
     line-height: 32px;
-    /* Center the 'x' */
     text-align: center;
     cursor: pointer;
     transition: background-color var(--transitionSpeed) ease, transform var(--transitionSpeed) ease;
     z-index: 10;
-    /* Ensure it's above the image */
-    -webkit-tap-highlight-color: transparent;
 }
 
 .popup-close:hover,
 .popup-close:focus {
     background-color: var(--accentColor);
-    /* Use accent color */
-    color: #fff;
     transform: rotate(90deg);
     outline: none;
-}
-
-.popup-close:active {
-    transform: rotate(90deg) scale(0.9);
-}
-
-
-/* --- Animations --- */
-@keyframes fadeInBody {
-    to {
-        opacity: 1;
-    }
-}
-
-@keyframes gradientBG {
-    0% {
-        background-position: 0% 50%;
-    }
-
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
-    }
-}
-
-@keyframes textShine {
-    to {
-        background-position: -250% center;
-        /* Move background */
-    }
-}
-
-/* --- Responsiveness --- */
-@media (max-width: 768px) {
-    .container {
-        padding: 25px 15px;
-        /* Adjust padding */
-    }
-
-    .profile-picture-button img {
-        width: 90px;
-        height: 90px;
-    }
-
-    .profile-header {
-        margin-bottom: 35px;
-    }
-
-    .link-section {
-        margin-bottom: 30px;
-    }
-
-    .link-item {
-        padding: 12px 15px;
-        font-size: 0.95rem;
-    }
-
-    .page-footer {
-        margin-top: 40px;
-        padding-top: 20px;
-        font-size: 0.85rem;
-    }
-
-    .animated-hashtag {
-        font-size: 1.1rem;
-        margin-bottom: 15px;
-    }
-}
-
-@media (max-width: 480px) {
-    html {
-        font-size: 95%;
-    }
-
-    /* Slightly reduce base font size */
-    .profile-picture-button img {
-        width: 80px;
-        height: 80px;
-    }
-
-    .link-item {
-        padding: 10px 12px;
-    }
-
-    .link-section h2 {
-        margin-bottom: 15px;
-        padding-bottom: 6px;
-    }
-
-    .link-section nav {
-        gap: 12px;
-    }
 }

@@ -1,0 +1,158 @@
+/* --- Imports & Root Variables --- */
+@import url('https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root {
+    --bgColorStart: #0d1117;
+    --bgColorEnd: #161b22;
+    --bgColorEndRGB: 22, 27, 34;
+    --accentColor: #58a6ff;
+    --accentColorHover: #79c0ff;
+    --textColor: #c9d1d9;
+    --textColorHover: #ffffff;
+    --borderColor: #30363d;
+    --linkBg: rgba(30, 60, 120, 0.65);
+    --linkBgHover: rgba(30, 60, 120, 0.45);
+    --shadowColor: rgba(0, 0, 0, 0.65);
+
+    --fontPrimary: 'Karla', sans-serif;
+    --fontSecondary: 'Space Mono', monospace;
+
+    --containerWidth: 720px;
+    --borderRadius: 8px;
+    --transitionSpeed: 0.25s;
+    --loadDelay: 0.1s;
+}
+
+/* --- Reset & Base Styles --- */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+    font-size: 100%;
+}
+
+body {
+    background-color: var(--bgColorStart);
+    color: var(--textColor);
+    font-family: var(--fontPrimary);
+    line-height: 1.6;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow-x: hidden;
+    opacity: 0;
+    animation: fadeInBody 0.5s ease-out var(--loadDelay) forwards;
+}
+
+/* --- Animated Backgrounds --- */
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2;
+    background: linear-gradient(135deg, var(--bgColorStart), var(--bgColorEnd));
+    background-size: 200% 200%;
+    animation: gradientBG 25s ease infinite;
+}
+
+#particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* --- Layout Container --- */
+.container {
+    max-width: var(--containerWidth);
+    width: 100%;
+    margin: 0 auto;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 1;
+    flex-grow: 1;
+}
+
+/* --- Common Header --- */
+.profile-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.profile-name {
+    font-family: var(--fontSecondary);
+    color: var(--textColorHover);
+    font-size: 2rem;
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.profile-tagline {
+    color: var(--textColor);
+    opacity: 0.8;
+    font-size: 1.1rem;
+}
+
+/* --- Common Footer --- */
+.page-footer {
+    text-align: center;
+    margin-top: 50px;
+    padding-top: 25px;
+    border-top: 1px solid var(--borderColor);
+    font-size: 0.9rem;
+    opacity: 0.8;
+    width: 100%;
+}
+
+/* --- Keyframe Animations --- */
+@keyframes fadeInBody {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- Visually Hidden Class (for accessibility) --- */
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+    .container {
+        padding: 30px 15px;
+    }
+    .profile-header {
+        margin-bottom: 35px;
+    }
+    .page-footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        font-size: 0.85rem;
+    }
+}

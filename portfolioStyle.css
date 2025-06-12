@@ -1,356 +1,242 @@
-:root
-{
-    --bgColorStart: #0d1117; 
-    --bgColorEnd: #161b22; 
-    --bgColorEndRGB: 22, 27, 34; 
-    --accentColor: #58a6ff; 
-    --accentColorHover: #79c0ff; 
-    --textColor: #c9d1d9; 
-    --textColorHover: #ffffff; 
-    --borderColor: #30363d; 
-    --linkBg: rgba(88, 166, 255, 0.1); 
-    --linkBgHover: rgba(88, 166, 255, 0.2); 
-    --shadowColor: rgba(0, 0, 0, 0.3); 
-    --fontPrimary: 'Karla', sans-serif; 
-    --fontSecondary: 'Space Mono', monospace; 
-    --containerWidth: 720px; 
-    --borderRadius: 8px; 
-    --transitionSpeed: 0.25s;
+/* --- Back Link --- */
+.back-link-section h2 {
+    border-bottom: none;
+    margin-bottom: 30px;
 }
 
-body
-{
-    background-color: var(--bgColorStart); 
-    color: var(--textColor); 
-    font-family: var(--fontPrimary); 
-    line-height: 1.6; 
-    margin: 0; 
-    position: relative; 
+.back-link-section h2 a {
+    text-decoration: none;
+    color: var(--textColorHover);
+    transition: color var(--transitionSpeed) ease;
+    font-family: var(--fontSecondary);
+    font-size: 1.2rem;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.background-overlay
-{
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    z-index: -1; 
-    background: linear-gradient(135deg, var(--bgColorStart), var(--bgColorEnd)); 
-    background-size: 200% 200%; 
-    animation: gradientBG 25s ease infinite; 
+.back-link-section h2 a i {
+    color: var(--accentColor);
+    transition: color var(--transitionSpeed) ease;
 }
 
-@keyframes gradientBG
-{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
+.back-link-section h2 a:hover {
+    color: var(--accentColor);
 }
 
-.container
-{
-    max-width: var(--containerWidth); 
-    margin: 0 auto; 
-    padding: 40px 20px; 
+.back-link-section h2 a:hover i {
+    color: var(--accentColorHover);
 }
 
-.profile-header
-{
-    text-align: center; 
-    margin-bottom: 40px; 
+/* --- Portfolio Display Section --- */
+.portfolio-display-section h2 {
+    font-family: var(--fontSecondary);
+    color: var(--textColorHover);
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--borderColor);
+    display: flex;
+    align-items: center;
+    gap: 12px;
 }
 
-.profile-name
-{
-    font-family: var(--fontSecondary); 
-    color: var(--textColorHover); 
-    font-size: 2rem; 
+.portfolio-display-section h2 i {
+    color: var(--accentColor);
 }
 
-.profile-tagline
-{
-    color: var(--textColor); 
-    opacity: 0.8; 
-    font-size: 1.1rem; 
+/* --- Filter Controls --- */
+.filter-controls-wrapper {
+    margin-bottom: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 15px;
+    background-color: rgba(var(--bgColorEndRGB), 0.5);
+    border: 1px solid var(--borderColor);
+    border-radius: var(--borderRadius);
 }
 
-.page-footer 
-{
-    text-align: center; 
-    margin-top: 50px; 
-    padding-top: 25px; 
-    border-top: 1px solid var(--borderColor); 
-    font-size: 0.9rem; 
-    opacity: 0.8; 
+.filter-control-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-grow: 1;
 }
 
-.back-link-section h2 
-{
-    border-bottom: none; 
-    margin-bottom: 30px; 
+.filter-control-group label {
+    font-weight: bold;
+    color: var(--textColor);
+    white-space: nowrap;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
 }
 
-.back-link-section h2 a 
-{
-    text-decoration: none; 
-    color: var(--textColorHover); 
-    transition: color var(--transitionSpeed) ease; 
-    font-family: var(--fontSecondary); 
-    font-size: 1.2rem; 
-    font-weight: 700; 
-    display: inline-flex; 
-    align-items: center; 
-    gap: 10px; 
+.filter-control-group select {
+    padding: 8px 12px;
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--borderColor);
+    background-color: var(--linkBg);
+    color: var(--textColor);
+    font-family: var(--fontPrimary);
+    cursor: pointer;
+    width: 100%;
+    min-width: 180px;
+    transition: border-color var(--transitionSpeed);
 }
 
-.back-link-section h2 a i 
-{
-    color: var(--accentColor); 
-    transition: color var(--transitionSpeed) ease; 
+.filter-control-group select:hover {
+    border-color: var(--accentColor);
 }
 
-.back-link-section h2 a:hover 
-{
-    color: var(--accentColor); 
+.filter-control-group select:focus {
+    outline: 2px solid var(--accentColor);
+    outline-offset: 2px;
+    border-color: var(--accentColor);
 }
 
-.back-link-section h2 a:hover i 
-{
-    color: var(--accentColorHover); 
+/* --- Project List --- */
+.project-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
 }
 
-.portfolio-display-section h2 
-{
-    font-family: var(--fontSecondary); 
-    color: var(--textColorHover); 
-    font-size: 1.25rem; 
-    font-weight: 700; 
-    margin-bottom: 20px; 
-    padding-bottom: 10px; 
-    border-bottom: 1px solid var(--borderColor); 
-    display: flex; 
-    align-items: center; 
-    gap: 12px; 
+.project-card {
+    background-color: var(--linkBg);
+    border: 1px solid var(--borderColor);
+    border-radius: var(--borderRadius);
+    padding: 25px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: all var(--transitionSpeed) ease;
 }
 
-.portfolio-display-section h2 i 
-{
-    color: var(--accentColor); 
+.project-card:hover {
+    background-color: var(--linkBgHover);
+    border-color: var(--accentColorHover);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px var(--shadowColor);
 }
 
-.filter-controls-wrapper 
-{
-    margin-bottom: 30px; 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 20px; 
-    padding: 15px; 
-    background-color: rgba(var(--bgColorEndRGB), 0.5); 
-    border: 1px solid var(--borderColor); 
-    border-radius: var(--borderRadius); 
+.project-card h3 {
+    font-family: var(--fontSecondary);
+    color: var(--textColorHover);
+    font-size: 1.4rem;
+    margin-top: 0;
+    margin-bottom: 5px;
 }
 
-.filter-control-group 
-{
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
-    flex-grow: 1; 
+.project-card .project-date {
+    font-size: 0.9rem;
+    color: var(--textColor);
+    opacity: 0.7;
+    margin-bottom: 12px;
+    display: block;
 }
 
-.filter-control-group label 
-{
-    font-weight: bold; 
-    color: var(--textColor); 
-    white-space: nowrap; 
-    gap: 8px; 
-    display: flex; 
-    align-items: center; 
-    font-size: 0.9rem; 
+.project-card .project-categories {
+    margin-bottom: 15px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
 }
 
-.filter-control-group select 
-{
-    padding: 8px 12px; 
-    border-radius: var(--borderRadius); 
-    border: 1px solid var(--borderColor); 
-    background-color: var(--linkBg); 
-    color: var(--textColor); 
-    font-family: var(--fontPrimary); 
-    cursor: pointer; 
-    width: 100%; 
-    min-width: 180px; 
-    transition: border-color var(--transitionSpeed); 
+.project-card .project-category-tag {
+    background-color: var(--accentColor);
+    color: #0d1117;
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
-.filter-control-group select:hover 
-{
-    border-color: var(--accentColor); 
+.project-card .project-description {
+    margin-bottom: 20px;
+    white-space: pre-line;
 }
 
-.filter-control-group select:focus 
-{
-    outline: 2px solid var(--accentColor); 
-    outline-offset: 2px; 
-    border-color: var(--accentColor); 
+.project-card .project-skills-title {
+    font-family: var(--fontSecondary);
+    font-size: 1rem;
+    color: var(--accentColor);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-weight: bold;
+    border-bottom: 1px solid var(--borderColor);
+    padding-bottom: 5px;
 }
 
-.project-list-container 
-{
-    display: flex; 
-    flex-direction: column; 
-    gap: 25px; 
+.project-card .project-skills-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 0;
 }
 
-.project-card 
-{
-    background-color: var(--linkBg); 
-    border: 1px solid var(--borderColor); 
-    border-radius: var(--borderRadius); 
-    padding: 25px; 
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); 
-    transition: all var(--transitionSpeed) ease; 
+.project-card .project-skills-list li {
+    background-color: rgba(88, 166, 255, 0.2);
+    color: var(--accentColorHover);
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 0.85rem;
 }
 
-.project-card:hover 
-{
-    background-color: var(--linkBgHover); 
-    border-color: var(--accentColorHover); 
-    transform: translateY(-5px); 
-    box-shadow: 0 8px 20px var(--shadowColor); 
+.project-card .project-media-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
 }
 
-.project-card h3 
-{
-    font-family: var(--fontSecondary); 
-    color: var(--textColorHover); 
-    font-size: 1.4rem; 
-    margin-top: 0; 
-    margin-bottom: 5px; 
+.project-card .media-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px;
+    border: 1px solid transparent;
+    border-radius: var(--borderRadius);
+    background-color: rgba(var(--bgColorEndRGB), 0.6);
+    text-decoration: none;
+    color: var(--textColor);
+    transition: all var(--transitionSpeed) ease;
 }
 
-.project-card .project-date 
-{
-    font-size: 0.9rem; 
-    color: var(--textColor); 
-    opacity: 0.7; 
-    margin-bottom: 12px; 
-    display: block; 
+.project-card .media-item:hover {
+    background-color: var(--linkBg);
+    border-color: var(--accentColor);
 }
 
-.project-card .project-categories 
-{
-    margin-bottom: 15px; 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 8px; 
+.project-card .media-item i {
+    color: var(--accentColor);
+    font-size: 1.5em;
+    flex-shrink: 0;
+    width: 1.5em;
+    text-align: center;
 }
 
-.project-card .project-category-tag 
-{
-    background-color: var(--accentColor); 
-    color: #0d1117; 
-    padding: 3px 10px; 
-    border-radius: 15px; 
-    font-size: 0.8rem; 
-    font-weight: 700; 
-    text-transform: uppercase; 
-    letter-spacing: 0.5px; 
+.project-card .media-item-info {
+    flex-grow: 1;
+    min-width: 0;
 }
 
-.project-card .project-description 
-{
-    margin-bottom: 20px; 
-    white-space: pre-line; 
+.project-card .media-item-info .media-title {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 2px;
+    color: var(--textColorHover);
+    font-size: 0.95rem;
 }
 
-.project-card .project-skills-title 
-{
-    font-family: var(--fontSecondary); 
-    font-size: 1rem; 
-    color: var(--accentColor); 
-    margin-top: 20px; 
-    margin-bottom: 10px; 
-    font-weight: bold; 
-    border-bottom: 1px solid var(--borderColor); 
-    padding-bottom: 5px; 
-}
-
-.project-card .project-skills-list 
-{
-    list-style: none; 
-    padding: 0; 
-    display: flex; 
-    flex-wrap: wrap; 
-    gap: 8px; 
-    margin: 0; 
-}
-
-.project-card .project-skills-list li 
-{
-    background-color: rgba(88, 166, 255, 0.2); 
-    color: var(--accentColorHover); 
-    padding: 5px 10px; 
-    border-radius: 4px; 
-    font-size: 0.85rem; 
-}
-
-.project-card .project-media-list 
-{
-    display: flex; 
-    flex-direction: column; 
-    gap: 10px; 
-    margin-top: 20px; 
-}
-
-.project-card .media-item 
-{
-    display: flex; 
-    align-items: center; 
-    gap: 12px; 
-    padding: 12px; 
-    border: 1px solid transparent; 
-    border-radius: var(--borderRadius); 
-    background-color: rgba(var(--bgColorEndRGB), 0.6); 
-    text-decoration: none; 
-    color: var(--textColor); 
-    transition: all var(--transitionSpeed) ease; 
-}
-
-.project-card .media-item:hover 
-{
-    background-color: var(--linkBg); 
-    border-color: var(--accentColor); 
-}
-
-.project-card .media-item i 
-{
-    color: var(--accentColor); 
-    font-size: 1.5em; 
-    flex-shrink: 0; 
-    width: 1.5em; 
-    text-align: center; 
-}
-
-.project-card .media-item-info 
-{
-    flex-grow: 1; 
-    min-width: 0; 
-}
-
-.project-card .media-item-info .media-title 
-{
-    font-weight: bold; 
-    display: block; 
-    margin-bottom: 2px; 
-    color: var(--textColorHover); 
-    font-size: 0.95rem; 
-}
-
-.project-card .media-item-info .media-description 
-{
-    font-size: 0.85rem; 
-    opacity: 0.8; 
-    display: block; 
+.project-card .media-item-info .media-description {
+    font-size: 0.85rem;
+    opacity: 0.8;
+    display: block;
 }

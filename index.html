@@ -5,69 +5,48 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Semih Yılmaz - Links</title>
-
-    <!-- Favicon -->
     <link rel="icon" href="https://avatars.githubusercontent.com/u/85266757?v=4" type="image/png" />
-
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Karla:wght@400;700&family=Space+Mono:wght@400;700&display=swap"
-        rel="stylesheet">
-
-    <!-- Core theme CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    
+    <!-- Refactored CSS -->
+    <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <!-- Animated Background Overlay -->
     <div class="background-overlay"></div>
+    <canvas id="particle-canvas"></canvas>
 
-    <!-- Main Content Container -->
     <div class="container">
-
         <header class="profile-header">
             <button id="profilePicButton" class="profile-picture-button" aria-label="View Profile Picture">
-                <img src="https://avatars.githubusercontent.com/u/85266757?v=4" alt="Semih Yılmaz Profile Picture"
-                    loading="lazy">
+                <img src="https://avatars.githubusercontent.com/u/85266757?v=4" alt="Semih Yılmaz Profile Picture" loading="lazy">
             </button>
             <h1 class="profile-name">Semih "PSEMO" Yılmaz</h1>
             <p class="profile-tagline">Computer Engineer</p>
         </header>
 
         <main class="links-container">
-
-            <!-- Portfolio Section -->
             <section class="link-section portfolio-section">
                 <h2><i class="fas fa-folder-open fa-fw"></i> Portfolio</h2>
                 <nav aria-labelledby="portfolio-heading">
-                    <a class="link-item" href="portfolio.html" target="_blank" rel="noopener noreferrer">
+                    <a class="link-item" href="portfolio.html">
                         <i class="fas fa-external-link-alt fa-fw"></i> View Portfolio
                     </a>
-                    <a class="link-item" href="https://www.youtube.com/@semihylmaz3949/playlists" target="_blank"
-                        rel="noopener noreferrer">
+                    <a class="link-item" href="https://www.youtube.com/@semihylmaz3949/playlists" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-youtube fa-fw"></i> Project Showcase Videos (YouTube)
                     </a>
-                    <a class="link-item" href="https://store.steampowered.com/app/3723800/Grind_Mindset/"
-                        target="_blank" rel="noopener noreferrer">
+                    <a class="link-item" href="https://store.steampowered.com/app/3723800/Grind_Mindset/" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-steam fa-fw"></i> Steam Games (Steam)
                     </a>
                     <a class="link-item" href="https://psemo.itch.io/" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-gamepad fa-fw"></i> Game Jam Games (itch.io)
                     </a>
-                    <a class="link-item" href="http://play.google.com/store/apps/developer?id=Semih+Y%C4%B1lmaz"
-                        target="_blank" rel="noopener noreferrer">
+                    <a class="link-item" href="http://play.google.com/store/apps/developer?id=Semih+Y%C4%B1lmaz" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-google-play fa-fw"></i> Android Apps & Games (Play Store)
                     </a>
                 </nav>
             </section>
-
-            <!-- Professional Links Section -->
             <section class="link-section professional-section">
                 <h2><i class="fas fa-briefcase fa-fw"></i> Professional</h2>
                 <nav aria-labelledby="professional-heading">
@@ -77,9 +56,7 @@
                     <a class="link-item" href="./Resume-online.pdf" target="_blank" rel="noopener noreferrer">
                         <i class="fas fa-file-alt fa-fw"></i> Full Stack Resume
                     </a>
-                    <a class="link-item"
-                        href="https://www.linkedin.com/in/semih-y%C4%B1lmaz-377545201" target="_blank"
-                        rel="noopener noreferrer">
+                    <a class="link-item" href="https://www.linkedin.com/in/semih-y%C4%B1lmaz-377545201" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-linkedin fa-fw"></i> LinkedIn Account
                     </a>
                     <a class="link-item" href="https://github.com/PSEMO" target="_blank" rel="noopener noreferrer">
@@ -87,31 +64,24 @@
                     </a>
                 </nav>
             </section>
-
-            <!-- Personal Links Section -->
             <section class="link-section personal-section">
                 <h2><i class="fas fa-user fa-fw"></i> Personal</h2>
                 <nav aria-labelledby="personal-heading">
                     <a class="link-item" href="https://discord.gg/VyhyFkv86N" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-discord fa-fw"></i> My Discord Server
                     </a>
-                    <a class="link-item" href="https://steamcommunity.com/id/PSEMO/" target="_blank"
-                        rel="noopener noreferrer">
+                    <a class="link-item" href="https://steamcommunity.com/id/PSEMO/" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-steam fa-fw"></i> Steam Profile
                     </a>
                 </nav>
             </section>
-
-            <!-- Other Projects Section -->
             <section class="link-section other-projects-section">
                 <h2><i class="fas fa-terminal fa-fw"></i> Local "Work-in-progress" Projects</h2>
                 <nav aria-labelledby="other-projects-heading">
-                    <a class="link-item" href="./Other/Infinite%20Netrunner/index.html" target="_blank"
-                        rel="noopener noreferrer">
+                    <a class="link-item" href="./Other/Infinite%20Netrunner/index.html" target="_blank" rel="noopener noreferrer">
                         <i class="fa fa-code fa-fw"></i> Infinite Netrunner v2.1 (Alpha)
                     </a>
-                    <a class="link-item" href="./Other/Grind%20Mindset/index.html" target="_blank"
-                        rel="noopener noreferrer">
+                    <a class="link-item" href="./Other/Grind%20Mindset/index.html" target="_blank" rel="noopener noreferrer">
                         <i class="fa fa-code fa-fw"></i> Grind Mindset game (Alpha)
                     </a>
                     <a class="link-item" href="./Other/Hack(2)%3B/index.html" target="_blank" rel="noopener noreferrer">
@@ -122,43 +92,23 @@
                     </a>
                 </nav>
             </section>
-
         </main>
 
         <footer class="page-footer">
-            <!-- Animated Hashtag -->
             <div class="animated-hashtag">#OpenSource</div>
         </footer>
+    </div>
 
-    </div> <!-- / .container -->
-
-    <!-- Image Popup Modal -->
-    <div id="imagePopup" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-heading"
-        aria-hidden="true">
+    <div id="imagePopup" class="popup-overlay" role="dialog" aria-modal="true" aria-labelledby="popup-heading" aria-hidden="true">
         <div class="popup-content">
             <h2 id="popup-heading" class="visually-hidden">Profile Picture Large View</h2>
             <button id="closePopup" class="popup-close" aria-label="Close popup">×</button>
-            <img src="https://avatars.githubusercontent.com/u/85266757?v=4"
-                alt="Semih Yılmaz Profile Picture - Large View">
+            <img src="https://avatars.githubusercontent.com/u/85266757?v=4" alt="Semih Yılmaz Profile Picture - Large View">
         </div>
     </div>
-
-    <!-- Visually Hidden Class (for accessibility) -->
-    <style>
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border: 0;
-        }
-    </style>
-
-    <!-- JavaScript -->
+    
+    <!-- Refactored JavaScript -->
+    <script src="common.js"></script>
     <script src="script.js"></script>
 </body>
 
