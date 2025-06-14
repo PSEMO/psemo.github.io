@@ -3,21 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Torn City Trade Analyzer</title>
+    <title>Torn Trade Analyzer</title>
     <link href="bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container my-4">
         <header class="text-center mb-5">
-            <h1 class="display-4">Torn City Trade Analyzer</h1>
+            <h1 class="display-4">Torn Trade Analyzer</h1>
         </header>
 
         <main>
             <section class="input-section mb-5">
-                <h2 class="h3 mb-3">Paste Your Logs Here:</h2>
-                <textarea id="logInput" class="form-control mb-3" rows="10" placeholder="Paste your logs like in the example below:&#10;&#10;23:35:25 - 04/06/25&#10;You drank a Bottle of Beer gaining 1 nerve&#10;23:34:43 - 04/06/25&#10;You bought 100x Sheep Plushie at $25 each for a total of $2,500 from Bits 'n' Bobs&#10;23:34:15 - 04/06/25&#10;You used 50 energy and 23 happiness training your speed 5 times in Complete Cardio increasing it by x to y&#10;..."></textarea> 
-                <button id="processLogsBtn" class="btn btn-success w-100">Process Logs</button> 
+                <h2 class="h3 mb-3">Enter Your API Key:</h2>
+                <div class="input-group mb-3">
+                    <input type="text" id="apiKeyInput" class="form-control" placeholder="Enter your Torn API key with 'Limited Access'" aria-label="Torn API Key">
+                    <button id="fetchLogsBtn" class="btn btn-success" type="button">
+                        <span id="fetchSpinner" class="spinner-border spinner-border-sm" role="status" aria-hidden="true" style="display: none;"></span>
+                        <span id="fetchBtnText">Fetch & Analyze Logs</span>
+                    </button>
+                </div>
+                <div class="form-text">
+                    Your key is only used to fetch your trade logs. It is never stored or sent anywhere else. A key with "Limited Access" is sufficient.
+                </div>
             </section>
 
             <section id="resultsSection" class="results-section" style="display: none;">
