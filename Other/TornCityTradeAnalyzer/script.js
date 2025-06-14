@@ -9,7 +9,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const noResultsMessage = document.getElementById('noResultsMessage');
 
     // --- State and Constants ---
-    const CACHE_KEY = 'tradeAnalyzerCache';
+    const CACHE_KEY_LOGS = 'tradeAnalyzerLogCache';
+    const CACHE_KEY_ITEMS = 'tradeAnalyzerItemCache';
     let itemDataCache = null;
 
     function initialize() {
@@ -18,24 +19,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleClearCache() {
-        localStorage.removeItem(CACHE_KEY);
-        localStorage.removeItem('itemDataCache'); // Also clear item cache
+        localStorage.removeItem(CACHE_KEY_LOGS);
+        localStorage.removeItem(CACHE_KEY_ITEMS);
         itemDataCache = null;
         resultsSection.style.display = 'none';
         noResultsMessage.style.display = 'none';
+        resetUI();
         alert('Cache has been cleared. Click "Fetch & Analyze" to start over.');
     }
 
     function setButtonLoading(isLoading) {
         fetchLogsBtn.disabled = isLoading;
         clearCacheBtn.disabled = isLoading;
-        if (isLoading) {
-            fetchSpinner.style.display = 'inline-block';
-            fetchBtnText.textContent = 'Fetching...';
-        } else {
-            fetchSpinner.style.display = 'none';
-            fetchBtnText.textContent = 'Fetch & Analyze Logs';
-        }
+        fetchSpinner.style.display = isLoading ? 'inline-block' : 'none';
+        fetchBtnText.textContent = isLoading ? 'Fetching...' : 'Fetch & Analyze Logs';
     }
 
     async function handleFetchAndProcessLogs() {
@@ -46,22 +43,21 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         setButtonLoading(true);
-        resultsSection.style.display = 'none';
-        noResultsMessage.style.display = 'none';
+        resetUI();
 
         try {
             // 1. Load cached item data or fetch if needed
-            itemDataCache = JSON.parse(localStorage.getItem('itemDataCache'));
+            itemDataCache = JSON.parse(localStorage.getItem(CACHE_KEY_ITEMS));
             if (!itemDataCache) {
                 console.log("Fetching new item list...");
                 const itemApiUrl = `https://api.torn.com/torn/?selections=items&key=${apiKey}&comment=TornTradeAnalyzer`;
                 const itemsResponse = await fetchApiData(itemApiUrl);
                 itemDataCache = itemsResponse.items;
-                localStorage.setItem('itemDataCache', JSON.stringify(itemDataCache));
+                localStorage.setItem(CACHE_KEY_ITEMS, JSON.stringify(itemDataCache));
             }
 
-            // 2. Load cached logs and determine the 'from' timestamp
-            const cachedData = JSON.parse(localStorage.getItem(CACHE_KEY)) || { logs: {}, lastTimestamp: 0 };
+            // 2. Load cached logs and determine 'from' timestamp
+            const cachedData = JSON.parse(localStorage.getItem(CACHE_KEY_LOGS)) || { logs: {}, lastTimestamp: 0 };
             const fromTimestamp = cachedData.lastTimestamp;
             
             let logApiUrl11 = `https://api.torn.com/user/?selections=log&cat=11&limit=1000&key=${apiKey}&comment=TornTradeAnalyzer`;
@@ -69,8 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (fromTimestamp) {
                 console.log(`Fetching new logs since timestamp: ${fromTimestamp}`);
-                // Add 1 second to 'from' to avoid re-fetching the last exact log entry
-                const fetchFrom = fromTimestamp + 1;
+                const fetchFrom = fromTimestamp + 1; // Avoid re-fetching the last exact log
                 logApiUrl11 += `&from=${fetchFrom}`;
                 logApiUrl15 += `&from=${fetchFrom}`;
             } else {
@@ -78,24 +73,21 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // 3. Fetch new logs
-            const logResponse11 = await fetchApiData(logApiUrl11);
-            await delay(1000); // Delay between requests
-            const logResponse15 = await fetchApiData(logApiUrl15);
+            const [logResponse11, logResponse15] = await Promise.all([
+                fetchApiData(logApiUrl11),
+                fetchApiData(logApiUrl15)
+            ]);
 
             const newLogs = { ...logResponse11.log, ...logResponse15.log };
             
             // 4. Find the highest timestamp from the new logs
             let newHighestTimestamp = fromTimestamp;
-            for (const log of Object.values(newLogs)) {
-                if (log.timestamp > newHighestTimestamp) {
-                    newHighestTimestamp = log.timestamp;
-                }
-            }
+            Object.values(newLogs).forEach(log => {
+                if (log.timestamp > newHighestTimestamp) newHighestTimestamp = log.timestamp;
+            });
 
-            // 5. Merge cached logs with new logs
+            // 5. Merge and parse
             const combinedLog = { ...cachedData.logs, ...newLogs };
-            
-            // 6. Parse and display
             const transactions = parseApiData(combinedLog, itemDataCache);
 
             if (transactions.length === 0) {
@@ -103,149 +95,111 @@ document.addEventListener('DOMContentLoaded', () => {
                 noResultsMessage.style.display = 'block';
             } else {
                 transactions.sort((a, b) => a.datetime - b.datetime);
-                displayResults(transactions);
+                displayAllResults(transactions);
                 resultsSection.style.display = 'block';
 
-                // 7. Save the updated logs and timestamp to cache
-                const newCache = {
-                    logs: combinedLog,
-                    lastTimestamp: newHighestTimestamp
-                };
-                localStorage.setItem(CACHE_KEY, JSON.stringify(newCache));
+                // 6. Save updated cache
+                localStorage.setItem(CACHE_KEY_LOGS, JSON.stringify({ logs: combinedLog, lastTimestamp: newHighestTimestamp }));
                 console.log(`Cache updated. Last timestamp is now: ${newHighestTimestamp}`);
             }
 
         } catch (error) {
             console.error("Error during API processing:", error);
-            noResultsMessage.textContent = `An error occurred: ${error.message}`;
+            noResultsMessage.textContent = `An error occurred: ${error.message}. Check your API key and permissions.`;
             noResultsMessage.style.display = 'block';
         } finally {
             setButtonLoading(false);
         }
     }
 
-    const delay = ms => new Promise(res => setTimeout(res, ms));
-
     async function fetchApiData(url) {
-        const MAX_RETRIES = 3;
-        const RETRY_DELAY_MS = 2000;
-
-        for (let attempt = 1; attempt <= MAX_RETRIES; attempt++) {
-            try {
-                const response = await fetch(url);
-                if (!response.ok) {
-                    throw new Error(`Network error: ${response.status} - ${response.statusText}`);
-                }
-                const data = await response.json();
-                
-                if (data.error) {
-                    if (data.error.code === 17 && attempt < MAX_RETRIES) {
-                        console.warn(`API Error Code 17 received. Retrying... (Attempt ${attempt})`);
-                        await delay(RETRY_DELAY_MS);
-                        continue;
-                    }
-                    throw new Error(`API Error: ${data.error.error} (Code ${data.error.code})`);
-                }
-                return data;
-            } catch (error) {
-                if (attempt === MAX_RETRIES) throw error;
-            }
-        }
+        const response = await fetch(url);
+        if (!response.ok) throw new Error(`Network error: ${response.status} - ${response.statusText}`);
+        const data = await response.json();
+        if (data.error) throw new Error(`API Error: ${data.error.error} (Code ${data.error.code})`);
+        return data;
     }
 
     function parseApiData(apiLog, itemMap) {
-        const transactions = [];
-
-        for (const logEntry of Object.values(apiLog)) {
+        return Object.values(apiLog).map(logEntry => {
             const { title, timestamp, data } = logEntry;
-            if (!data) continue;
+            if (!data) return null;
 
-            const datetime = new Date(timestamp * 1000);
             let transaction = null;
+            const common = { datetime: new Date(timestamp * 1000) };
 
             switch (title) {
                 case 'Item market buy':
                 case 'Bazaar buy':
-                    if (!data.items || data.items.length === 0) continue;
-                    transaction = {
-                        type: 'buy',
-                        itemName: itemMap[data.items[0].id]?.name || `Unknown Item ID ${data.items[0].id}`,
-                        quantity: data.items[0].qty,
-                        pricePerItem: data.cost_each,
-                        totalAmount: data.cost_total, fees: 0, netAmount: -data.cost_total
-                    };
+                    if (data.items && data.items.length > 0) {
+                        transaction = { ...common, type: 'buy', itemName: itemMap[data.items[0].id]?.name || `Item#${data.items[0].id}`, quantity: data.items[0].qty, pricePerItem: data.cost_each, totalAmount: data.cost_total, fees: 0, netAmount: -data.cost_total };
+                    }
                     break;
                 case 'Item shop buy':
                 case 'Item abroad buy':
-                    transaction = {
-                        type: 'buy',
-                        itemName: itemMap[data.item]?.name || `Unknown Item ID ${data.item}`,
-                        quantity: data.quantity,
-                        pricePerItem: data.cost_each,
-                        totalAmount: data.cost_total, fees: 0, netAmount: -data.cost_total
-                    };
+                    transaction = { ...common, type: 'buy', itemName: itemMap[data.item]?.name || `Item#${data.item}`, quantity: data.quantity, pricePerItem: data.cost_each, totalAmount: data.cost_total, fees: 0, netAmount: -data.cost_total };
                     break;
                 case 'Item market sell':
-                    if (!data.items || data.items.length === 0) continue;
-                    transaction = {
-                        type: 'sell',
-                        itemName: itemMap[data.items[0].id]?.name || `Unknown Item ID ${data.items[0].id}`,
-                        quantity: data.items[0].qty,
-                        pricePerItem: data.cost_each,
-                        totalAmount: data.cost_total + data.fee, fees: data.fee, netAmount: data.cost_total
-                    };
+                    if (data.items && data.items.length > 0) {
+                        transaction = { ...common, type: 'sell', itemName: itemMap[data.items[0].id]?.name || `Item#${data.items[0].id}`, quantity: data.items[0].qty, pricePerItem: data.cost_each, totalAmount: data.cost_total + data.fee, fees: data.fee, netAmount: data.cost_total };
+                    }
                     break;
                 case 'Bazaar sell':
-                    if (!data.items || data.items.length === 0) continue;
-                     transaction = {
-                        type: 'sell',
-                        itemName: itemMap[data.items[0].id]?.name || `Unknown Item ID ${data.items[0].id}`,
-                        quantity: data.items[0].qty,
-                        pricePerItem: data.cost_each,
-                        totalAmount: data.cost_total, fees: 0, netAmount: data.cost_total
-                    };
+                     if (data.items && data.items.length > 0) {
+                        transaction = { ...common, type: 'sell', itemName: itemMap[data.items[0].id]?.name || `Item#${data.items[0].id}`, quantity: data.items[0].qty, pricePerItem: data.cost_each, totalAmount: data.cost_total, fees: 0, netAmount: data.cost_total };
+                    }
                     break;
                 case 'Item shop sell':
-                     transaction = {
-                        type: 'sell',
-                        itemName: itemMap[data.item]?.name || `Unknown Item ID ${data.item}`,
-                        quantity: data.quantity,
-                        pricePerItem: data.value_each,
-                        totalAmount: data.total_value, fees: 0, netAmount: data.total_value
-                    };
+                     transaction = { ...common, type: 'sell', itemName: itemMap[data.item]?.name || `Item#${data.item}`, quantity: data.quantity, pricePerItem: data.value_each, totalAmount: data.total_value, fees: 0, netAmount: data.total_value };
                     break;
             }
-
-            if (transaction) {
-                transaction.datetime = datetime;
-                transactions.push(transaction);
-            }
-        }
-        return transactions;
+            return transaction;
+        }).filter(t => t !== null);
     }
-
-    // --- All other functions (formatCurrency, displayResults, etc.) are unchanged ---
 
     function formatCurrency(amount) {
-        if (isNaN(amount)) return '$0';
         return new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 0, maximumFractionDigits: 0 }).format(amount);
     }
+    
+    function formatProfit(element, value) {
+        element.textContent = formatCurrency(value);
+        element.className = 'fw-bold'; // Reset classes
+        if (value > 0) element.classList.add('profit');
+        else if (value < 0) element.classList.add('loss');
+        else element.classList.add('neutral');
+    }
+    
+    function resetUI() {
+        resultsSection.style.display = 'none';
+        noResultsMessage.style.display = 'none';
+        document.getElementById('productTableBody').innerHTML = '';
+        document.getElementById('topProfitItems').innerHTML = '';
+        document.getElementById('topLossItems').innerHTML = '';
+    }
 
-    function displayResults(transactions) {
-        updateSummaryDOM('lt', calculateStatsForPeriod(transactions));
+    // --- Main Display Orchestrator ---
+    function displayAllResults(transactions) {
+        // Time-based summaries
+        const lifetimeStats = calculateStatsForPeriod(transactions);
+        updateSummaryDOM('lt', lifetimeStats);
+        
         const now = new Date();
-        const sevenDaysAgoStart = new Date(now);
-        sevenDaysAgoStart.setDate(now.getDate() - 7);
-        updateSummaryDOM('d7', calculateStatsForPeriod(transactions.filter(t => t.datetime >= sevenDaysAgoStart)));
-        const thirtyDaysAgoStart = new Date(now);
-        thirtyDaysAgoStart.setDate(now.getDate() - 30);
-        updateSummaryDOM('d30', calculateStatsForPeriod(transactions.filter(t => t.datetime >= thirtyDaysAgoStart)));
-        populateProductTable(transactions);
+        const sevenDaysAgo = new Date(now.setDate(now.getDate() - 7));
+        updateSummaryDOM('d7', calculateStatsForPeriod(transactions.filter(t => t.datetime >= sevenDaysAgo)));
+        
+        now.setDate(now.getDate() + 7); // Reset date
+        const thirtyDaysAgo = new Date(now.setDate(now.getDate() - 30));
+        updateSummaryDOM('d30', calculateStatsForPeriod(transactions.filter(t => t.datetime >= thirtyDaysAgo)));
+        
+        // Product-based analysis (lifetime only)
+        const productStats = analyzeProducts(transactions);
+        populateProductTable(productStats);
+        displayTopMovers(productStats);
+        displayAdvancedMetrics(lifetimeStats, productStats);
     }
 
     function calculateStatsForPeriod(periodTransactions) {
-        let totalSpent = 0, totalRevenue = 0, totalFees = 0;
-        let buyTrades = 0, sellTrades = 0;
+        let totalSpent = 0, totalRevenue = 0, totalFees = 0, buyTrades = 0, sellTrades = 0;
         for (const t of periodTransactions) {
             if (t.type === 'buy') {
                 totalSpent += t.totalAmount;
@@ -264,62 +218,140 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(`${prefix}_totalSpent`).textContent = formatCurrency(stats.totalSpent);
         document.getElementById(`${prefix}_totalRevenue`).textContent = formatCurrency(stats.totalRevenue);
         document.getElementById(`${prefix}_totalFees`).textContent = formatCurrency(stats.totalFees);
-        const profitElem = document.getElementById(`${prefix}_netProfit`);
-        profitElem.textContent = formatCurrency(stats.netProfit);
-        profitElem.classList.remove('profit', 'loss', 'neutral');
-        if (stats.netProfit > 0) profitElem.classList.add('profit');
-        else if (stats.netProfit < 0) profitElem.classList.add('loss');
-        else profitElem.classList.add('neutral');
+        formatProfit(document.getElementById(`${prefix}_netProfit`), stats.netProfit);
     }
-    
-    function populateProductTable(allTransactions) {
+
+    function analyzeProducts(allTransactions) {
         const productData = {};
         for (const t of allTransactions) {
             if (!productData[t.itemName]) {
-                productData[t.itemName] = { name: t.itemName, qtyBought: 0, totalSpentOnBuys: 0, qtySold: 0, totalRevenueFromSellsNet: 0 };
+                productData[t.itemName] = { name: t.itemName, qtyBought: 0, totalSpent: 0, qtySold: 0, totalRevenue: 0 };
             }
-            const itemEntry = productData[t.itemName];
+            const item = productData[t.itemName];
             if (t.type === 'buy') {
-                itemEntry.qtyBought += t.quantity;
-                itemEntry.totalSpentOnBuys += t.totalAmount;
+                item.qtyBought += t.quantity;
+                item.totalSpent += t.totalAmount;
             } else if (t.type === 'sell') {
-                itemEntry.qtySold += t.quantity;
-                itemEntry.totalRevenueFromSellsNet += t.netAmount;
+                item.qtySold += t.quantity;
+                item.totalRevenue += t.netAmount;
             }
         }
+        
+        // Calculate derived stats for each product
+        return Object.values(productData).map(item => {
+            item.avgBuyPrice = item.qtyBought > 0 ? item.totalSpent / item.qtyBought : 0;
+            item.avgSellPrice = item.qtySold > 0 ? item.totalRevenue / item.qtySold : 0;
+            item.netProfit = item.totalRevenue - item.totalSpent;
+            item.roi = item.totalSpent > 0 ? (item.netProfit / item.totalSpent) * 100 : 0;
+            return item;
+        });
+    }
+    
+    function populateProductTable(productStats) {
         const tableBody = document.getElementById('productTableBody');
-        tableBody.innerHTML = '';
         const fragment = document.createDocumentFragment();
-        Object.values(productData).sort((a, b) => a.name.localeCompare(b.name)).forEach(item => {
-            const avgBuyPrice = item.qtyBought > 0 ? item.totalSpentOnBuys / item.qtyBought : 0;
-            const avgSellPriceNet = item.qtySold > 0 ? item.totalRevenueFromSellsNet / item.qtySold : 0;
-            const netProfit = item.totalRevenueFromSellsNet - item.totalSpentOnBuys;
+
+        productStats.forEach(item => {
             const row = document.createElement('tr');
-            const createCell = (content, isCurrency = false, profitStatus = null) => {
-                const cell = document.createElement('td');
-                cell.textContent = isCurrency ? formatCurrency(content) : content.toLocaleString();
-                if (profitStatus) {
-                    cell.classList.remove('profit', 'loss', 'neutral');
-                    if (profitStatus === 'profit') cell.classList.add('profit');
-                    else if (profitStatus === 'loss') cell.classList.add('loss');
-                    else cell.classList.add('neutral');
-                }
-                return cell;
-            };
-            row.appendChild(createCell(item.name));
-            row.appendChild(createCell(item.qtyBought));
-            row.appendChild(createCell(avgBuyPrice, true));
-            row.appendChild(createCell(item.totalSpentOnBuys, true));
-            row.appendChild(createCell(item.qtySold));
-            row.appendChild(createCell(avgSellPriceNet, true));
-            row.appendChild(createCell(item.totalRevenueFromSellsNet, true));
-            let profitClass = null;
-            if (netProfit > 0) profitClass = 'profit';
-            else if (netProfit < 0) profitClass = 'loss';
-            row.appendChild(createCell(netProfit, true, profitClass));
+            
+            row.innerHTML = `
+                <td>${item.name}</td>
+                <td>${item.qtyBought.toLocaleString()}</td>
+                <td>${formatCurrency(item.avgBuyPrice)}</td>
+                <td>${formatCurrency(item.totalSpent)}</td>
+                <td>${item.qtySold.toLocaleString()}</td>
+                <td>${formatCurrency(item.avgSellPrice)}</td>
+                <td>${formatCurrency(item.totalRevenue)}</td>
+                <td>${item.roi.toFixed(2)}%</td>
+                <td>${formatCurrency(item.netProfit)}</td>
+            `;
+
+            // Color ROI and Net Profit cells
+            const roiCell = row.cells[7];
+            const profitCell = row.cells[8];
+
+            if (item.roi > 0) roiCell.classList.add('profit');
+            else if (item.roi < 0) roiCell.classList.add('loss');
+
+            if (item.netProfit > 0) profitCell.classList.add('profit');
+            else if (item.netProfit < 0) profitCell.classList.add('loss');
+
             fragment.appendChild(row);
         });
         tableBody.appendChild(fragment);
+        makeTableSortable('productTable');
+    }
+
+    function displayTopMovers(productStats) {
+        const topProfitContainer = document.getElementById('topProfitItems');
+        const topLossContainer = document.getElementById('topLossItems');
+
+        // Top 5 Profitable
+        const profitable = [...productStats].filter(p => p.netProfit > 0).sort((a, b) => b.netProfit - a.netProfit);
+        topProfitContainer.innerHTML = profitable.slice(0, 5).map(item => 
+            `<li class="list-group-item d-flex justify-content-between align-items-center">
+                ${item.name}
+                <span class="badge bg-success rounded-pill">${formatCurrency(item.netProfit)}</span>
+            </li>`
+        ).join('') || '<li class="list-group-item">No profitable items found.</li>';
+        
+        // Top 5 Losses
+        const losses = [...productStats].filter(p => p.netProfit < 0).sort((a, b) => a.netProfit - b.netProfit);
+        topLossContainer.innerHTML = losses.slice(0, 5).map(item => 
+            `<li class="list-group-item d-flex justify-content-between align-items-center">
+                ${item.name}
+                <span class="badge bg-danger rounded-pill">${formatCurrency(item.netProfit)}</span>
+            </li>`
+        ).join('') || '<li class="list-group-item">No losing items found.</li>';
+    }
+
+    function displayAdvancedMetrics(lifetimeStats, productStats) {
+        const overallRoi = lifetimeStats.totalSpent > 0 ? (lifetimeStats.netProfit / lifetimeStats.totalSpent) * 100 : 0;
+        const avgProfitPerTrade = lifetimeStats.totalTrades > 0 ? lifetimeStats.netProfit / lifetimeStats.totalTrades : 0;
+        const profitableItems = productStats.filter(p => p.netProfit > 0).length;
+        const losingItems = productStats.filter(p => p.netProfit < 0).length;
+        const winLossRatio = losingItems > 0 ? (profitableItems / losingItems).toFixed(2) : (profitableItems > 0 ? '∞' : 'N/A');
+
+        document.getElementById('adv_roi').textContent = `${overallRoi.toFixed(2)}%`;
+        formatProfit(document.getElementById('adv_avgProfitPerTrade'), avgProfitPerTrade);
+        document.getElementById('adv_profitableItems').textContent = profitableItems.toLocaleString();
+        document.getElementById('adv_losingItems').textContent = losingItems.toLocaleString();
+        document.getElementById('adv_winLossRatio').textContent = winLossRatio;
+    }
+
+    function makeTableSortable(tableId) {
+        const table = document.getElementById(tableId);
+        const headers = table.querySelectorAll('th.sortable');
+        
+        headers.forEach(header => {
+            header.addEventListener('click', () => {
+                const sortKey = header.dataset.sort;
+                const sortDir = header.dataset.sortDir === 'asc' ? 'desc' : 'asc';
+                const colIndex = Array.from(header.parentNode.children).indexOf(header);
+
+                const rows = Array.from(table.querySelector('tbody').rows);
+                
+                rows.sort((a, b) => {
+                    let valA = a.cells[colIndex].textContent.trim();
+                    let valB = b.cells[colIndex].textContent.trim();
+                    
+                    // Parse numbers from strings
+                    if (['qtyBought', 'qtySold', 'avgBuyPrice', 'totalSpent', 'avgSellPrice', 'totalRevenue', 'roi', 'netProfit'].includes(sortKey)) {
+                       valA = parseFloat(valA.replace(/[$,%]/g, ''));
+                       valB = parseFloat(valB.replace(/[$,%]/g, ''));
+                    }
+                    
+                    if (valA < valB) return sortDir === 'asc' ? -1 : 1;
+                    if (valA > valB) return sortDir === 'asc' ? 1 : -1;
+                    return 0;
+                });
+                
+                // Update UI
+                headers.forEach(h => h.removeAttribute('data-sort-dir'));
+                header.setAttribute('data-sort-dir', sortDir);
+                rows.forEach(row => table.querySelector('tbody').appendChild(row));
+            });
+        });
     }
 
     initialize();
