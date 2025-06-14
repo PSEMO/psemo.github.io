@@ -10,7 +10,7 @@ const projectsData = [
     { 
         title: "Actually idle idler: The Ultimate Idle", 
         date: "2025", 
-        description: "A mockeray of the idle game type", 
+        description: "A mockeray of the idle game genre", 
         skills: ["Love2D", "Lua"], 
         categories: ["Games"], 
         media: [ { type: "itch-io", url: "https://psemo.itch.io/actually-idle-idler-the-ultimate-idle" }, { type: "youtube", url: "https://youtu.be/mMqKP2eLCqs" } ]
@@ -18,7 +18,7 @@ const projectsData = [
     { 
         title: "Infinite Netrunner v2.1", 
         date: "2025", 
-        description: "", 
+        description: "A game where you hack by solving coding problems", 
         skills: ["HTML", "CSS", "JavaScript"], 
         categories: ["Games", "Websites"], 
         media: [ { type: "itch-io", url: "https://psemo.itch.io/coding-challanges" }, { type: "youtube", url: "https://youtu.be/DY14k0rOs-g" } ]
@@ -26,7 +26,7 @@ const projectsData = [
     { 
         title: "Escape The Mothership", 
         date: "2025", 
-        description: "", 
+        description: "3D bullet-hell game", 
         skills: ["Unity", "C#"], 
         categories: ["Games"], 
         media: [ { type: "itch-io", url: "https://gabrielrg.itch.io/escape-the-mothership" }, { type: "youtube", url: "https://youtu.be/Ss5aOxDOzlE" } ]
@@ -34,7 +34,7 @@ const projectsData = [
     { 
         title: "Late Stage Capitalism: The Game", 
         date: "2025", 
-        description: "", 
+        description: "A criticism", 
         skills: ["HTML", "CSS", "JavaScript"], 
         categories: ["Games", "Websites"], 
         media: [ { type: "itch-io", url: "https://psemo.itch.io/late-stage-capitalism-the-game" }, { type: "youtube", url: "https://youtu.be/gHYeZCR8_DE" } ]
