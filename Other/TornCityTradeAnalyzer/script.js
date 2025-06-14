@@ -60,8 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const cachedData = JSON.parse(localStorage.getItem(CACHE_KEY_LOGS)) || { logs: {}, lastTimestamp: 0 };
             const fromTimestamp = cachedData.lastTimestamp;
             
-            let logApiUrl11 = `https://api.torn.com/user/?selections=log&cat=11&limit=1000&key=${apiKey}&comment=TornTradeAnalyzer`;
-            let logApiUrl15 = `https://api.torn.com/user/?selections=log&cat=15&limit=1000&key=${apiKey}&comment=TornTradeAnalyzer`;
+            let logApiUrl11 = `https://api.torn.com/user/?selections=log&cat=11&key=${apiKey}&comment=TornTradeAnalyzer`;
+            let logApiUrl15 = `https://api.torn.com/user/?selections=log&cat=15&key=${apiKey}&comment=TornTradeAnalyzer`;
 
             if (fromTimestamp) {
                 console.log(`Fetching new logs since timestamp: ${fromTimestamp}`);
