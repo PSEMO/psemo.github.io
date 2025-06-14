@@ -1,5 +1,45 @@
 const projectsData = [
     { 
+        title: "Torn Trade Analyzer", 
+        date: "2025", 
+        description: "Trade analyser for Torn traders using Torn API", 
+        skills: ["HTML", "CSS", "Bootstrap (Framework)", "JavaScript"], 
+        categories: ["Websites"], 
+        media: [ { type: "website", url: "https://psemo.github.io/Other/TornTradeAnalyzer/" }, { type: "youtube", url: "https://youtu.be/UIuwDKq19RI" } ]
+    },
+    { 
+        title: "Actually idle idler: The Ultimate Idle", 
+        date: "2025", 
+        description: "A mockeray of the idle game type", 
+        skills: ["Love2D", "Lua"], 
+        categories: ["Games"], 
+        media: [ { type: "itch-io", url: "https://psemo.itch.io/actually-idle-idler-the-ultimate-idle" }, { type: "youtube", url: "https://youtu.be/mMqKP2eLCqs" } ]
+    },
+    { 
+        title: "Infinite Netrunner v2.1", 
+        date: "2025", 
+        description: "", 
+        skills: ["HTML", "CSS", "JavaScript"], 
+        categories: ["Games", "Websites"], 
+        media: [ { type: "itch-io", url: "https://psemo.itch.io/coding-challanges" }, { type: "youtube", url: "https://youtu.be/DY14k0rOs-g" } ]
+    },
+    { 
+        title: "Escape The Mothership", 
+        date: "2025", 
+        description: "", 
+        skills: ["Unity", "C#"], 
+        categories: ["Games"], 
+        media: [ { type: "itch-io", url: "https://gabrielrg.itch.io/escape-the-mothership" }, { type: "youtube", url: "https://youtu.be/Ss5aOxDOzlE" } ]
+    },
+    { 
+        title: "Late Stage Capitalism: The Game", 
+        date: "2025", 
+        description: "", 
+        skills: ["HTML", "CSS", "JavaScript"], 
+        categories: ["Games", "Websites"], 
+        media: [ { type: "itch-io", url: "https://psemo.itch.io/late-stage-capitalism-the-game" }, { type: "youtube", url: "https://youtu.be/gHYeZCR8_DE" } ]
+    },
+    { 
         title: "Designed/developed/self-hosted Website", 
         date: "Mar 2025 - May 2025", 
         description: "Designed/coded/self-hosted a secure website on a Linux server. It had a moden interface and many auto-created pages using ejs.", 
