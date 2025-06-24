@@ -1,4 +1,12 @@
 const projectsData = [
+        { 
+        title: "FSGP - FullStack Game Project", 
+        date: "June 2025", 
+        description: "", 
+        skills: ["HTML", "CSS", "JavaScript", "React.js", "ASP.NET", "PostgreSQL"], 
+        categories: ["Websites"], 
+        media: [ { type: "youtube", url: "https://youtu.be/jUbIVaFx__E" } ]
+    },
     { 
         title: "Torn Trade Analyzer", 
         date: "2025", 
