@@ -5,7 +5,7 @@ const projectsData = [
         description: "", 
         skills: ["HTML", "CSS", "JavaScript", "LittleJS"], 
         categories: ["Websites"], 
-        media: [ { type: "youtube", url: "https://www.youtube.com/watch?v=qvkubr2ceAo" } ]
+        media: [ { type: "youtube", url: "https://psemo.itch.io/little-platformer" }, { type: "itch-io", url: "https://psemo.itch.io/little-platformer" } ]
     },
         { 
         title: "FSGP - FullStack Game Project", 
