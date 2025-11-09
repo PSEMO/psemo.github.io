@@ -1,4 +1,12 @@
 const projectsData = [
+    { 
+        title: "Little Platformer", 
+        date: "October 2025 - November", 
+        description: "", 
+        skills: ["HTML", "CSS", "JavaScript", "LittleJS"], 
+        categories: ["Websites"], 
+        media: [ { type: "youtube", url: "https://www.youtube.com/watch?v=qvkubr2ceAo" } ]
+    },
         { 
         title: "FSGP - FullStack Game Project", 
         date: "June 2025", 
