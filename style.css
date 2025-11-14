@@ -1,3 +1,153 @@
+/* --- New Showcase Section --- */
+.showcase-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.showcase-item {
+    background-color: var(--linkBg);
+    border-radius: var(--borderRadius);
+    border: 1px solid var(--borderColor);
+    transition: all var(--transitionSpeed) ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    overflow: hidden; /* Important for the expand/collapse animation */
+}
+
+.showcase-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.showcase-cover {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.showcase-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transitionSpeed) ease;
+}
+
+.showcase-item:hover .showcase-cover img {
+    transform: scale(1.05);
+}
+
+.showcase-intro {
+    flex-grow: 1;
+}
+
+.showcase-intro h3 {
+    margin: 0 0 5px 0;
+    color: var(--textColorHover);
+    font-size: 1.1rem;
+}
+
+.showcase-intro p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--textColor);
+}
+
+.showcase-details {
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: max-height 0.5s ease-in-out, opacity 0.4s ease-in-out, transform 0.4s ease-in-out, visibility 0s 0.5s linear, padding 0.5s ease-in-out;
+    padding: 0 20px; /* No top/bottom padding when collapsed */
+}
+
+.showcase-item.expanded {
+    border-color: var(--accentColorHover);
+    box-shadow: 0 5px 15px var(--shadowColor);
+}
+
+.showcase-item.expanded .showcase-details {
+    max-height: 1500px; /* A large value to allow content to expand */
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0s, 0.1s, 0.1s, 0s, 0s;
+    padding: 0 20px 20px; /* Add padding back when expanded */
+}
+
+.showcase-details .long-description {
+    margin-top: 0;
+    padding-top: 15px;
+    border-top: 1px solid var(--borderColor);
+    font-size: 0.95rem;
+    line-height: 1.6;
+}
+
+.showcase-screenshots {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.showcase-screenshots img {
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid var(--borderColor);
+}
+
+/* --- New YouTube Preview Link Styles --- */
+.youtube-preview {
+    display: block;
+    position: relative;
+    border-radius: var(--borderRadius);
+    overflow: hidden;
+    border: 1px solid var(--borderColor);
+    transition: all var(--transitionSpeed) ease;
+    margin-top: 20px;
+}
+
+.youtube-preview:hover {
+    border-color: var(--accentColor);
+    transform: scale(1.02);
+    box-shadow: 0 5px 15px var(--shadowColor);
+}
+
+.youtube-preview img {
+    display: block;
+    width: 100%;
+    height: auto;
+    transition: opacity var(--transitionSpeed) ease;
+}
+
+.youtube-preview:hover img {
+    opacity: 0.85;
+}
+
+.youtube-preview .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.9);
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    transition: all var(--transitionSpeed) ease;
+    pointer-events: none;
+}
+
+.youtube-preview:hover .play-icon {
+    color: #FF0000;
+    transform: translate(-50%, -50%) scale(1.1);
+}
+
+
 /* --- Header Profile Picture Button --- */
 .profile-picture-button {
     background: none;

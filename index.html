@@ -7,8 +7,6 @@
     <title>Semih Yılmaz - Links</title>
     <link rel="icon" href="https://avatars.githubusercontent.com/u/85266757?v=4" type="image/png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    
-    <!-- Refactored CSS -->
     <link rel="stylesheet" href="common.css">
     <link rel="stylesheet" href="style.css">
 </head>
@@ -23,46 +21,134 @@
                 <img src="https://avatars.githubusercontent.com/u/85266757?v=4" alt="Semih Yılmaz Profile Picture" loading="lazy">
             </button>
             <h1 class="profile-name">Semih "PSEMO" Yılmaz</h1>
-            <p class="profile-tagline">Computer Engineer</p>
+            <p class="profile-tagline">Computer Engineer & Game Developer</p>
         </header>
 
         <main class="links-container">
             <section class="link-section portfolio-section">
-                <h2><i class="fas fa-folder-open fa-fw"></i>Selected Projects</h2>
-                <nav aria-labelledby="portfolio-heading">
-                    <!--
-                    <a class="link-item" href="https://www.youtube.com/" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-youtube fa-fw"></i>New Game
-                    </a>
-                    -->
-                    <a class="link-item" href="https://youtu.be/xI5ZJ9uaNoU?si=zIjFwXm5sWrtE4zZ" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-youtube fa-fw"></i>Infinite Platformer 
-                    </a>
-                    <a class="link-item" href="https://youtu.be/o8Ti1S8Q7hU?si=HMNGIg4TzE8mZzpf" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-youtube fa-fw"></i>Hack();
-                    </a>
-                    <a class="link-item" href="https://youtu.be/yaxwmY7t49c?si=_w2hmrGX7uyahMaE" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-youtube fa-fw"></i>Endless Hook & Swing
-                    </a>
-                    <a class="link-item" href="https://www.youtube.com/watch?v=qwLz6tIEdb4" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-youtube fa-fw"></i>Space Drone
-                    </a>
-                </nav>
+                <h2><i class="fas fa-folder-open fa-fw"></i>Showcase</h2>
+                <div class="showcase-container">
+                    <!-- Showcase Item 1 -->
+                    <div class="showcase-item">
+                        <div class="showcase-header">
+                            <div class="showcase-cover">
+                                <img src="./infinite-platformer-cover.png" alt="Infinite Platformer Cover">
+                            </div>
+                            <div class="showcase-intro">
+                                <h3>Infinite Platformer</h3>
+                                <p>An endless, procedurally generated, casual platformer.</p>
+                            </div>
+                        </div>
+                        <div class="showcase-details">
+                            <p class="long-description">
+                                I developed this game solo and published it on Google Play. It features procedural level generation, AdMob ads, and in-app purchases, including a "continue by watching an ad" option.
+                            </p>
+                            <div class="showcase-screenshots">
+                                <img src="./infinite-platformer (1).jpg" alt="Infinite Platformer Screenshot 1">
+                                <img src="./infinite-platformer (2).jpg" alt="Infinite Platformer Screenshot 2">
+                                <img src="./infinite-platformer (3).jpg" alt="Infinite Platformer Screenshot 3">
+                            </div>
+                            <a href="https://youtu.be/xI5ZJ9uaNoU" target="_blank" rel="noopener noreferrer" class="youtube-preview">
+                                <img src="https://img.youtube.com/vi/xI5ZJ9uaNoU/mqdefault.jpg" alt="Watch video for Infinite Platformer">
+                                <div class="play-icon"><i class="fab fa-youtube"></i></div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Showcase Item 2 -->
+                    <div class="showcase-item">
+                        <div class="showcase-header">
+                            <div class="showcase-cover">
+                                <img src="./hack-cover.png" alt="Hack() Cover">
+                            </div>
+                            <div class="showcase-intro">
+                                <h3>Hack();</h3>
+                                <p>A puzzle game where you hack your way to victory!</p>
+                            </div>
+                        </div>
+                        <div class="showcase-details">
+                             <p class="long-description">
+                                I was the sole programmer and team lead for this project, which was developed in 72 hours with a team of four. This hacking game features a custom command parser and placed 4th out of 274 participants.
+                            </p>
+                            <div class="showcase-screenshots">
+                                <img src="./Hack (1).png" alt="Hack() Screenshot 1">
+                                <img src="./Hack (2).png" alt="Hack() Screenshot 2">
+                            </div>
+                             <a href="https://youtu.be/o8Ti1S8Q7hU" target="_blank" rel="noopener noreferrer" class="youtube-preview">
+                                <img src="https://img.youtube.com/vi/o8Ti1S8Q7hU/mqdefault.jpg" alt="Watch video for Hack();">
+                                <div class="play-icon"><i class="fab fa-youtube"></i></div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Showcase Item 3 -->
+                    <div class="showcase-item">
+                        <div class="showcase-header">
+                            <div class="showcase-cover">
+                                <img src="./hook-cover.jpg" alt="Endless Hook & Swing Cover">
+                            </div>
+                            <div class="showcase-intro">
+                                <h3>Endless Hook & Swing</h3>
+                                <p>A physics-based, hyper-casual swinging game.</p>
+                            </div>
+                        </div>
+                        <div class="showcase-details">
+                             <p class="long-description">
+                                I developed this game solo, focusing on fluid, physics-based movement. It features an endless, procedurally generated level for a hyper-casual swinging experience.
+                            </p>
+                            <div class="showcase-screenshots">
+                                <img src="./hook (1).jpg" alt="Endless Hook & Swing Screenshot 1">
+                                <img src="./hook (2).jpg" alt="Endless Hook & Swing Screenshot 2">
+                            </div>
+                             <a href="https://youtu.be/yaxwmY7t49c" target="_blank" rel="noopener noreferrer" class="youtube-preview">
+                                <img src="https://img.youtube.com/vi/yaxwmY7t49c/mqdefault.jpg" alt="Watch video for Endless Hook & Swing">
+                                <div class="play-icon"><i class="fab fa-youtube"></i></div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Showcase Item 4 -->
+                    <div class="showcase-item">
+                        <div class="showcase-header">
+                            <div class="showcase-cover">
+                                <img src="Space-Drone-Cover.png" alt="Space Drone Cover">
+                            </div>
+                            <div class="showcase-intro">
+                                <h3>Space Drone</h3>
+                                <p>Navigate a drone through the depths of space in this action-RPG.</p>
+                            </div>
+                        </div>
+                        <div class="showcase-details">
+                             <p class="long-description">
+                                I developed this game solo for a 72-hour game jam, and it placed 2nd out of 69 participants in the overall enjoyment category. It features action-RPG mechanics and a unique combat system.
+                            </p>
+                            <div class="showcase-screenshots">
+                                <img src="./space-drone (1).png" alt="Space Drone Screenshot 1">
+                                <img src="./space-drone (2).png" alt="Space Drone Screenshot 2">
+                                <img src="./space-drone (3).png" alt="Space Drone Screenshot 3">
+                            </div>
+                             <a href="https://www.youtube.com/watch?v=qwLz6tIEdb4" target="_blank" rel="noopener noreferrer" class="youtube-preview">
+                                <img src="https://img.youtube.com/vi/qwLz6tIEdb4/mqdefault.jpg" alt="Watch video for Space Drone">
+                                <div class="play-icon"><i class="fab fa-youtube"></i></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </section>
             <section class="link-section portfolio-section">
                 <h2><i class="fas fa-folder-open fa-fw"></i>Portfolio</h2>
                 <nav aria-labelledby="portfolio-heading">
                     <a class="link-item" href="portfolio.html">
-                        <i class="fas fa-external-link-alt fa-fw"></i> View Portfolio
+                        <i class="fas fa-external-link-alt fa-fw"></i> View Full Portfolio
                     </a>
                     <a class="link-item" href="https://www.youtube.com/@semihylmaz3949/playlists" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-youtube fa-fw"></i> Project Showcase Videos (YouTube)
+                        <i class="fab fa-youtube fa-fw"></i> Project Showcase (YouTube)
                     </a>
-                    <a class="link-item" href="https://store.steampowered.com/app/3723800/Grind_Mindset/" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-steam fa-fw"></i> Steam Games (Steam)
+                    <a class="link-item" href="https://store.steampowered.com/app/2723800/Grind_Mindset/" target="_blank" rel="noopener noreferrer">
+                        <i class="fab fa-steam fa-fw"></i> Steam Games
                     </a>
                     <a class="link-item" href="https://psemo.itch.io/" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-gamepad fa-fw"></i> Game Jam Games (itch.io)
+                        <i class="fas fa-gamepad fa-fw"></i> Game Jam Projects (itch.io)
                     </a>
                     <a class="link-item" href="http://play.google.com/store/apps/developer?id=Semih+Y%C4%B1lmaz" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-google-play fa-fw"></i> Android Apps & Games (Play Store)
@@ -73,13 +159,13 @@
                 <h2><i class="fas fa-briefcase fa-fw"></i>Professional</h2>
                 <nav aria-labelledby="professional-heading">
                     <a class="link-item" href="./resume_online.pdf" target="_blank" rel="noopener noreferrer">
-                        <i class="fas fa-file-alt fa-fw"></i> Game Dev Resume
+                        <i class="fas fa-file-alt fa-fw"></i> Game Developer Resume
                     </a>
                     <a class="link-item" href="https://www.linkedin.com/in/semih-y%C4%B1lmaz-377545201" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-linkedin fa-fw"></i>LinkedIn Account
+                        <i class="fab fa-linkedin fa-fw"></i>LinkedIn
                     </a>
                     <a class="link-item" href="https://github.com/PSEMO" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-github fa-fw"></i>GitHub Profile
+                        <i class="fab fa-github fa-fw"></i>GitHub
                     </a>
                 </nav>
             </section>
@@ -87,7 +173,7 @@
                 <h2><i class="fas fa-user fa-fw"></i>Personal</h2>
                 <nav aria-labelledby="personal-heading">
                     <a class="link-item" href="https://discord.gg/VyhyFkv86N" target="_blank" rel="noopener noreferrer">
-                        <i class="fab fa-discord fa-fw"></i>My Discord Server
+                        <i class="fab fa-discord fa-fw"></i>Discord Server
                     </a>
                     <a class="link-item" href="https://steamcommunity.com/id/PSEMO/" target="_blank" rel="noopener noreferrer">
                         <i class="fab fa-steam fa-fw"></i>Steam Profile
