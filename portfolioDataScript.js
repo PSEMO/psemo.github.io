@@ -1,13 +1,13 @@
 const projectsData = [
     { 
         title: "Little Platformer", 
-        date: "October 2025 - November", 
+        date: "Oct 2025 - Nov 2025", 
         description: "", 
-        skills: ["HTML", "CSS", "JavaScript", "LittleJS"], 
-        categories: ["Websites"], 
-        media: [ { type: "youtube", url: "https://www.youtube.com/watch?v=ICqeChkkaZo" }, { type: "itch-io", url: "https://psemo.itch.io/little-platformer" } ]
+        skills: ["HTML", "CSS", "JavaScript", "LittleJS"],
+        categories: ["Games"], 
+        media: [ { type: "itch-io", url: "https://psemo.itch.io/little-platformer" }, { type: "youtube", url: "https://youtu.be/9L37C3OVPvo" } ]
     },
-        { 
+    { 
         title: "FSGP - FullStack Game Project", 
         date: "June 2025", 
         description: "", 
